@@ -612,20 +612,27 @@
         applyFilters();
     }
 
+    // Поиск бойцов (Десант)
     function filterMercenaries() {
         const query = document.getElementById('mercenarySearch').value.toLowerCase().trim();
         const cards = document.querySelectorAll('.merc-card');
         let visibleCount = 0;
+
         cards.forEach(card => {
             const name = card.getAttribute('data-merc') || '';
-            if (name.includes(query)) {
+            if (name.toLowerCase().includes(query)) {
                 card.style.display = 'block';
                 visibleCount++;
             } else {
                 card.style.display = 'none';
             }
         });
-        document.getElementById('noMercResults').classList.toggle('hidden', visibleCount > 0);
+
+        // Управление сообщением об отсутствии результатов
+        const noMercResults = document.getElementById('noMercResults');
+        if (noMercResults) {
+            noMercResults.classList.toggle('hidden', visibleCount > 0);
+        }
     }
 </script>
 </body>
