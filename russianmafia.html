@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Russian Mafia | Dungeon Rush Clan</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Unbounded -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Unbounded:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        crimson: '#E61C24',
+                        crimsonDark: '#990006',
+                        mafiaGold: '#E5C158',
+                        mafiaDark: '#0B0C0E',
+                        mafiaSurface: '#121418',
+                        mafiaCard: '#1A1D24',
+                        mafiaBorder: '#2E333D',
+                    },
+                    fontFamily: {
+                        unbounded: ['Unbounded', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'red-glow': '0 0 30px rgba(230, 28, 36, 0.35)',
+                        'gold-glow': '0 0 30px rgba(229, 193, 88, 0.25)',
+                        'card-hover': '0 20px 40px -15px rgba(0, 0, 0, 0.7)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0B0C0E;
+            color: #F1F5F9;
+            overflow-x: hidden;
+        }
+
+        .bg-mafia-pattern {
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(230, 28, 36, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 85% 75%, rgba(229, 193, 88, 0.08) 0%, transparent 40%),
+                linear-gradient(to bottom, #0B0C0E, #07080A);
+        }
+
+        .grid-overlay {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
+
+        .glass-panel {
+            background: rgba(26, 29, 36, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0C0E;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2E333D;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E61C24;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen antialiased selection:bg-crimson selection:text-white bg-mafia-pattern">
+
+    <div class="fixed inset-0 pointer-events-none z-0 grid-overlay opacity-50"></div>
+
+    <!-- NAVBAR -->
+    <nav class="sticky top-0 z-50 backdrop-blur-xl bg-mafiaDark/80 border-b border-mafiaBorder/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <a href="index.html" class="flex items-center space-x-3.5 group">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-crimson to-crimsonDark flex items-center justify-center text-white shadow-red-glow group-hover:scale-105 transition-transform duration-300">
+                        <i class="fa-solid fa-crown text-xl text-mafiaGold"></i>
+                    </div>
+                    <div>
+                        <span class="font-unbounded font-black text-xl tracking-tight text-white group-hover:text-crimson transition-colors">
+                            RUSSIAN <span class="text-mafiaGold">MAFIA</span>
+                        </span>
+                        <span class="block text-[11px] font-semibold tracking-widest text-gray-400 uppercase">Dungeon Rush Clan</span>
+                    </div>
+                </a>
+
+                <div class="hidden md:flex items-center space-x-1 font-unbounded text-xs font-semibold tracking-wider">
+                    <a href="#about" class="px-4 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-all">О КЛАНЕ</a>
+                    <a href="#stats" class="px-4 py-2 rounded-lg text-gray-300 hover:text-mafiaGold hover:bg-white/5 transition-all">СТАТИСТИКА</a>
+                    <a href="#players" class="px-4 py-2 rounded-lg text-gray-300 hover:text-crimson hover:bg-white/5 transition-all">СОСТАВ</a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobileMenuBtn" class="text-gray-300 hover:text-white focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobileMenu" class="hidden md:hidden bg-mafiaSurface border-b border-mafiaBorder px-4 pt-3 pb-6 space-y-3 font-unbounded text-sm">
+            <a href="#about" class="mobile-nav-link block text-gray-300 hover:text-white py-2">О КЛАНЕ</a>
+            <a href="#stats" class="mobile-nav-link block text-gray-300 hover:text-mafiaGold py-2">СТАТИСТИКА</a>
+            <a href="#players" class="mobile-nav-link block text-gray-300 hover:text-crimson py-2">СОСТАВ</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative z-10 pt-16 pb-24 lg:pt-28 lg:pb-36 border-b border-mafiaBorder/60 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                
+                <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+                    
+                    <div class="inline-flex items-center space-x-2.5 px-4 py-2 rounded-full bg-crimson/10 border border-crimson/30 text-crimson font-unbounded text-xs font-bold uppercase tracking-wider">
+                        <span class="w-2 h-2 rounded-full bg-crimson animate-pulse"></span>
+                        <span>TOP-15 SERVER • DUNGEON RUSH • 106.40q power</span>
+                    </div>
+
+                    <h1 class="font-unbounded font-black text-4xl sm:text-6xl lg:text-6xl xl:text-7xl tracking-tight leading-none text-white uppercase">
+                        ВЛАСТЬ. <br>
+                        УВАЖЕНИЕ. <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-mafiaGold via-yellow-200 to-mafiaGold">
+                            БРАТСТВО.
+                        </span>
+                    </h1>
+
+                    <p class="text-gray-300 text-base sm:text-lg max-w-2xl font-normal leading-relaxed">
+                        Семья сильнейших игроков Dungeon Rush. Мы подчиняем себе подземелья, забираем кубки в Клановых Войнах и диктуем свои правила на сервере.
+                    </p>
+
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 font-unbounded text-xs font-bold tracking-wider">
+                        <a href="#stats" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-mafiaGold to-yellow-600 text-black hover:brightness-110 shadow-gold-glow hover:scale-[1.02] transition-all text-center uppercase">
+                            <i class="fa-solid fa-chart-line mr-2"></i>Статистика Войн
+                        </a>
+                        <a href="#players" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-panel border border-mafiaBorder hover:border-crimson text-white hover:bg-crimson/10 transition-all text-center uppercase">
+                            <i class="fa-solid fa-users mr-2"></i>Состав Семьи
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-full max-w-md aspect-square rounded-2xl glass-panel p-3 border border-mafiaBorder shadow-card-hover group">
+                        <div class="w-full h-full rounded-xl overflow-hidden relative">
+                            <img 
+                                src="images/russian_mafia.jpg" 
+                                alt="Russian Mafia Banner" 
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                onerror="this.onerror=null; this.src='images/noimg.png'"
+                            />
+                            <div class="absolute inset-0 bg-gradient-to-t from-mafiaDark via-transparent to-transparent opacity-60"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION 1: ABOUT CLAN -->
+    <section id="about" class="py-24 relative z-10 border-b border-mafiaBorder/60 bg-mafiaSurface/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-crimson font-unbounded text-xs font-bold tracking-widest uppercase block mb-2">Кодекс и Принципы</span>
+                <h2 class="font-unbounded font-extrabold text-3xl sm:text-4xl text-white uppercase tracking-tight">
+                    О КЛАНЕ <span class="text-mafiaGold">RUSSIAN MAFIA</span>
+                </h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-crimson to-mafiaGold mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="glass-panel p-8 rounded-2xl border border-mafiaBorder hover:border-crimson/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-crimson/10 border border-crimson/30 flex items-center justify-center text-crimson text-xl mb-6 group-hover:bg-crimson group-hover:text-white transition-all">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="font-unbounded font-bold text-lg text-white mb-3">Наша Легенда</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-normal">
+                        Russian Mafia была основана с единой целью — объединить лучших игроков для абсолютного доминирования в Dungeon Rush. Мы ценим верность клану и готовность бороться до конца.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-8 rounded-2xl border border-mafiaBorder hover:border-mafiaGold/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-mafiaGold/10 border border-mafiaGold/30 flex items-center justify-center text-mafiaGold text-xl mb-6 group-hover:bg-mafiaGold group-hover:text-black transition-all">
+                        <i class="fa-solid fa-gavel"></i>
+                    </div>
+                    <h3 class="font-unbounded font-bold text-lg text-white mb-3">Правила Войны</h3>
+                    <ul class="text-gray-400 text-sm space-y-2.5 font-normal">
+                        <li class="flex items-center">
+                            <i class="fa-solid fa-check text-mafiaGold mr-2.5 text-xs"></i> 100% активность в рейд-боях
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa-solid fa-check text-mafiaGold mr-2.5 text-xs"></i> Взаимовыручка и поддержка
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa-solid fa-check text-mafiaGold mr-2.5 text-xs"></i> Уважение к руководству
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="glass-panel p-8 rounded-2xl border border-mafiaBorder hover:border-crimson/50 transition-all duration-300 group hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-crimson/10 border border-crimson/30 flex items-center justify-center text-crimson text-xl mb-6 group-hover:bg-crimson group-hover:text-white transition-all">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h3 class="font-unbounded font-bold text-lg text-white mb-3">Цель Клана</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-normal">
+                        Удержание вершины рейтинга #1 сервера, постоянный рост боевой мощи каждого участника и победная серия во всех сезонах Клановых Войн.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 2: STATS -->
+    <section id="stats" class="py-24 relative z-10 border-b border-mafiaBorder/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-mafiaGold font-unbounded text-xs font-bold tracking-widest uppercase block mb-2">Результаты и Боевые Показатели</span>
+                <h2 class="font-unbounded font-extrabold text-3xl sm:text-4xl text-white uppercase tracking-tight">
+                    СТАТИСТИКА <span class="text-crimson">КЛАНА</span>
+                </h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-mafiaGold to-crimson mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-5 mb-16">
+                <div class="glass-panel p-6 rounded-2xl border border-mafiaBorder text-center">
+                    <span class="block text-gray-400 font-unbounded text-[11px] uppercase tracking-wider mb-1">Всего Войн</span>
+                    <span class="font-unbounded font-black text-3xl sm:text-4xl text-white">6</span>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl border border-mafiaBorder text-center">
+                    <span class="block text-gray-400 font-unbounded text-[11px] uppercase tracking-wider mb-1">Победы</span>
+                    <span class="font-unbounded font-black text-3xl sm:text-4xl text-emerald-400">6</span>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl border border-mafiaBorder text-center">
+                    <span class="block text-gray-400 font-unbounded text-[11px] uppercase tracking-wider mb-1">Поражения</span>
+                    <span class="font-unbounded font-black text-3xl sm:text-4xl text-crimson">0</span>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl border border-mafiaBorder text-center">
+                    <span class="block text-gray-400 font-unbounded text-[11px] uppercase tracking-wider mb-1">Винрейт</span>
+                    <span class="font-unbounded font-black text-3xl sm:text-4xl text-mafiaGold">100%</span>
+                </div>
+            </div>
+
+            <div class="glass-panel p-6 sm:p-8 rounded-2xl border border-mafiaBorder">
+                
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between pb-6 mb-8 border-b border-mafiaBorder gap-4">
+                    <div>
+                        <span class="text-xs font-unbounded font-bold text-crimson uppercase tracking-widest block mb-1">Текущая Неделя</span>
+                        <h3 class="font-unbounded font-bold text-xl sm:text-2xl text-white">
+                            Соперник: <span class="text-mafiaGold">TBA</span>
+                        </h3>
+                    </div>
+
+                    <div class="flex items-center space-x-6 bg-mafiaDark/80 px-5 py-3 rounded-xl border border-mafiaBorder">
+                        <div>
+                            <span class="text-[10px] text-gray-400 font-unbounded uppercase block">Итог недели:</span>
+                            <span class="font-unbounded font-bold text-emerald-400 text-base sm:text-lg">3 / 6 ПОБЕД</span>
+                        </div>
+                        <div class="h-8 w-px bg-mafiaBorder"></div>
+                        <div>
+                            <span class="text-[10px] text-gray-400 font-unbounded uppercase block">MVP Недели:</span>
+                            <span class="font-unbounded font-bold text-mafiaGold text-base sm:text-lg">TBA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    
+                    <div class="bg-mafiaDark/60 border border-mafiaBorder hover:border-mafiaGold/60 rounded-xl p-5 transition-all">
+                        <div class="flex items-center justify-between pb-3 mb-3 border-b border-mafiaBorder/60">
+                            <span class="font-unbounded font-bold text-mafiaGold text-sm">ДЕНЬ 1</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-unbounded font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">ПОБЕДА</span>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-mafiaBorder/60 flex items-center space-x-3">
+                            <img src="images/player1.jpg" alt="MVP Day 1" class="w-8 h-8 rounded-full border border-mafiaGold object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/1A1D24/E5C158?text=MVP';">
+                            <div>
+                                <span class="text-[9px] font-unbounded text-mafiaGold font-bold uppercase block">MVP ДНЯ</span>
+                                <span class="font-semibold text-white text-xs">Alaphest</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-mafiaDark/60 border border-mafiaBorder hover:border-mafiaGold/60 rounded-xl p-5 transition-all">
+                        <div class="flex items-center justify-between pb-3 mb-3 border-b border-mafiaBorder/60">
+                            <span class="font-unbounded font-bold text-mafiaGold text-sm">ДЕНЬ 2</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-unbounded font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">ПОБЕДА</span>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-mafiaBorder/60 flex items-center space-x-3">
+                            <img src="images/player2.jpg" alt="MVP Day 2" class="w-8 h-8 rounded-full border border-mafiaGold object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/1A1D24/E5C158?text=MVP';">
+                            <div>
+                                <span class="text-[9px] font-unbounded text-mafiaGold font-bold uppercase block">MVP ДНЯ</span>
+                                <span class="font-semibold text-white text-xs">Alaphest</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-mafiaDark/60 border border-mafiaBorder hover:border-mafiaGold/60 rounded-xl p-5 transition-all">
+                        <div class="flex items-center justify-between pb-3 mb-3 border-b border-mafiaBorder/60">
+                            <span class="font-unbounded font-bold text-mafiaGold text-sm">ДЕНЬ 3</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-unbounded font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">ПОБЕДА</span>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-mafiaBorder/60 flex items-center space-x-3">
+                            <img src="images/player3.jpg" alt="MVP Day 3" class="w-8 h-8 rounded-full border border-mafiaGold object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/1A1D24/E5C158?text=MVP';">
+                            <div>
+                                <span class="text-[9px] font-unbounded text-mafiaGold font-bold uppercase block">MVP ДНЯ</span>
+                                <span class="font-semibold text-white text-xs">Alaphest</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-mafiaDark/60 border border-mafiaBorder hover:border-mafiaGold/60 rounded-xl p-5 transition-all">
+                        <div class="flex items-center justify-between pb-3 mb-3 border-b border-mafiaBorder/60">
+                            <span class="font-unbounded font-bold text-mafiaGold text-sm">ДЕНЬ 4</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-unbounded font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">ПОБЕДА</span>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-mafiaBorder/60 flex items-center space-x-3">
+                            <img src="images/player1.jpg" alt="MVP Day 4" class="w-8 h-8 rounded-full border border-mafiaGold object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/1A1D24/E5C158?text=MVP';">
+                            <div>
+                                <span class="text-[9px] font-unbounded text-mafiaGold font-bold uppercase block">MVP ДНЯ</span>
+                                <span class="font-semibold text-white text-xs">Alaphest</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-mafiaDark/60 border border-mafiaBorder hover:border-mafiaGold/60 rounded-xl p-5 transition-all">
+                        <div class="flex items-center justify-between pb-3 mb-3 border-b border-mafiaBorder/60">
+                            <span class="font-unbounded font-bold text-mafiaGold text-sm">ДЕНЬ 5</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-unbounded font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">ПОБЕДА</span>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-mafiaBorder/60 flex items-center space-x-3">
+                            <img src="images/player4.jpg" alt="MVP Day 5" class="w-8 h-8 rounded-full border border-mafiaGold object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/1A1D24/E5C158?text=MVP';">
+                            <div>
+                                <span class="text-[9px] font-unbounded text-mafiaGold font-bold uppercase block">MVP ДНЯ</span>
+                                <span class="font-semibold text-white text-xs">Alaphest</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-mafiaDark/80 border-2 border-crimson rounded-xl p-5 transition-all shadow-red-glow">
+                        <div class="flex items-center justify-between pb-3 mb-3 border-b border-mafiaBorder/60">
+                            <span class="font-unbounded font-bold text-crimson text-sm">ДЕНЬ 6 (ФИНАЛ)</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-unbounded font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">ПОБЕДА</span>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-mafiaBorder/60 flex items-center space-x-3">
+                            <img src="images/player1.jpg" alt="MVP Day 6" class="w-8 h-8 rounded-full border-2 border-mafiaGold object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/1A1D24/E5C158?text=MVP';">
+                            <div>
+                                <span class="text-[9px] font-unbounded text-mafiaGold font-bold uppercase block">MVP ФИНАЛА</span>
+                                <span class="font-semibold text-white text-xs">Alaphest</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 3: ROSTER -->
+    <section id="players" class="py-24 relative z-10 bg-mafiaSurface/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-crimson font-unbounded text-xs font-bold tracking-widest uppercase block mb-2">Участники Клана</span>
+                <h2 class="font-unbounded font-extrabold text-3xl sm:text-4xl text-white uppercase tracking-tight">
+                    СОСТАВ <span class="text-mafiaGold">СЕМЬИ</span> (49/50)
+                </h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-crimson to-mafiaGold mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-2.5 mb-12 font-unbounded text-xs font-bold">
+                <button onclick="filterPlayers('all')" id="btn-all" class="player-filter-btn px-5 py-2.5 rounded-xl bg-crimson text-white shadow-red-glow transition-all">
+                    ВСЕ ИГРОКИ (49)
+                </button>
+                <button onclick="filterPlayers('leader')" id="btn-leader" class="player-filter-btn px-5 py-2.5 rounded-xl glass-panel text-gray-300 border border-mafiaBorder hover:border-crimson transition-all">
+                    РУКОВОДСТВО
+                </button>
+                <button onclick="filterPlayers('player')" id="btn-player" class="player-filter-btn px-5 py-2.5 rounded-xl glass-panel text-gray-300 border border-mafiaBorder hover:border-crimson transition-all">
+                    БОЕВОЙ СОСТАВ
+                </button>
+            </div>
+
+            <!-- Player Grid (49 members with power, streak & status stats) -->
+            <div id="playersGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Лидер -->
+                <div class="player-card role-leader glass-panel border-2 border-mafiaGold rounded-2xl overflow-hidden shadow-gold-glow transition-all hover:-translate-y-1">
+                    <div class="relative h-48 bg-black overflow-hidden border-b border-mafiaBorder">
+                        <img src="images/alaphest.jpg" alt="Alaphest" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/noimg.png'"/>
+                        <span class="absolute top-3 left-3 bg-mafiaGold text-black font-unbounded font-black text-[10px] px-2.5 py-1 rounded-md uppercase">ЛИДЕР</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-unbounded font-extrabold text-lg text-white tracking-wide">Alaphest</h3>
+                        <p class="text-xs text-mafiaGold font-semibold mt-0.5">Мощь: 4.44q</p>
+                        <div class="mt-4 pt-3 border-t border-mafiaBorder/60 flex justify-between items-center text-xs">
+                            <span class="text-gray-400">Стрик:</span>
+                            <span class="font-bold text-mafiaGold"><i class="fa-solid fa-fire text-crimson mr-1"></i>Активен</span>
+                        </div>
+                        <div class="mt-1.5 flex justify-between items-center text-xs">
+                            <span class="text-gray-400">Статус:</span>
+                            <span class="font-semibold text-emerald-400">В строю</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Капитаны -->
+                <div class="player-card role-leader glass-panel border border-crimson rounded-2xl overflow-hidden transition-all hover:-translate-y-1">
+                    <div class="relative h-48 bg-black overflow-hidden border-b border-mafiaBorder">
+                        <img src="images/noimg.png" alt="Animestik" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/noimg.png'"/>
+                        <span class="absolute top-3 left-3 bg-crimson text-white font-unbounded font-bold text-[10px] px-2.5 py-1 rounded-md uppercase">КАПИТАН</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-unbounded font-extrabold text-lg text-white tracking-wide">Animestik</h3>
+                        <p class="text-xs text-crimson font-semibold mt-0.5">Мощь: 4.24q</p>
+                        <div class="mt-4 pt-3 border-t border-mafiaBorder/60 flex justify-between items-center text-xs">
+                            <span class="text-gray-400">Стрик:</span>
+                            <span class="font-bold text-mafiaGold"><i class="fa-solid fa-fire text-crimson mr-1"></i>Активен</span>
+                        </div>
+                        <div class="mt-1.5 flex justify-between items-center text-xs">
+                            <span class="text-gray-400">Статус:</span>
+                            <span class="font-semibold text-emerald-400">В строю</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="player-card role-leader glass-panel border border-crimson rounded-2xl overflow-hidden transition-all hover:-translate-y-1">
+                    <div class="relative h-48 bg-black overflow-hidden border-b border-mafiaBorder">
+                        <img src="images/noimg.png" alt="Eba4" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/noimg.png'"/>
+                        <span class="absolute top-3 left-3 bg-crimson text-white font-unbounded font-bold text-[10px] px-2.5 py-1 rounded-md uppercase">КАПИТАН</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-unbounded font-extrabold text-lg text-white tracking-wide">Eba4</h3>
+                        <p class="text-xs text-crimson font-semibold mt-0.5">Мощь: 2.59q</p>
+                        <div class="mt-4 pt-3 border-t border-mafiaBorder/60 flex justify-between items-center text-xs">
+                            <span class="text-gray-400">Стрик:</span>
+                            <span class="font-bold text-mafiaGold"><i class="fa-solid fa-fire text-crimson mr-1"></i>Активен</span>
+                        </div>
+                        <div class="mt-1.5 flex justify-between items-center text-xs">
+                            <span class="text-gray-400">Статус:</span>
+                            <span class="font-semibold text-emerald-400">В строю</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Игроки (46 остальных бойцов) -->
+                <!-- Шаблон для каждого игрока с добавленными полями Стрика и Статуса -->
+                <script>
+                    // Массив всех бойцов со значениями мощи
+                    const roster = [
+                        { name: "4mok", power: "1.81q" },
+                        { name: "ay okay", power: "359.05T" },
+                        { name: "Bagetik", power: "1.40q" },
+                        { name: "Banana", power: "1.69q" },
+                        { name: "bigchnnv", power: "3.11q" },
+                        { name: "DanZI", power: "2.01q" },
+                        { name: "David", power: "3.56q" },
+                        { name: "Hellinme", power: "1.92q" },
+                        { name: "Impala", power: "937.70T" },
+                        { name: "Inflev", power: "3.75q" },
+                        { name: "Joshiraku", power: "428.71T" },
+                        { name: "Kanjo", power: "1.23q" },
+                        { name: "Kraken", power: "687.62T" },
+                        { name: "Kulich", power: "489.19T" },
+                        { name: "Lele v", power: "497.73T" },
+                        { name: "Lento", power: "2.48q" },
+                        { name: "LITVIN", power: "2.14q" },
+                        { name: "Morgat", power: "1.39q" },
+                        { name: "mrxw", power: "8.40q" },
+                        { name: "mvt", power: "1.23q" },
+                        { name: "Nrine", power: "1.82q" },
+                        { name: "OII", power: "725.21T" },
+                        { name: "Pawlin", power: "558.41T" },
+                        { name: "Raegwon", power: "289.73T" },
+                        { name: "RAGE Alega", power: "4.06q" },
+                        { name: "RAGE Huko", power: "2.74q" },
+                        { name: "Red", power: "792.30T" },
+                        { name: "Rio", power: "3.21q" },
+                        { name: "RM OGA", power: "945.00T" },
+                        { name: "RM 3Jloy", power: "1.35q" },
+                        { name: "RM agR", power: "1.53q" },
+                        { name: "RM aix", power: "2.26q" },
+                        { name: "RM Legenda", power: "4.21q" },
+                        { name: "RM Myxa", power: "1.11q" },
+                        { name: "RM Petya2974", power: "1.26q" },
+                        { name: "RM Telegran", power: "2.95q" },
+                        { name: "RusM satans", power: "1.42q" },
+                        { name: "Shiroyama", power: "1.86q" },
+                        { name: "Sv9T", power: "105.32T" },
+                        { name: "Tubidy", power: "3.23q" },
+                        { name: "undefined", power: "872.71T" },
+                        { name: "VdSmoN", power: "2.38q" },
+                        { name: "XyuGolova", power: "1.71q" },
+                        { name: "York", power: "7.32q" },
+                        { name: "Zerran", power: "4.24q" },
+                        { name: "ZhirSalos", power: "2.66q" }
+                    ];
+
+                    // Рендеринг карточек бойцов динамически для чистоты кода
+                    document.write(roster.map(p => `
+                        <div class="player-card role-player glass-panel border border-mafiaBorder hover:border-crimson rounded-2xl overflow-hidden transition-all hover:-translate-y-1">
+                            <div class="relative h-48 bg-black overflow-hidden border-b border-mafiaBorder">
+                                <img src="images/noimg.png" alt="${p.name}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/noimg.png'"/>
+                                <span class="absolute top-3 left-3 bg-mafiaSurface text-gray-300 border border-mafiaBorder font-unbounded font-bold text-[10px] px-2.5 py-1 rounded-md uppercase">БОЕЦ</span>
+                            </div>
+                            <div class="p-5">
+                                <h3 class="font-unbounded font-extrabold text-lg text-white tracking-wide">${p.name}</h3>
+                                <p class="text-xs text-gray-400 font-semibold mt-0.5">Мощь: ${p.power}</p>
+                                <div class="mt-4 pt-3 border-t border-mafiaBorder/60 flex justify-between items-center text-xs">
+                                    <span class="text-gray-400">Стрик:</span>
+                                    <span class="font-bold text-mafiaGold"><i class="fa-solid fa-fire text-crimson mr-1"></i>Активен</span>
+                                </div>
+                                <div class="mt-1.5 flex justify-between items-center text-xs">
+                                    <span class="text-gray-400">Статус:</span>
+                                    <span class="font-semibold text-emerald-400">В строю</span>
+                                </div>
+                            </div>
+                        </div>
+                    `).join(''));
+                </script>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-mafiaDark border-t border-mafiaBorder py-12 relative z-10 text-gray-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-crimson flex items-center justify-center text-white font-bold">
+                    <i class="fa-solid fa-crown text-sm text-mafiaGold"></i>
+                </div>
+                <span class="font-unbounded font-bold text-white text-base">RUSSIAN MAFIA</span>
+            </div>
+
+            <p class="text-xs text-center text-gray-500 font-normal">
+                &copy; Russian Mafia Clan. Все права защищены. Dungeon Rush.
+            </p>
+
+            <div class="flex items-center space-x-3">
+                <a href="" class="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-gray-300 hover:text-crimson hover:border-crimson transition-all">
+                    <i class="fa-brands fa-telegram"></i>
+                </a>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- SCRIPT -->
+    <script>
+        function filterPlayers(category) {
+            const cards = document.querySelectorAll('.player-card');
+            const buttons = document.querySelectorAll('.player-filter-btn');
+
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-crimson', 'text-white', 'shadow-red-glow');
+                btn.classList.add('glass-panel', 'text-gray-300');
+            });
+
+            const activeBtn = document.getElementById(`btn-${category}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('glass-panel', 'text-gray-300');
+                activeBtn.classList.add('bg-crimson', 'text-white', 'shadow-red-glow');
+            }
+
+            cards.forEach(card => {
+                if (category === 'all') {
+                    card.style.display = 'block';
+                } else if (category === 'leader') {
+                    card.style.display = card.classList.contains('role-leader') ? 'block' : 'none';
+                } else if (category === 'player') {
+                    card.style.display = card.classList.contains('role-player') ? 'block' : 'none';
+                }
+            });
+        }
+
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
