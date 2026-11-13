@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dungeon Rush | Портал Кланов</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Unbounded -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        hubDark: '#090A0F',
+                        hubSurface: '#11131A',
+                        hubCard: '#171A24',
+                        hubBorder: '#262B3A',
+                        accentBlue: '#3B82F6',
+                        accentPurple: '#8B5CF6',
+                        nukeGreen: '#00FF66',
+                        mafiaCrimson: '#E61C24',
+                        mafiaGold: '#E5C158',
+                        mercenaryColor: '#10B981',
+                    },
+                    fontFamily: {
+                        unbounded: ['Unbounded', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #090A0F;
+            color: #F8FAFC;
+            overflow-x: hidden;
+        }
+
+        .bg-portal {
+            background-image: 
+                radial-gradient(circle at 20% 15%, rgba(59, 130, 246, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 45%),
+                linear-gradient(to bottom, #090A0F, #06070A);
+        }
+
+        .grid-bg {
+            background-size: 44px 44px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        }
+
+        .glass-card {
+            background: rgba(23, 26, 36, 0.75);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #090A0F; }
+        ::-webkit-scrollbar-thumb { background: #262B3A; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3B82F6; }
+    </style>
+</head>
+<body class="relative min-h-screen antialiased bg-portal selection:bg-accentBlue selection:text-white">
+
+    <div class="fixed inset-0 pointer-events-none z-0 grid-bg opacity-60"></div>
+
+    <!-- NAVBAR -->
+    <nav class="sticky top-0 z-50 backdrop-blur-xl bg-hubDark/85 border-b border-hubBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-accentBlue to-accentPurple flex items-center justify-center text-white shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-dungeon text-sm"></i>
+                    </div>
+                    <div>
+                        <span class="font-unbounded font-black text-base tracking-tight text-white">
+                            DUNGEON <span class="text-transparent bg-clip-text bg-gradient-to-r from-accentBlue to-accentPurple">RUSH</span>
+                        </span>
+                    </div>
+                </a>
+
+                <div class="hidden sm:flex items-center space-x-4 font-unbounded text-xs font-semibold">
+                    <a href="#clans" class="text-gray-300 hover:text-white transition-colors">КЛАНЫ</a>
+                    <a href="#mercenaries" class="text-emerald-400 hover:text-emerald-300 transition-colors">ДЕСАНТ НА ЗАКАЗ</a>
+                    <button onclick="openModal('clanModal')" class="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-hubBorder text-gray-200 transition-all">
+                        + Добавить клан
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- COMPACT HERO & STATS SEARCH -->
+    <header class="relative z-10 pt-8 pb-8 border-b border-hubBorder/70">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-6">
+                
+                <div>
+                    <h1 class="font-unbounded font-black text-2xl sm:text-3xl tracking-tight text-white uppercase">
+                        ПОРТАЛ <span class="text-transparent bg-clip-text bg-gradient-to-r from-accentBlue to-accentPurple">КЛАНОВ</span>
+                    </h1>
+                    <p class="text-gray-400 text-xs sm:text-sm mt-1">
+                        Реестр гильдий и наемных бойцов для усиления вашего состава.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 gap-3 w-full sm:w-auto">
+                    <div class="glass-card py-2.5 px-4 rounded-xl text-center">
+                        <span class="block text-[9px] font-unbounded text-gray-400 uppercase">Кланов в базе</span>
+                        <span class="font-unbounded font-extrabold text-base text-white mt-0.5 block">2</span>
+                    </div>
+                </div>
+
+                <div class="w-full lg:w-72">
+                    <div class="relative flex items-center">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 text-gray-400 text-xs"></i>
+                        <input 
+                            type="text" 
+                            id="clanSearch" 
+                            onkeyup="applyFilters()"
+                            placeholder="Поиск по клану или лидеру..." 
+                            class="w-full pl-11 pr-4 py-2.5 rounded-xl bg-hubCard/90 border border-hubBorder focus:border-accentBlue focus:outline-none text-white placeholder-gray-500 text-xs transition-all shadow-md"
+                        />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION 1: CLANS DIRECTORY -->
+    <main id="clans" class="relative z-10 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+                <div>
+                    <h2 class="font-unbounded font-extrabold text-lg text-white uppercase">Список Гильдий</h2>
+                </div>
+
+                <div class="flex flex-wrap gap-2 font-unbounded text-[11px] font-bold">
+                    <button onclick="setTagFilter('all')" id="tag-all" class="tag-btn px-3.5 py-1.5 rounded-lg bg-accentBlue text-white transition-all">ВСЕ</button>
+                    <button onclick="setTagFilter('top')" id="tag-top" class="tag-btn px-3.5 py-1.5 rounded-lg glass-card text-gray-300 hover:text-white transition-all">ТОП СЕРВЕРА</button>
+                    <button onclick="setTagFilter('recruiting')" id="tag-recruiting" class="tag-btn px-3.5 py-1.5 rounded-lg glass-card text-gray-300 hover:text-white transition-all">ЕСТЬ МЕСТА</button>
+                    <button onclick="setTagFilter('lang-ru')" id="tag-lang-ru" class="tag-btn px-3.5 py-1.5 rounded-lg glass-card text-gray-300 hover:text-white transition-all">🇷🇺 RU ЯЗЫК</button>
+                </div>
+            </div>
+
+            <!-- Clans Grid -->
+            <div id="clansGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- CLAN 1: RUSSIAN MAFIA -->
+                <a href="russian_mafia.html" data-name="russian mafia alaphest" data-tags="top recruiting lang-ru" class="clan-card group block rounded-2xl glass-card border border-hubBorder hover:border-mafiaCrimson/80 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-15px_rgba(230,28,36,0.3)]">
+                    <div class="relative h-44 bg-black overflow-hidden border-b border-hubBorder">
+                        <img src="assets/images/russian_mafia.jpg" alt="Russian Mafia" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90" onerror="this.onerror=null; this.src='https://placehold.co/600x300/141418/E5C158?text=RUSSIAN+MAFIA'"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-hubCard via-hubCard/20 to-transparent"></div>
+                        <div class="absolute top-3 left-3 flex gap-2 items-center">
+                            <span class="px-2 py-0.5 rounded bg-mafiaGold text-black font-unbounded font-black text-[10px] uppercase shadow">TOP-15</span>
+                            <span class="px-2 py-0.5 rounded bg-black/75 backdrop-blur-md text-emerald-400 border border-emerald-500/30 font-unbounded font-bold text-[10px] uppercase">49 / 50</span>
+                        </div>
+                        <div class="absolute top-3 right-3">
+                            <span class="px-2 py-1 rounded-md bg-black/80 backdrop-blur border border-white/10 text-xs shadow">🇷🇺 RU</span>
+                        </div>
+                        <div class="absolute bottom-3 left-4 w-10 h-10 rounded-xl bg-gradient-to-br from-mafiaCrimson to-red-900 border-2 border-mafiaGold flex items-center justify-center shadow-lg">
+                            <i class="fa-solid fa-crown text-mafiaGold text-sm"></i>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-3">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-unbounded font-extrabold text-lg text-white group-hover:text-mafiaGold transition-colors">Russian Mafia</h3>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-gray-500 text-xs group-hover:text-mafiaCrimson transition-colors"></i>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1.5 line-clamp-2 leading-relaxed">Семья сильнейших игроков Dungeon Rush. Власть, уважение, братство и 100% винрейт.</p>
+                        <div class="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-hubBorder/80 text-center">
+                            <div><span class="block text-[9px] text-gray-500 uppercase">Лидер</span><span class="text-xs font-bold text-gray-200 truncate block">Alaphest</span></div>
+                            <div class="border-x border-hubBorder/80"><span class="block text-[9px] text-gray-500 uppercase">Винрейт</span><span class="text-xs font-bold text-emerald-400">100%</span></div>
+                            <div><span class="block text-[9px] text-gray-500 uppercase">Пик мощи</span><span class="text-xs font-bold text-mafiaGold">8.40q</span></div>
+                        </div>
+                        <div class="mt-4 w-full py-2 rounded-xl bg-mafiaCrimson/10 group-hover:bg-mafiaCrimson border border-mafiaCrimson/30 text-center font-unbounded font-bold text-[11px] text-mafiaCrimson group-hover:text-white transition-all uppercase">Открыть страницу</div>
+                    </div>
+                </a>
+
+                <!-- CLAN 2: NUKESQUAD -->
+                <a href="nukesquad.html" data-name="nukesquad toxicwaste" data-tags="top recruiting lang-ru" class="clan-card group block rounded-2xl glass-card border border-hubBorder hover:border-nukeGreen/80 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-15px_rgba(0,255,102,0.2)]">
+                    <div class="relative h-44 bg-black overflow-hidden border-b border-hubBorder">
+                        <img src="assets/images/nukesquad.jpg" alt="NukeSquad" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90" onerror="this.onerror=null; this.src='https://placehold.co/600x300/121814/00FF66?text=NUKESQUAD'"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-hubCard via-hubCard/20 to-transparent"></div>
+                        <div class="absolute top-3 left-3 flex gap-2 items-center">
+                            <span class="px-2 py-0.5 rounded bg-nukeGreen text-black font-unbounded font-black text-[10px] uppercase shadow">TOP-68</span>
+                            <span class="px-2 py-0.5 rounded bg-black/75 backdrop-blur-md text-emerald-400 border border-emerald-500/30 font-unbounded font-bold text-[10px] uppercase">18 / 50</span>
+                        </div>
+                        <div class="absolute top-3 right-3">
+                            <span class="px-2 py-1 rounded-md bg-black/80 backdrop-blur border border-white/10 text-xs shadow">🇷🇺 RU</span>
+                        </div>
+                        <div class="absolute bottom-3 left-4 w-10 h-10 rounded-xl bg-black border-2 border-nukeGreen flex items-center justify-center shadow-lg">
+                            <i class="fa-solid fa-radiation text-nukeGreen text-base"></i>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-3">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-unbounded font-extrabold text-lg text-white group-hover:text-nukeGreen transition-colors">NukeSquad</h3>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-gray-500 text-xs group-hover:text-nukeGreen transition-colors"></i>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1.5 line-clamp-2 leading-relaxed">Клан закаленных бойцов подземелий. Доминируем на арене и уничтожаем боссов.</p>
+                        <div class="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-hubBorder/80 text-center">
+                            <div><span class="block text-[9px] text-gray-500 uppercase">Лидер</span><span class="text-xs font-bold text-gray-200 truncate block">ToxicWaste</span></div>
+                            <div class="border-x border-hubBorder/80"><span class="block text-[9px] text-gray-500 uppercase">Винрейт</span><span class="text-xs font-bold text-nukeGreen">100%</span></div>
+                            <div><span class="block text-[9px] text-gray-500 uppercase">Пик мощи</span><span class="text-xs font-bold text-nukeGreen">37.19q</span></div>
+                        </div>
+                        <div class="mt-4 w-full py-2 rounded-xl bg-nukeGreen/10 group-hover:bg-nukeGreen border border-nukeGreen/30 text-center font-unbounded font-bold text-[11px] text-nukeGreen group-hover:text-black transition-all uppercase">Открыть страницу</div>
+                    </div>
+                </a>
+
+                <!-- ADD CLAN CARD TRIGGER -->
+                <div onclick="openModal('clanModal')" class="rounded-2xl border-2 border-dashed border-hubBorder/80 bg-hubSurface/30 p-6 flex flex-col items-center justify-center text-center min-h-[320px] hover:border-accentBlue/50 transition-colors cursor-pointer group">
+                    <div class="w-12 h-12 rounded-xl bg-accentBlue/10 border border-accentBlue/30 flex items-center justify-center text-accentBlue text-xl mb-3 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <h3 class="font-unbounded font-bold text-sm text-white uppercase">Добавить Клан</h3>
+                    <p class="text-xs text-gray-400 max-w-xs mt-1 leading-relaxed">Зарегистрируйте свою гильдию в общем реестре сервера.</p>
+                </div>
+
+            </div>
+
+            <div id="noResults" class="hidden text-center py-16">
+                <i class="fa-solid fa-ghost text-4xl text-gray-600 mb-3"></i>
+                <p class="font-unbounded text-sm text-gray-400">Ничего не найдено по вашему запросу</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- SECTION 2: ДЕСАНТ НА ЗАКАЗ -->
+    <section id="mercenaries" class="relative z-10 py-16 border-t border-hubBorder bg-hubSurface/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
+                <div>
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-unbounded text-[10px] font-bold uppercase tracking-wider mb-2">
+                        <i class="fa-solid fa-handshake-angle mr-1"></i> Наемная помощь
+                    </div>
+                    <h2 class="font-unbounded font-extrabold text-2xl sm:text-3xl text-white uppercase tracking-tight">
+                        ДЕСАНТ НА <span class="text-emerald-400">ЗАКАЗ</span>
+                    </h2>
+                    <p class="text-xs sm:text-sm text-gray-400 mt-1 max-w-xl">
+                        Сильнейшие бойцы сервера для временной помощи кланам. Закажите бойца или добавьте свою анкету в список!
+                    </p>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button onclick="openModal('mercModal')" class="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-black font-unbounded font-bold text-xs uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+                        + Подать заявку в десант
+                    </button>
+                    <div class="w-full md:w-60">
+                        <div class="relative flex items-center">
+                            <i class="fa-solid fa-user-shield absolute left-4 text-gray-400 text-xs"></i>
+                            <input type="text" id="mercenarySearch" onkeyup="filterMercenaries()" placeholder="Поиск бойца..." class="w-full pl-11 pr-4 py-2.5 rounded-xl bg-hubCard border border-hubBorder focus:border-emerald-500 focus:outline-none text-white placeholder-gray-500 text-xs transition-all shadow-md"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mercenaries Grid -->
+            <div id="mercenariesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Merc Card 1 -->
+                <div class="merc-card glass-card border border-hubBorder hover:border-emerald-500/60 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 shadow-lg" data-merc="muller">
+                    <div class="flex items-center justify-between pb-4 border-b border-hubBorder">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 rounded-xl bg-hubDark border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-unbounded font-bold text-lg">T</div>
+                            <div>
+                                <h3 class="font-unbounded font-extrabold text-base text-white">Tcan</h3>
+                                <span class="text-[11px] text-emerald-400 font-semibold">Мощь: 5.01q</span>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-md bg-red-500/10 text-red-400 border border-red-500/30 font-unbounded text-[10px] font-bold">ЗАНЯТ</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
+                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder"><span class="block text-[9px] text-gray-500 uppercase">Основной клан</span><span class="text-white font-semibold truncate block">Varyagi</span></div>
+                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder"><span class="block text-[9px] text-gray-500 uppercase">Сейчас в клане</span><span class="text-emerald-400 font-semibold truncate block">NukeSquad</span></div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-2.5 mt-3 text-xs font-medium">
+                        <div class="bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase">Коробки</span><span class="text-amber-400 font-bold mt-0.5 block">133К</span></div>
+                        <div class="bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase">Кости</span><span class="text-gray-300 font-bold mt-0.5 block">104К</span></div>
+                        <div class="bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase">Короны</span><span class="text-yellow-400 font-bold mt-0.5 block">4</span></div>
+                        <div class="bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase">Кирки</span><span class="text-blue-400 font-bold mt-0.5 block">628</span></div>
+                        <div class="bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase">Зол. кирки</span><span class="text-yellow-500 font-bold mt-0.5 block">61</span></div>
+                        <div class="bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase">Буры</span><span class="text-purple-400 font-bold mt-0.5 block">56</span></div>
+                    </div>
+
+                    <div class="mt-3 bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase">Уровень</span><span class="text-white font-bold mt-0.5 block">123</span></div>
+
+                    <button onclick="orderMercenary('Muller')" class="mt-4 w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-black font-unbounded font-bold text-xs uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+                        Заказать десант
+                    </button>
+                </div>
+
+            </div>
+            
+            <div id="noMercResults" class="hidden text-center py-12">
+                <p class="font-unbounded text-sm text-gray-400">Боец для десанта с таким ником не найден</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="relative z-10 bg-hubDark border-t border-hubBorder py-8 text-gray-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-dungeon text-accentBlue text-xs"></i>
+                <span class="font-unbounded font-bold text-white text-xs">DUNGEON RUSH CLANS</span>
+            </div>
+            <p class="text-[11px] text-gray-500">&copy; 2026 Портал кланов Dungeon Rush.</p>
+        </div>
+    </footer>
+
+
+    <!-- ================= MODALS (ОКНА) ================= -->
+
+    <!-- Modal: Добавить клан -->
+    <div id="clanModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
+        <div class="glass-card border border-hubBorder w-full max-w-lg rounded-2xl p-6 relative shadow-2xl">
+            <button onclick="closeModal('clanModal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="font-unbounded font-extrabold text-lg text-white mb-4 uppercase">Добавить клан в реестр</h3>
+            
+            <form id="clanForm" onsubmit="sendClanForm(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block text-gray-400 mb-1 font-semibold uppercase text-[10px]">Название клана</label>
+                    <input type="text" id="clanName" required class="w-full px-4 py-2.5 rounded-xl bg-hubDark border border-hubBorder focus:border-accentBlue focus:outline-none text-white" placeholder="Например: Phantom Squad">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-gray-400 mb-1 font-semibold uppercase text-[10px]">Ник Лидера</label>
+                        <input type="text" id="clanLeader" required class="w-full px-4 py-2.5 rounded-xl bg-hubDark border border-hubBorder focus:border-accentBlue focus:outline-none text-white" placeholder="Лидер">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 mb-1 font-semibold uppercase text-[10px]">Язык общения</label>
+                        <select id="clanLang" class="w-full px-4 py-2.5 rounded-xl bg-hubDark border border-hubBorder focus:border-accentBlue focus:outline-none text-white">
+                            <option value="🇷🇺 RU">Русский (RU)</option>
+                            <option value="🇬🇧 EN">Английский (EN)</option>
+                            <option value="🇬🇧 EN">Все (ALL)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-gray-400 mb-1 font-semibold uppercase text-[10px]">мМощь</label>
+                        <input type="text" id="clanPower" required class="w-full px-4 py-2.5 rounded-xl bg-hubDark border border-hubBorder focus:border-accentBlue focus:outline-none text-white" placeholder="Например: 15.4q">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 mb-1 font-semibold uppercase text-[10px]">Контакт</label>
+                        <input type="text" id="clanLink" required class="w-full px-4 py-2.5 rounded-xl bg-hubDark border border-hubBorder focus:border-accentBlue focus:outline-none text-white" placeholder="Телеграмм лидера">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-gray-400 mb-1 font-semibold uppercase text-[10px]">Описание гильдии</label>
+                    <textarea id="clanDesc" rows="2" class="w-full px-4 py-2.5 rounded-xl bg-hubDark border border-hubBorder focus:border-accentBlue focus:outline-none text-white" placeholder="Краткое описание..."></textarea>
+                </div>
+                <button type="submit" class="w-full py-3 rounded-xl bg-accentBlue hover:bg-blue-600 text-white font-unbounded font-bold uppercase tracking-wider transition-all shadow-lg">Отправить заявку</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Десант на заказ / Добавить бойца -->
+    <div id="mercModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
+        <div class="glass-card border border-hubBorder w-full max-w-lg rounded-2xl p-6 relative shadow-2xl">
+            <button onclick="closeModal('mercModal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="font-unbounded font-extrabold text-lg text-white mb-4 uppercase text-emerald-400">Подать заявку в десант</h3>
+            
+            <form id="mercForm" onsubmit="sendMercForm(event)" class="space-y-3 text-xs">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-gray-400 mb-1 font-semibold uppercase text-[10px]">Ваш Никнейм</label>
+                        <input type="text" id="mNick" required class="w-full px-3 py-2 rounded-xl bg-hubDark border border-hubBorder focus:border-emerald-500 focus:outline-none text-white" placeholder="Ник">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 mb-1 font-semibold uppercase text-[10px]">Общая мощь</label>
+                        <input type="text" id="mPower" required class="w-full px-3 py-2 rounded-xl bg-hubDark border border-hubBorder focus:border-emerald-500 focus:outline-none text-white" placeholder="Напр: 4.5q">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-gray-400 mb-1 font-semibold uppercase text-[10px]">Основной клан</label>
+                        <input type="text" id="mMainClan" required class="w-full px-3 py-2 rounded-xl bg-hubDark border border-hubBorder focus:border-emerald-500 focus:outline-none text-white" placeholder="Клан">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 mb-1 font-semibold uppercase text-[10px]">Уровень</label>
+                        <input type="number" id="mLevel" required class="w-full px-3 py-2 rounded-xl bg-hubDark border border-hubBorder focus:border-emerald-500 focus:outline-none text-white" placeholder="450">
+                    </div>
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                    <div><label class="block text-gray-400 mb-1 text-[9px] uppercase">Коробки</label><input type="text" id="mBoxes" class="w-full px-2 py-1.5 rounded-lg bg-hubDark border border-hubBorder text-white text-center" placeholder="1000"></div>
+                    <div><label class="block text-gray-400 mb-1 text-[9px] uppercase">Кости</label><input type="text" id="mBones" class="w-full px-2 py-1.5 rounded-lg bg-hubDark border border-hubBorder text-white text-center" placeholder="50K"></div>
+                    <div><label class="block text-gray-400 mb-1 text-[9px] uppercase">Короны</label><input type="text" id="mCrowns" class="w-full px-2 py-1.5 rounded-lg bg-hubDark border border-hubBorder text-white text-center" placeholder="200"></div>
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                    <div><label class="block text-gray-400 mb-1 text-[9px] uppercase">Кирки</label><input type="text" id="mPicks" class="w-full px-2 py-1.5 rounded-lg bg-hubDark border border-hubBorder text-white text-center" placeholder="3000"></div>
+                    <div><label class="block text-gray-400 mb-1 text-[9px] uppercase">Зол. кирки</label><input type="text" id="mGoldPicks" class="w-full px-2 py-1.5 rounded-lg bg-hubDark border border-hubBorder text-white text-center" placeholder="100"></div>
+                    <div><label class="block text-gray-400 mb-1 text-[9px] uppercase">Буры</label><input type="text" id="mDrills" class="w-full px-2 py-1.5 rounded-lg bg-hubDark border border-hubBorder text-white text-center" placeholder="25 шт."></div>
+                </div>
+                <button type="submit" class="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-black font-unbounded font-bold uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] mt-2">Отправить анкету</button>
+            </form>
+        </div>
+    </div>
+
+
+<script>
+    // 🔑 Укажите ваш уникальный URL от Formspree здесь:
+    const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mgakolvq';
+
+    function openModal(modalId) {
+        document.getElementById(modalId).classList.remove('hidden');
+    }
+    function closeModal(modalId) {
+        document.getElementById(modalId).classList.add('hidden');
+    }
+
+    // Универсальная отправка данных через Formspree
+    async function submitToFormspree(dataObject) {
+        if (FORMSPREE_ENDPOINT.includes('ВАШ_КОД_ФОРМЫ')) {
+            alert('Пожалуйста, укажите ваш URL от Formspree в коде!');
+            return false;
+        }
+
+        try {
+            const response = await fetch(FORMSPREE_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(dataObject)
+            });
+
+            const result = await response.json();
+            return response.ok;
+        } catch (error) {
+            console.error('Ошибка отправки:', error);
+            return false;
+        }
+    }
+
+    // 1. Обработка формы добавления клана
+    async function sendClanForm(event) {
+        event.preventDefault();
+        const btn = event.target.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        btn.innerText = 'Отправка...';
+
+        const data = {
+            'subject': '🏰 Новая заявка на добавление клана',
+            'Тип заявки': 'Новый клан',
+            'Название клана': document.getElementById('clanName').value,
+            'Лидер': document.getElementById('clanLeader').value,
+            'Язык': document.getElementById('clanLang').value,
+            'Мощь': document.getElementById('clanPower').value,
+            'Ссылка / Контакт': document.getElementById('clanLink').value,
+            'Описание': document.getElementById('clanDesc').value || 'Без описания'
+        };
+
+        const success = await submitToFormspree(data);
+        
+        btn.disabled = false;
+        btn.innerText = 'Отправить заявку';
+
+        if (success) {
+            alert('Заявка на добавление клана успешно отправлена!');
+            closeModal('clanModal');
+            document.getElementById('clanForm').reset();
+        } else {
+            alert('Ошибка при отправке. Попробуйте позже.');
+        }
+    }
+
+    // 2. Обработка формы подачи в десант
+    async function sendMercForm(event) {
+        event.preventDefault();
+        const btn = event.target.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        btn.innerText = 'Отправка...';
+
+        const data = {
+            'subject': '🛡 Новая анкета десантника',
+            'Тип заявки': 'Анкета десантника',
+            'Никнейм': document.getElementById('mNick').value,
+            'Мощь': document.getElementById('mPower').value,
+            'Основной клан': document.getElementById('mMainClan').value,
+            'Уровень': document.getElementById('mLevel').value,
+            'Коробки': document.getElementById('mBoxes').value || '0',
+            'Кости': document.getElementById('mBones').value || '0',
+            'Короны': document.getElementById('mCrowns').value || '0',
+            'Кирки': document.getElementById('mPicks').value || '0',
+            'Золотые кирки': document.getElementById('mGoldPicks').value || '0',
+            'Буры': document.getElementById('mDrills').value || '0'
+        };
+
+        const success = await submitToFormspree(data);
+
+        btn.disabled = false;
+        btn.innerText = 'Отправить анкету';
+
+        if (success) {
+            alert('Анкета десантника успешно отправлена!');
+            closeModal('mercModal');
+            document.getElementById('mercForm').reset();
+        } else {
+            alert('Ошибка при отправке. Попробуйте позже.');
+        }
+    }
+
+    // 3. Заказ конкретного десантника из карточки
+    async function orderMercenary(mercName) {
+        const clanName = prompt(`Укажите название вашего клана и контакт для заказа бойца ${mercName}:`);
+        if (!clanName || !clanName.trim()) return;
+
+        const data = {
+            'subject': `⚡ Заказ десанта: ${mercName}`,
+            'Тип заявки': 'Заказ десанта',
+            'Запрашиваемый боец': mercName,
+            'Клан и контакт заказчика': clanName.trim()
+        };
+
+        const success = await submitToFormspree(data);
+
+        if (success) {
+            alert(`Запрос на десант бойца ${mercName} отправлен!`);
+        } else {
+            alert('Не удалось отправить запрос. Попробуйте позже.');
+        }
+    }
+
+    // Фильтры и поиск
+    let currentTag = 'all';
+    function applyFilters() {
+        const query = document.getElementById('clanSearch').value.toLowerCase().trim();
+        const cards = document.querySelectorAll('.clan-card');
+        let visibleCount = 0;
+        cards.forEach(card => {
+            const searchData = card.getAttribute('data-name') || '';
+            const tags = card.getAttribute('data-tags') || '';
+            if (searchData.includes(query) && (currentTag === 'all' || tags.includes(currentTag))) {
+                card.style.display = 'block';
+                visibleCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        document.getElementById('noResults').classList.toggle('hidden', visibleCount > 0);
+    }
+
+    function setTagFilter(tag) {
+        currentTag = tag;
+        document.querySelectorAll('.tag-btn').forEach(btn => {
+            btn.classList.remove('bg-accentBlue', 'text-white');
+            btn.classList.add('glass-card', 'text-gray-300');
+        });
+        const activeBtn = document.getElementById(`tag-${tag}`);
+        if (activeBtn) {
+            activeBtn.classList.remove('glass-card', 'text-gray-300');
+            activeBtn.classList.add('bg-accentBlue', 'text-white');
+        }
+        applyFilters();
+    }
+
+    function filterMercenaries() {
+        const query = document.getElementById('mercenarySearch').value.toLowerCase().trim();
+        const cards = document.querySelectorAll('.merc-card');
+        let visibleCount = 0;
+        cards.forEach(card => {
+            const name = card.getAttribute('data-merc') || '';
+            if (name.includes(query)) {
+                card.style.display = 'block';
+                visibleCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        document.getElementById('noMercResults').classList.toggle('hidden', visibleCount > 0);
+    }
+</script>
+</body>
+</html>
