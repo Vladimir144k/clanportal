@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="pageTitle">Varyagi | Dungeon Rush Clan</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Unbounded -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        hubDark: '#090A0F',
+                        hubSurface: '#11131A',
+                        hubCard: '#171A24',
+                        hubBorder: '#262B3A',
+                        accentBlue: '#3B82F6',
+                        accentPurple: '#8B5CF6',
+                        eliteGold: '#E5C158',
+                        vipSilver: '#94A3B8',
+                    },
+                    fontFamily: {
+                        unbounded: ['Unbounded', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #090A0F;
+            color: #F8FAFC;
+            overflow-x: hidden;
+        }
+
+        .bg-portal {
+            background-image: 
+                radial-gradient(circle at 20% 15%, rgba(59, 130, 246, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.10) 0%, transparent 45%),
+                linear-gradient(to bottom, #090A0F, #06070A);
+        }
+
+        .grid-bg {
+            background-size: 44px 44px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        }
+
+        .glass-card {
+            background: rgba(23, 26, 36, 0.75);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Обводки для донатеров */
+        .elite-border {
+            border: 2px solid #E5C158 !important;
+            box-shadow: 0 0 15px rgba(229, 193, 88, 0.25);
+        }
+
+        .vip-border {
+            border: 2px solid #94A3B8 !important;
+            box-shadow: 0 0 15px rgba(148, 163, 184, 0.25);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #090A0F; }
+        ::-webkit-scrollbar-thumb { background: #262B3A; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3B82F6; }
+    </style>
+</head>
+<body class="relative min-h-screen antialiased bg-portal selection:bg-accentBlue selection:text-white">
+
+    <div class="fixed inset-0 pointer-events-none z-0 grid-bg opacity-60"></div>
+
+    <!-- NAVBAR -->
+    <nav class="sticky top-0 z-50 backdrop-blur-xl bg-hubDark/85 border-b border-hubBorder">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="inline-flex items-center space-x-2.5 text-gray-300 hover:text-white transition-colors font-unbounded text-xs font-bold">
+                    <i class="fa-solid fa-arrow-left text-accentBlue"></i>
+                    <span data-i18n="navBack">НАЗАД В ПОРТАЛ</span>
+                </a>
+
+                <div class="flex items-center space-x-3">
+                    <!-- Кнопка переключения языка -->
+                    <button onclick="toggleLanguage()" id="langBtn" class="px-3 py-1.5 rounded-lg bg-hubCard border border-hubBorder text-amber-400 hover:border-amber-400/50 transition-all font-unbounded text-xs">
+                        <i class="fa-solid fa-globe mr-1"></i> <span id="langText">RU</span>
+                    </button>
+                    <span class="px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-unbounded font-bold text-[10px] uppercase" data-i18n="navStatus">ПОДТВЕРЖДЕНИЕ</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="relative z-10 py-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+
+        <!-- 1. HEADER CARD -->
+        <section class="glass-card rounded-2xl border border-hubBorder overflow-hidden shadow-xl">
+            <div class="relative h-44 sm:h-52 bg-black overflow-hidden border-b border-hubBorder">
+                <img src="assets/images/varyagi.jpg" alt="Varyagi" class="w-full h-full object-cover opacity-85" onerror="this.onerror=null; this.src='https://placehold.co/1000x300/171A24/3B82F6?text=VARYAGI+CLAN'"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-hubCard via-hubCard/40 to-transparent"></div>
+                
+                <div class="absolute top-4 left-4 flex gap-2">
+                    <span class="px-2.5 py-1 rounded-md bg-accentBlue text-white font-unbounded font-black text-[10px] uppercase shadow">TOP-13</span>
+                    <span class="px-2.5 py-1 rounded-md bg-black/75 backdrop-blur-md text-gray-200 border border-white/10 font-unbounded font-bold text-[10px] uppercase">TIER S</span>
+                </div>
+            </div>
+
+            <div class="p-6 sm:p-8 -mt-12 relative">
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                    <div class="flex items-end space-x-4">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-accentBlue to-accentPurple p-0.5 shadow-lg shrink-0">
+                            <div class="w-full h-full bg-hubDark rounded-[14px] flex items-center justify-center">
+                                <i class="fa-solid fa-crown text-2xl sm:text-3xl text-amber-400"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h1 class="font-unbounded font-black text-2xl sm:text-3xl text-white tracking-tight uppercase">Varyagi</h1>
+                            <p class="text-xs sm:text-sm text-gray-400 mt-1" data-i18n="clanDesc">Элитный клан сервера Dungeon Rush. Мощный состав, строгая дисциплина и высокие позиции в рейтинге.</p>
+                        </div>
+                    </div>
+
+                    <a href="https://t.me/VaryagTro" target="_blank" class="px-5 py-2.5 rounded-xl bg-accentBlue hover:bg-blue-600 text-white font-unbounded font-bold text-xs uppercase tracking-wider transition-all text-center shrink-0 shadow-lg shadow-blue-500/20">
+                        <i class="fa-brands fa-telegram mr-1.5"></i><span data-i18n="btnContact">Связаться / Вступить</span>
+                    </a>
+                </div>
+
+                <!-- Metrics -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-hubBorder/80">
+                    <div class="bg-hubDark/60 p-3.5 rounded-xl border border-hubBorder text-center">
+                        <span class="block text-[10px] font-unbounded text-gray-500 uppercase" data-i18n="lblLeader">Лидер</span>
+                        <span class="font-bold text-sm text-white mt-1 block truncate">Varyag</span>
+                    </div>
+                    <div class="bg-hubDark/60 p-3.5 rounded-xl border border-hubBorder text-center">
+                        <span class="block text-[10px] font-unbounded text-gray-500 uppercase" data-i18n="lblMembers">Состав</span>
+                        <span class="font-bold text-sm text-emerald-400 mt-1 block">46 / 50</span>
+                    </div>
+                    <div class="bg-hubDark/60 p-3.5 rounded-xl border border-hubBorder text-center">
+                        <span class="block text-[10px] font-unbounded text-gray-500 uppercase" data-i18n="lblPower">Пик мощи</span>
+                        <span class="font-bold text-sm text-amber-400 mt-1 block">142.41q</span>
+                    </div>
+                    <div class="bg-hubDark/60 p-3.5 rounded-xl border border-hubBorder text-center">
+                        <span class="block text-[10px] font-unbounded text-gray-500 uppercase" data-i18n="lblLang">Язык / Тип</span>
+                        <span class="font-bold text-sm text-gray-200 mt-1 block" data-i18n="lblALL">ALL</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. ROSTER TABLE / LIST -->
+        <section class="glass-card rounded-2xl border border-hubBorder p-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+                <div>
+                    <h2 class="font-unbounded font-bold text-base text-white uppercase" data-i18n="rosterTitle">Состав клана (46 / 50)</h2>
+                    <p class="text-xs text-gray-400 mt-0.5" data-i18n="rosterSubtitle">Список бойцов клана Varyagi</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-2 text-[10px] font-unbounded text-gray-400">
+                        <span class="flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-eliteGold inline-block mr-1"></span> Elite</span>
+                        <span class="flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-vipSilver inline-block mr-1"></span> Vip</span>
+                    </div>
+                    <input type="text" id="memberSearch" onkeyup="filterMembers()" data-i18n-placeholder="searchPlaceholder" placeholder="Поиск по нику..." class="px-3.5 py-2 rounded-xl bg-hubDark border border-hubBorder focus:border-accentBlue focus:outline-none text-white placeholder-gray-500 text-xs w-full sm:w-56">
+                </div>
+            </div>
+
+            <!-- Список участников с поддержкой обводок Elite / Vip -->
+            <div id="membersList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                
+                <!-- Varyag -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between elite-border" data-nick="varyag">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center font-unbounded font-bold text-xs text-amber-400">V</div>
+                        <div>
+                            <span class="font-unbounded font-bold text-xs text-white block flex items-center">Varyag <i class="fa-solid fa-crown text-[10px] text-amber-400 ml-1.5" title="EliteMembership"></i></span>
+                            <span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 6.19q</span>
+                        </div>
+                    </div>
+                    <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 font-unbounded text-[9px] font-bold" data-i18n="cardLeader">Leader</span>
+                </div>
+
+                <!-- Pulsar -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="pulsar">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-lg bg-blue-500/20 border border-blue-500/40 flex items-center justify-center font-unbounded font-bold text-xs text-blue-400">P</div>
+                        <div>
+                            <span class="font-unbounded font-bold text-xs text-white block">Pulsar</span>
+                            <span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 2.28q</span>
+                        </div>
+                    </div>
+                    <span class="px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/30 font-unbounded text-[9px] font-bold" data-i18n="cardCaptain">Captain</span>
+                </div>
+
+                <!-- Tcan -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="tcan">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-lg bg-blue-500/20 border border-blue-500/40 flex items-center justify-center font-unbounded font-bold text-xs text-blue-400">T</div>
+                        <div>
+                            <span class="font-unbounded font-bold text-xs text-white block">Tcan</span>
+                            <span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 5.01q</span>
+                        </div>
+                    </div>
+                    <span class="px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/30 font-unbounded text-[9px] font-bold" data-i18n="cardCaptain">Captain</span>
+                </div>
+
+                <!-- Jarvis (EliteMembership) -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between elite-border" data-nick="jarvis">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">J</div>
+                        <div>
+                            <span class="font-unbounded font-bold text-xs text-white block">Jarvis</span>
+                            <span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 3.87q</span>
+                        </div>
+                    </div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+
+                <!-- Kalanhar (VipMembership) -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between vip-border" data-nick="kalanhar">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">K</div>
+                        <div>
+                            <span class="font-unbounded font-bold text-xs text-white block">Kalanhar</span>
+                            <span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 1.41q</span>
+                        </div>
+                    </div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+
+                <!-- Остальные участники -->
+                <!-- LittlePrincess -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="littleprincess">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">L</div><div><span class="font-unbounded font-bold text-xs text-white block">LittlePrincess</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 9.81q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- LCS9 -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="lcs9">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">L</div><div><span class="font-unbounded font-bold text-xs text-white block">LCS9</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 8.20q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- Pipiwiwi -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="pipiwiwi">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">P</div><div><span class="font-unbounded font-bold text-xs text-white block">Pipiwiwi</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 8.70q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- OG -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="og">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">O</div><div><span class="font-unbounded font-bold text-xs text-white block">OG</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 6.75q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- Hshsvs -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="hshsvs">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">H</div><div><span class="font-unbounded font-bold text-xs text-white block">Hshsvs</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 6.28q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- drakkonyxx -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="drakkonyxx">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">D</div><div><span class="font-unbounded font-bold text-xs text-white block">drakkonyxx</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 5.21q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- Levius -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="levius">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">L</div><div><span class="font-unbounded font-bold text-xs text-white block">Levius</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 4.65q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- cringe -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="cringe">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">C</div><div><span class="font-unbounded font-bold text-xs text-white block">cringe</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 4.56q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- Dogma -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="dogma">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">D</div><div><span class="font-unbounded font-bold text-xs text-white block">Dogma</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 4.54q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- Kot -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="kot">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">K</div><div><span class="font-unbounded font-bold text-xs text-white block">Kot</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 4.50q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- IvanKOT2023 -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="ivankot2023">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">I</div><div><span class="font-unbounded font-bold text-xs text-white block">IvanKOT2023</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 4.04q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- DRAGON GOG -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="dragon gog">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">D</div><div><span class="font-unbounded font-bold text-xs text-white block">DRAGON GOG</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 4.00q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- KoSMoS -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="kosmos">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">K</div><div><span class="font-unbounded font-bold text-xs text-white block">KoSMoS</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 4.37q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- kachan -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="kachan">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">K</div><div><span class="font-unbounded font-bold text-xs text-white block">kachan</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 3.62q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- Seeker -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="seeker">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">S</div><div><span class="font-unbounded font-bold text-xs text-white block">Seeker</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 3.39q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold"data-i18n="cardMember" >Member</span>
+                </div>
+                <!-- 4uk4aa -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="4uk4aa">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">4</div><div><span class="font-unbounded font-bold text-xs text-white block">4uk4aa</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 3.34q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold"data-i18n="cardMember" >Member</span>
+                </div>
+                <!-- Ebanushka -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="ebanushka">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">E</div><div><span class="font-unbounded font-bold text-xs text-white block">Ebanushka</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 3.15q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold"data-i18n="cardMember" >Member</span>
+                </div>
+                <!-- ololoshka -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="ololoshka">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">O</div><div><span class="font-unbounded font-bold text-xs text-white block">ololoshka</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 2.92q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold"data-i18n="cardMember" >Member</span>
+                </div>
+                <!-- Armius -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="armius">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">A</div><div><span class="font-unbounded font-bold text-xs text-white block">Armius</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 2.86q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold"data-i18n="cardMember" >Member</span>
+                </div>
+                <!-- HEKPO3 -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="hekpo3">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">H</div><div><span class="font-unbounded font-bold text-xs text-white block">HEKPO3</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 2.75q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold"data-i18n="cardMember" >Member</span>
+                </div>
+                <!-- DobryaK -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="dobryak">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">D</div><div><span class="font-unbounded font-bold text-xs text-white block">DobryaK</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 2.71q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- Xarismo -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="xarismo">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">X</div><div><span class="font-unbounded font-bold text-xs text-white block">Xarismo</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 2.71q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- Katiman -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="katiman">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">K</div><div><span class="font-unbounded font-bold text-xs text-white block">Katiman</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 2.67q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- Hardbas -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="hardbas">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">H</div><div><span class="font-unbounded font-bold text-xs text-white block">Hardbas</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 2.19q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- SirBejz -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="sirbejz">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">S</div><div><span class="font-unbounded font-bold text-xs text-white block">SirBejz</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 2.10q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- DeSnow -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="desnow">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">D</div><div><span class="font-unbounded font-bold text-xs text-white block">DeSnow</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 2.09q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- ahl -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="ahl">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">A</div><div><span class="font-unbounded font-bold text-xs text-white block">ahl</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 1.77q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- Frizen -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="frizen">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">F</div><div><span class="font-unbounded font-bold text-xs text-white block">Frizen</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 1.76q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- Mrsilence -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="mrsilence">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">M</div><div><span class="font-unbounded font-bold text-xs text-white block">Mrsilence</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 1.68q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- Asil Kurt -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="asil kurt">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">A</div><div><span class="font-unbounded font-bold text-xs text-white block">Asil Kurt</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 1.44q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- Johny -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="johny">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">J</div><div><span class="font-unbounded font-bold text-xs text-white block">Johny</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 1.23q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- TPAXEP -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="tpaxep">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">T</div><div><span class="font-unbounded font-bold text-xs text-white block">TPAXEP</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 1.21q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- 86Vladilena -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="86vladilena">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">8</div><div><span class="font-unbounded font-bold text-xs text-white block">86Vladilena</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 1.24q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- EdLizHit -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="edlizhit">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">E</div><div><span class="font-unbounded font-bold text-xs text-white block">EdLizHit</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 1.07q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- jujun -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="jujun">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">J</div><div><span class="font-unbounded font-bold text-xs text-white block">jujun</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 1.07q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- metamorph -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="metamorph">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">M</div><div><span class="font-unbounded font-bold text-xs text-white block">metamorph</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 1.06q</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- MartynCooper -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="martyncooper">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">M</div><div><span class="font-unbounded font-bold text-xs text-white block">MartynCooper</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 309.23T</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- Alex -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="alex">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">A</div><div><span class="font-unbounded font-bold text-xs text-white block">Alex</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 454.71T</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- arstv -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="arstv">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">A</div><div><span class="font-unbounded font-bold text-xs text-white block">arstv</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 709.43T</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- KpblCa -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="kpblca">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">K</div><div><span class="font-unbounded font-bold text-xs text-white block">KpblCa</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 844.89T</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- s1nebol -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="s1nebol">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">S</div><div><span class="font-unbounded font-bold text-xs text-white block">s1nebol</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 110.23T</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+                <!-- Sweetyboy -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="sweetyboy">
+                    <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-hubCard border border-hubBorder flex items-center justify-center font-unbounded font-bold text-xs text-white">S</div><div><span class="font-unbounded font-bold text-xs text-white block">Sweetyboy</span><span class="text-[11px] text-gray-400"><span data-i18n="cardPower">Мощь</span>: 647.62T</span></div></div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold" data-i18n="cardMember">Member</span>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="relative z-10 bg-hubDark border-t border-hubBorder py-6 text-gray-400 mt-12">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <span class="font-unbounded font-bold text-white text-xs">DUNGEON RUSH</span>
+            <span class="font-unbounded font-bold text-white text-xs">VARYAGI CLAN</span>
+        </div>
+    </footer>
+
+    <script>
+        // Словарь переводов RU / EN
+        const translations = {
+            ru: {
+                pageTitle: "Varyagi | Dungeon Rush Клан",
+                navBack: "НАЗАД В ПОРТАЛ",
+                navStatus: "ПОДТВЕРЖДЕНИЕ",
+                clanDesc: "Элитный клан сервера Dungeon Rush. Мощный состав, строгая дисциплина и высокие позиции в рейтинге.",
+                btnContact: "Связаться / Вступить",
+                lblLeader: "Лидер",
+                lblMembers: "Состав",
+                lblPower: "Пик мощи",
+                lblLang: "Язык",
+                rosterTitle: "Состав клана (46 / 50)",
+                rosterSubtitle: "Список бойцов клана Varyagi",
+                searchPlaceholder: "Поиск по нику...",
+                cardMember: "Боец",
+                cardCaptain: "Капитан",
+                cardLeader: "Лидер",
+                cardPower: "Мощь",
+                lblALL: "Все",
+            },
+            en: {
+                pageTitle: "Varyagi | Dungeon Rush Clan",
+                navBack: "BACK TO PORTAL",
+                navStatus: "APPROVAL ONLY",
+                clanDesc: "Elite Dungeon Rush server clan. Strong roster, strict discipline and high ranking positions.",
+                btnContact: "Contact / Join",
+                lblLeader: "Leader",
+                lblMembers: "Members",
+                lblPower: "Peak Power",
+                lblLang: "Lang",
+                rosterTitle: "Clan Roster (46 / 50)",
+                rosterSubtitle: "List of Varyagi clan fighters",
+                searchPlaceholder: "Search nickname...",
+                cardMember: "Member",
+                cardCaptain: "Captain",
+                cardLeader: "Leader",
+                cardPower: "Power",
+                lblALL: "All",
+            }
+        };
+
+        let currentLang = localStorage.getItem('dr_lang') || 'ru';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('dr_lang', lang);
+            document.getElementById('langText').innerText = lang.toUpperCase();
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.innerText = translations[lang][key];
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[lang][key]) {
+                    el.placeholder = translations[lang][key];
+                }
+            });
+        }
+
+        function toggleLanguage() {
+            setLanguage(currentLang === 'ru' ? 'en' : 'ru');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguage(currentLang);
+        });
+
+        function filterMembers() {
+            const query = document.getElementById('memberSearch').value.toLowerCase().trim();
+            document.querySelectorAll('.member-item').forEach(item => {
+                const nick = item.getAttribute('data-nick') || '';
+                item.style.display = nick.includes(query) ? 'flex' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
