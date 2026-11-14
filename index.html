@@ -27,6 +27,8 @@
                         nukeGreen: '#00FF66',
                         mafiaCrimson: '#E61C24',
                         mafiaGold: '#E5C158',
+                        belarusRed: '#D22730',
+                        belarusGreen: '#009739',
                         mercenaryColor: '#10B981',
                     },
                     fontFamily: {
@@ -118,7 +120,7 @@
                 <div class="grid grid-cols-2 gap-3 w-full sm:w-auto">
                     <div class="glass-card py-2.5 px-4 rounded-xl text-center">
                         <span class="block text-[9px] font-unbounded text-gray-400 uppercase">Кланов</span>
-                        <span class="font-unbounded font-extrabold text-base text-white mt-0.5 block">2</span>
+                        <span class="font-unbounded font-extrabold text-base text-white mt-0.5 block">3</span>
                     </div>
                     <div class="glass-card py-2.5 px-4 rounded-xl text-center">
                         <span class="block text-[9px] font-unbounded text-gray-400 uppercase">Десантников</span>
@@ -156,7 +158,7 @@
                     <button onclick="setTagFilter('all')" id="tag-all" class="tag-btn px-3.5 py-1.5 rounded-lg bg-accentBlue text-white transition-all">ВСЕ</button>
                     <button onclick="setTagFilter('top')" id="tag-top" class="tag-btn px-3.5 py-1.5 rounded-lg glass-card text-gray-300 hover:text-white transition-all">ТОП СЕРВЕРА</button>
                     <button onclick="setTagFilter('recruiting')" id="tag-recruiting" class="tag-btn px-3.5 py-1.5 rounded-lg glass-card text-gray-300 hover:text-white transition-all">ЕСТЬ МЕСТА</button>
-                    <button onclick="setTagFilter('lang-ru')" id="tag-lang-ru" class="tag-btn px-3.5 py-1.5 rounded-lg glass-card text-gray-300 hover:text-white transition-all">🇷🇺 RU ЯЗЫК</button>
+                    <button onclick="setTagFilter('lang-ru')" id="tag-lang-ru" class="tag-btn px-3.5 py-1.5 rounded-lg glass-card text-gray-300 hover:text-white transition-all">RU ЯЗЫК</button>
                 </div>
             </div>
 
@@ -173,7 +175,7 @@
                             <span class="px-2 py-0.5 rounded bg-black/75 backdrop-blur-md text-emerald-400 border border-emerald-500/30 font-unbounded font-bold text-[10px] uppercase">49 / 50</span>
                         </div>
                         <div class="absolute top-3 right-3">
-                            <span class="px-2 py-1 rounded-md bg-black/80 backdrop-blur border border-white/10 text-xs shadow">🇷🇺 RU</span>
+                            <span class="px-2 py-1 rounded-md bg-black/80 backdrop-blur border border-white/10 text-xs shadow">RU</span>
                         </div>
                         <div class="absolute bottom-3 left-4 w-10 h-10 rounded-xl bg-gradient-to-br from-mafiaCrimson to-red-900 border-2 border-mafiaGold flex items-center justify-center shadow-lg">
                             <i class="fa-solid fa-crown text-mafiaGold text-sm"></i>
@@ -188,7 +190,7 @@
                         <div class="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-hubBorder/80 text-center">
                             <div><span class="block text-[9px] text-gray-500 uppercase">Лидер</span><span class="text-xs font-bold text-gray-200 truncate block">Alaphest</span></div>
                             <div class="border-x border-hubBorder/80"><span class="block text-[9px] text-gray-500 uppercase">Винрейт</span><span class="text-xs font-bold text-emerald-400">100%</span></div>
-                            <div><span class="block text-[9px] text-gray-500 uppercase">Пик мощи</span><span class="text-xs font-bold text-mafiaGold">8.40q</span></div>
+                            <div><span class="block text-[9px] text-gray-500 uppercase">Пик мощи</span><span class="text-xs font-bold text-mafiaGold">107.22q</span></div>
                         </div>
                         <div class="mt-4 w-full py-2 rounded-xl bg-mafiaCrimson/10 group-hover:bg-mafiaCrimson border border-mafiaCrimson/30 text-center font-unbounded font-bold text-[11px] text-mafiaCrimson group-hover:text-white transition-all uppercase">Открыть страницу</div>
                     </div>
@@ -200,11 +202,11 @@
                         <img src="assets/images/nukesquad.jpg" alt="NukeSquad" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90" onerror="this.onerror=null; this.src='https://placehold.co/600x300/121814/00FF66?text=NUKESQUAD'"/>
                         <div class="absolute inset-0 bg-gradient-to-t from-hubCard via-hubCard/20 to-transparent"></div>
                         <div class="absolute top-3 left-3 flex gap-2 items-center">
-                            <span class="px-2 py-0.5 rounded bg-nukeGreen text-black font-unbounded font-black text-[10px] uppercase shadow">TOP-68</span>
+                            <span class="px-2 py-0.5 rounded bg-nukeGreen text-black font-unbounded font-black text-[10px] uppercase shadow">TOP-64</span>
                             <span class="px-2 py-0.5 rounded bg-black/75 backdrop-blur-md text-emerald-400 border border-emerald-500/30 font-unbounded font-bold text-[10px] uppercase">18 / 50</span>
                         </div>
                         <div class="absolute top-3 right-3">
-                            <span class="px-2 py-1 rounded-md bg-black/80 backdrop-blur border border-white/10 text-xs shadow">🇷🇺 RU</span>
+                            <span class="px-2 py-1 rounded-md bg-black/80 backdrop-blur border border-white/10 text-xs shadow">RU</span>
                         </div>
                         <div class="absolute bottom-3 left-4 w-10 h-10 rounded-xl bg-black border-2 border-nukeGreen flex items-center justify-center shadow-lg">
                             <i class="fa-solid fa-radiation text-nukeGreen text-base"></i>
@@ -219,9 +221,40 @@
                         <div class="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-hubBorder/80 text-center">
                             <div><span class="block text-[9px] text-gray-500 uppercase">Лидер</span><span class="text-xs font-bold text-gray-200 truncate block">ToxicWaste</span></div>
                             <div class="border-x border-hubBorder/80"><span class="block text-[9px] text-gray-500 uppercase">Винрейт</span><span class="text-xs font-bold text-nukeGreen">100%</span></div>
-                            <div><span class="block text-[9px] text-gray-500 uppercase">Пик мощи</span><span class="text-xs font-bold text-nukeGreen">37.19q</span></div>
+                            <div><span class="block text-[9px] text-gray-500 uppercase">Пик мощи</span><span class="text-xs font-bold text-nukeGreen">39.26q</span></div>
                         </div>
                         <div class="mt-4 w-full py-2 rounded-xl bg-nukeGreen/10 group-hover:bg-nukeGreen border border-nukeGreen/30 text-center font-unbounded font-bold text-[11px] text-nukeGreen group-hover:text-black transition-all uppercase">Открыть страницу</div>
+                    </div>
+                </a>
+
+                <!-- CLAN 3: BELARUS1 -->
+                <a href="belarus1.html" data-name="belarus1 gatex kzxars" data-tags="recruiting lang-ru" class="clan-card group block rounded-2xl glass-card border border-hubBorder hover:border-belarusRed/80 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-15px_rgba(210,39,48,0.3)]">
+                    <div class="relative h-44 bg-black overflow-hidden border-b border-hubBorder">
+                        <img src="assets/images/belarus1.jpg" alt="Belarus1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90" onerror="this.onerror=null; this.src='https://placehold.co/600x300/11131A/D22730?text=BELARUS1'"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-hubCard via-hubCard/20 to-transparent"></div>
+                        <div class="absolute top-3 left-3 flex gap-2 items-center">
+                            <span class="px-2 py-0.5 rounded bg-belarusRed text-black font-unbounded font-black text-[10px] uppercase shadow">TOP-101+</span>
+                            <span class="px-2 py-0.5 rounded bg-black/75 backdrop-blur-md text-emerald-400 border border-emerald-500/30 font-unbounded font-bold text-[10px] uppercase">0 / 50</span>
+                        </div>
+                        <div class="absolute top-3 right-3">
+                            <span class="px-2 py-1 rounded-md bg-black/80 backdrop-blur border border-white/10 text-xs shadow">RU</span>
+                        </div>
+                        <div class="absolute bottom-3 left-4 w-10 h-10 rounded-xl bg-gradient-to-br from-belarusRed to-belarusGreen border-2 border-white/20 flex items-center justify-center shadow-lg">
+                            <i class="fa-solid fa-shield-halved text-white text-sm"></i>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-3">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-unbounded font-extrabold text-lg text-white group-hover:text-belarusRed transition-colors">Belarus1</h3>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-gray-500 text-xs group-hover:text-belarusRed transition-colors"></i>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1.5 line-clamp-2 leading-relaxed">Made in Belarus. Дружный русскоязычный клан, совместные рейды и активное участие в жизни сервера.</p>
+                        <div class="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-hubBorder/80 text-center">
+                            <div><span class="block text-[9px] text-gray-500 uppercase">Лидер</span><span class="text-xs font-bold text-gray-200 truncate block">gatesX</span></div>
+                            <div class="border-x border-hubBorder/80"><span class="block text-[9px] text-gray-500 uppercase">Винрейт</span><span class="text-xs font-bold text-emerald-400">100%</span></div>
+                            <div><span class="block text-[9px] text-gray-500 uppercase">Пик мощи</span><span class="text-xs font-bold text-belarusRed">13.86q</span></div>
+                        </div>
+                        <div class="mt-4 w-full py-2 rounded-xl bg-belarusRed/10 group-hover:bg-belarusRed border border-belarusRed/30 text-center font-unbounded font-bold text-[11px] text-belarusRed group-hover:text-white transition-all uppercase">Открыть страницу</div>
                     </div>
                 </a>
 
@@ -466,7 +499,7 @@
     }
 
     // Универсальная отправка данных через Formspree
-async function submitToFormspree(dataObject) {
+    async function submitToFormspree(dataObject) {
         if (FORMSPREE_ENDPOINT.includes('ВАШ_КОД_ФОРМЫ')) {
             alert('Пожалуйста, укажите ваш URL от Formspree в коде!');
             return false;
@@ -497,15 +530,14 @@ async function submitToFormspree(dataObject) {
             return false;
         }
     }
+
     // 1. Обработка формы добавления клана
-// 1. Обработка формы добавления клана
     async function sendClanForm(event) {
         event.preventDefault();
         const btn = event.target.querySelector('button[type="submit"]');
         btn.disabled = true;
         btn.innerText = 'Отправка...';
 
-        // Собираем объект данных так же, как в десанте, который у вас работает
         const data = {
             '_subject': '🏰 Новая заявка на добавление клана!',
             'Тип заявки': 'Новый клан',
