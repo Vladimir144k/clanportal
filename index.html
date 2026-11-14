@@ -498,20 +498,22 @@ async function submitToFormspree(dataObject) {
         }
     }
     // 1. Обработка формы добавления клана
+// 1. Обработка формы добавления клана
     async function sendClanForm(event) {
         event.preventDefault();
         const btn = event.target.querySelector('button[type="submit"]');
         btn.disabled = true;
         btn.innerText = 'Отправка...';
 
+        // Собираем объект данных так же, как в десанте, который у вас работает
         const data = {
-            'subject': '🏰 Новая заявка на добавление клана',
+            '_subject': '🏰 Новая заявка на добавление клана!',
             'Тип заявки': 'Новый клан',
             'Название клана': document.getElementById('clanName').value,
             'Лидер': document.getElementById('clanLeader').value,
             'Язык': document.getElementById('clanLang').value,
             'Мощь': document.getElementById('clanPower').value,
-            'Ссылка / Контакт': document.getElementById('clanLink').value,
+            'Контакт': document.getElementById('clanLink').value,
             'Описание': document.getElementById('clanDesc').value || 'Без описания'
         };
 
