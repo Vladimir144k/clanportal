@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belarus1 | Dungeon Rush Clan</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Unbounded -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        hubDark: '#090A0F',
+                        hubSurface: '#11131A',
+                        hubCard: '#171A24',
+                        hubBorder: '#262B3A',
+                        accentBlue: '#3B82F6',
+                        accentPurple: '#8B5CF6',
+                        belarusRed: '#D22730',
+                        belarusGreen: '#009739',
+                    },
+                    fontFamily: {
+                        unbounded: ['Unbounded', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #090A0F;
+            color: #F8FAFC;
+            overflow-x: hidden;
+        }
+
+        .bg-portal {
+            background-image: 
+                radial-gradient(circle at 20% 15%, rgba(210, 39, 48, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 80% 80%, rgba(0, 151, 57, 0.10) 0%, transparent 45%),
+                linear-gradient(to bottom, #090A0F, #06070A);
+        }
+
+        .grid-bg {
+            background-size: 44px 44px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        }
+
+        .glass-card {
+            background: rgba(23, 26, 36, 0.75);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #090A0F; }
+        ::-webkit-scrollbar-thumb { background: #262B3A; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3B82F6; }
+    </style>
+</head>
+<body class="relative min-h-screen antialiased bg-portal selection:bg-belarusRed selection:text-white">
+
+    <div class="fixed inset-0 pointer-events-none z-0 grid-bg opacity-60"></div>
+
+    <!-- COMPACT NAVBAR -->
+    <nav class="sticky top-0 z-50 backdrop-blur-xl bg-hubDark/85 border-b border-hubBorder">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="inline-flex items-center space-x-2.5 text-gray-300 hover:text-white transition-colors font-unbounded text-xs font-bold">
+                    <i class="fa-solid fa-arrow-left text-accentBlue"></i>
+                    <span>НАЗАД В ПОРТАЛ</span>
+                </a>
+
+                <div class="flex items-center space-x-2">
+                    <span class="px-2.5 py-1 rounded-md bg-white/5 border border-hubBorder text-xs font-semibold">RU / BY</span>
+                    <span class="px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-unbounded font-bold text-[10px] uppercase">НАБОР ОТКРЫТ</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="relative z-10 py-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+
+        <!-- 1. COMPACT HEADER CARD -->
+        <section class="glass-card rounded-2xl border border-hubBorder overflow-hidden shadow-xl">
+            <!-- Banner -->
+            <div class="relative h-44 sm:h-52 bg-black overflow-hidden border-b border-hubBorder">
+                <img src="assets/images/belarus1.jpg" alt="Belarus1" class="w-full h-full object-cover opacity-85" onerror="this.onerror=null; this.src='https://placehold.co/1000x300/11131A/D22730?text=BELARUS1+CLAN'"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-hubCard via-hubCard/40 to-transparent"></div>
+                
+                <div class="absolute top-4 left-4 flex gap-2">
+                    <span class="px-2.5 py-1 rounded-md bg-belarusRed text-white font-unbounded font-black text-[10px] uppercase shadow">КЛАН</span>
+                    <span class="px-2.5 py-1 rounded-md bg-black/75 backdrop-blur-md text-gray-200 border border-white/10 font-unbounded font-bold text-[10px] uppercase">DUNGEON RUSH</span>
+                </div>
+            </div>
+
+            <!-- Info & Key Stats -->
+            <div class="p-6 sm:p-8 -mt-12 relative">
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                    <div class="flex items-end space-x-4">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-belarusRed to-belarusGreen p-0.5 shadow-lg shrink-0">
+                            <div class="w-full h-full bg-hubDark rounded-[14px] flex items-center justify-center">
+                                <i class="fa-solid fa-shield-halved text-2xl sm:text-3xl text-white"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h1 class="font-unbounded font-black text-2xl sm:text-3xl text-white tracking-tight uppercase">Belarus1</h1>
+                            <p class="text-xs sm:text-sm text-gray-400 mt-1">Дружный русскоязычный клан. Совместные рейды, помощь новичкам и стабильное участие в клановых войнах.</p>
+                        </div>
+                    </div>
+
+                    <a href="https://t.me/Kzxars" target="_blank" class="px-5 py-2.5 rounded-xl bg-accentBlue hover:bg-blue-600 text-white font-unbounded font-bold text-xs uppercase tracking-wider transition-all text-center shrink-0 shadow-lg shadow-blue-500/20">
+                        <i class="fa-brands fa-telegram mr-1.5"></i>Связаться / Вступить
+                    </a>
+                </div>
+
+                <!-- 4 Key Metrics -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-hubBorder/80">
+                    <div class="bg-hubDark/60 p-3.5 rounded-xl border border-hubBorder text-center">
+                        <span class="block text-[10px] font-unbounded text-gray-500 uppercase">Лидер</span>
+                        <span class="font-bold text-sm text-white mt-1 block truncate">gatesX</span>
+                    </div>
+                    <div class="bg-hubDark/60 p-3.5 rounded-xl border border-hubBorder text-center">
+                        <span class="block text-[10px] font-unbounded text-gray-500 uppercase">Состав</span>
+                        <span class="font-bold text-sm text-emerald-400 mt-1 block">Есть места</span>
+                    </div>
+                    <div class="bg-hubDark/60 p-3.5 rounded-xl border border-hubBorder text-center">
+                        <span class="block text-[10px] font-unbounded text-gray-500 uppercase">Пик мощи</span>
+                        <span class="font-bold text-sm text-amber-400 mt-1 block">13.86q</span>
+                    </div>
+                    <div class="bg-hubDark/60 p-3.5 rounded-xl border border-hubBorder text-center">
+                        <span class="block text-[10px] font-unbounded text-gray-500 uppercase">Основной Язык</span>
+                        <span class="font-bold text-sm text-gray-200 mt-1 block">Русский</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. COMPACT DETAILS: ABOUT & REQUIREMENTS -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="glass-card rounded-2xl border border-hubBorder p-6">
+                <h2 class="font-unbounded font-bold text-sm text-white uppercase mb-3 flex items-center">
+                    <i class="fa-solid fa-circle-info text-accentBlue mr-2"></i> О клане
+                </h2>
+                <p class="text-xs sm:text-sm text-gray-400 leading-relaxed">
+                    Клан <strong class="text-white">Belarus1</strong> объединяет активных игроков Dungeon Rush. Мы не требуем доната — главное регулярный онлайн, участие в клановых событиях и адекватное общение в чате.
+                </p>
+            </div>
+
+            <div class="glass-card rounded-2xl border border-hubBorder p-6">
+                <h2 class="font-unbounded font-bold text-sm text-white uppercase mb-3 flex items-center">
+                    <i class="fa-solid fa-list-check text-emerald-400 mr-2"></i> Требования и правила
+                </h2>
+                <ul class="text-xs sm:text-sm text-gray-400 space-y-2">
+                    <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2.5 text-xs"></i> Активность в Клановых Войнах и рейдах</li>
+                    <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2.5 text-xs"></i> Уважительное отношение к соклановцам</li>
+                    <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2.5 text-xs"></i> Предупреждать об отсутствии более 2 дней</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 3. COMPACT ROSTER TABLE / LIST -->
+        <section class="glass-card rounded-2xl border border-hubBorder p-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+                <div>
+                    <h2 class="font-unbounded font-bold text-base text-white uppercase">Состав (TBA / 50)</h2>
+                    <p class="text-xs text-gray-400 mt-0.5">Ключевые бойцы клана Belarus1</p>
+                </div>
+                <input type="text" id="memberSearch" onkeyup="filterMembers()" placeholder="Поиск по нику..." class="px-3.5 py-2 rounded-xl bg-hubDark border border-hubBorder focus:border-accentBlue focus:outline-none text-white placeholder-gray-500 text-xs w-full sm:w-56">
+            </div>
+
+            <div id="membersList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                <!-- Member 1 -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="bel1 gatesx">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-lg bg-belarusRed/20 border border-belarusRed/40 flex items-center justify-center font-unbounded font-bold text-xs text-belarusRed">D</div>
+                        <div>
+                            <span class="font-unbounded font-bold text-xs text-white block">gatesX</span>
+                            <span class="text-[11px] text-gray-400">Мощь: 4.23q</span>
+                        </div>
+                    </div>
+                    <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-unbounded text-[9px] font-bold">Лидер</span>
+                </div>
+
+                <!-- Member 2 -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="bel1 chel">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-lg bg-belarusGreen/20 border border-belarusGreen/40 flex items-center justify-center font-unbounded font-bold text-xs text-emerald-400">B</div>
+                        <div>
+                            <span class="font-unbounded font-bold text-xs text-white block">Chel</span>
+                            <span class="text-[11px] text-gray-400">Боец</span>
+                        </div>
+                    </div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold">БОЕЦ</span>
+                </div>
+
+                <!-- Member 3 -->
+                <div class="member-item bg-hubDark/70 border border-hubBorder rounded-xl p-3.5 flex items-center justify-between" data-nick="bel1 dikci">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-lg bg-belarusGreen/20 border border-belarusGreen/40 flex items-center justify-center font-unbounded font-bold text-xs text-emerald-400">B</div>
+                        <div>
+                            <span class="font-unbounded font-bold text-xs text-white block">Dikci</span>
+                            <span class="text-[11px] text-gray-400">Боец</span>
+                        </div>
+                    </div>
+                    <span class="px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-hubBorder font-unbounded text-[9px] font-bold">БОЕЦ</span>
+                </div>
+
+                <!-- Placeholder for more members -->
+                <div class="bg-hubDark/40 border border-dashed border-hubBorder rounded-xl p-3.5 flex items-center justify-center text-center">
+                    <span class="text-xs text-gray-500">Список участников пополняется...</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- COMPACT FOOTER -->
+    <footer class="relative z-10 bg-hubDark border-t border-hubBorder py-6 text-gray-400 mt-12">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <span class="font-unbounded font-bold text-white text-xs">DUNGEON RUSH</span>
+            <span class="font-unbounded font-bold text-white text-xs">BELARUS1</span>
+        </div>
+    </footer>
+
+    <script>
+        function filterMembers() {
+            const query = document.getElementById('memberSearch').value.toLowerCase().trim();
+            document.querySelectorAll('.member-item').forEach(item => {
+                const nick = item.getAttribute('data-nick') || '';
+                item.style.display = nick.includes(query) ? 'flex' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
