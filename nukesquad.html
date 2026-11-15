@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NukeSquad Clan | Dungeon Rush</title>
+    <title>NukeSquad Clan | [АРХИВ УДАЛЁН — ПОРАЖЕНИЕ]</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome for Gaming Icons -->
@@ -18,21 +18,24 @@
             theme: {
                 extend: {
                     colors: {
-                        nukeGreen: '#00FF66',
-                        nukeGreenGlow: '#39FF14',
-                        nukeYellow: '#FFCC00',
-                        nukeDark: '#0B0F0C',
-                        nukeCard: '#121814',
-                        nukeBorder: '#1E2D22',
+                        // Выцветшие, ржавые и багрово-пепельные оттенки упадка
+                        nukeGreen: '#526356',        // Потухший серо-оливковый вместо неона
+                        nukeGreenGlow: '#3d4a40',
+                        nukeYellow: '#8a6b38',       // Ржавый янтарь вместо яркого жёлтого
+                        nukeCrimson: '#8c2323',      // Тёмно-багровый (поражение)
+                        nukeCrimsonBright: '#b91c1c',
+                        nukeDark: '#080808',
+                        nukeCard: '#0f0e0e',
+                        nukeBorder: '#242020',
                     },
                     fontFamily: {
                         orbitron: ['Orbitron', 'sans-serif'],
                         montserrat: ['Montserrat', 'sans-serif'],
                     },
                     boxShadow: {
-                        'neon-green': '0 0 20px rgba(0, 255, 102, 0.35), inset 0 0 10px rgba(0, 255, 102, 0.1)',
-                        'neon-yellow': '0 0 20px rgba(255, 204, 0, 0.35)',
-                        'glow-lg': '0 0 35px rgba(0, 255, 102, 0.5)',
+                        'neon-green': '0 0 12px rgba(82, 99, 86, 0.15), inset 0 0 15px rgba(0, 0, 0, 0.85)',
+                        'neon-yellow': '0 0 12px rgba(138, 107, 56, 0.15), inset 0 0 15px rgba(0, 0, 0, 0.85)',
+                        'crimson-dead': '0 0 25px rgba(140, 35, 35, 0.35), inset 0 0 20px rgba(0, 0, 0, 0.9)',
                     }
                 }
             }
@@ -41,75 +44,208 @@
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #070907;
-            color: #E2E8F0;
+            background-color: #050505;
+            color: #9ca3af;
             overflow-x: hidden;
         }
 
+        /* Выцветший постапокалиптический градиент с копотью и багровым отблеском поражения */
         .grunge-overlay {
             background-image: 
-                radial-gradient(circle at 50% 20%, rgba(0, 255, 102, 0.12) 0%, transparent 60%),
-                radial-gradient(circle at 80% 80%, rgba(255, 204, 0, 0.05) 0%, transparent 50%),
-                linear-gradient(to bottom, rgba(11, 15, 12, 0.85), rgba(7, 9, 7, 0.98));
+                radial-gradient(circle at 50% 15%, rgba(140, 35, 35, 0.14) 0%, transparent 60%),
+                radial-gradient(circle at 85% 85%, rgba(82, 99, 86, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 15% 60%, rgba(45, 25, 15, 0.25) 0%, transparent 55%),
+                linear-gradient(to bottom, rgba(10, 9, 9, 0.9), rgba(4, 4, 4, 0.99));
         }
 
+        /* Умирающий CRT-монитор: полосы развёртки и помехи */
         .scanlines {
             background: linear-gradient(
                 rgba(18, 16, 16, 0) 50%, 
-                rgba(0, 0, 0, 0.25) 50%
+                rgba(0, 0, 0, 0.55) 50%
             );
-            background-size: 100% 4px;
+            background-size: 100% 3px;
+            animation: scanlineShift 8s linear infinite;
         }
 
+        @keyframes scanlineShift {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+
+        /* Виньетка копоти и грязи по краям экрана */
+        .soot-vignette {
+            box-shadow: inset 0 0 140px rgba(0, 0, 0, 0.95), inset 0 0 50px rgba(35, 12, 10, 0.5);
+        }
+
+        /* Глобальное обесцвечивание и старение картинок */
+        .abandoned-media {
+            filter: grayscale(88%) sepia(28%) contrast(88%) brightness(62%);
+            transition: filter 0.4s ease;
+        }
+        .abandoned-media:hover {
+            filter: grayscale(65%) sepia(20%) contrast(95%) brightness(75%);
+        }
+
+        /* Мерцание перегорающей лампы / умирающего неона */
+        @keyframes dyingFlicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                opacity: 0.85;
+                text-shadow: 0 0 8px rgba(140, 35, 35, 0.5);
+            }
+            20%, 24%, 55% {
+                opacity: 0.15;
+                text-shadow: none;
+            }
+            22% {
+                opacity: 0.4;
+            }
+        }
+
+        .flicker-dead {
+            animation: dyingFlicker 5s infinite;
+        }
+
+        /* Помехи / глитч для экрана */
+        @keyframes screenGlitch {
+            0%, 92%, 100% { transform: translate(0, 0) skew(0deg); opacity: 1; }
+            93% { transform: translate(-3px, 1px) skew(-1deg); opacity: 0.85; }
+            94% { transform: translate(3px, -1px) skew(1.5deg); opacity: 0.9; }
+            95% { transform: translate(-1px, 0) skew(0deg); opacity: 0.7; }
+            96% { transform: translate(0, 0); opacity: 1; }
+        }
+
+        .crt-glitch {
+            animation: screenGlitch 9s infinite;
+        }
+
+        /* Штамп поражения / расформирования */
+        .defeat-stamp {
+            border: 4px double rgba(165, 36, 36, 0.75);
+            color: rgba(185, 45, 45, 0.85);
+            text-shadow: 0 0 15px rgba(140, 35, 35, 0.4);
+            box-shadow: inset 0 0 20px rgba(140, 35, 35, 0.25), 0 0 20px rgba(0, 0, 0, 0.8);
+            mask-image: repeating-linear-gradient(45deg, #000 0px, #000 8px, rgba(0,0,0,0.75) 9px, #000 11px);
+            -webkit-mask-image: repeating-linear-gradient(45deg, #000 0px, #000 8px, rgba(0,0,0,0.75) 9px, #000 11px);
+        }
+
+        /* Пятна ржавчины на карточках */
+        .rust-card {
+            background-image: 
+                radial-gradient(circle at 95% 5%, rgba(92, 38, 22, 0.18) 0%, transparent 45%),
+                radial-gradient(circle at 5% 95%, rgba(60, 48, 35, 0.2) 0%, transparent 50%);
+        }
+
+        /* Скроллбар в стиле старого терминала */
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #0B0F0C;
+            background: #070707;
         }
         ::-webkit-scrollbar-thumb {
-            background: #1E2D22;
+            background: #241d1d;
             border-radius: 4px;
-            border: 1px solid #00FF66;
+            border: 1px solid #4a2020;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #00FF66;
+            background: #6e2323;
         }
     </style>
 </head>
-<body class="relative min-h-screen antialiased selection:bg-nukeGreen selection:text-black">
+<body class="relative min-h-screen antialiased selection:bg-nukeCrimson selection:text-gray-200">
 
-    <!-- CRT Scanlines layer -->
-    <div class="fixed inset-0 pointer-events-none z-50 scanlines opacity-30"></div>
+    <!-- CANVAS: Падающий пепел и пыль в заброшенном помещении -->
+    <canvas id="ashCanvas" class="fixed inset-0 pointer-events-none z-40 opacity-75"></canvas>
+
+    <!-- СЛОЙ ЗАБРОШЕННОСТИ: Паутина в углах, трещины на стекле и копоть (поверх всей страницы) -->
+    <div class="fixed inset-0 pointer-events-none z-50 soot-vignette overflow-hidden">
+        <!-- CRT Scanlines -->
+        <div class="absolute inset-0 scanlines opacity-45"></div>
+
+        <!-- Паутина в левом верхнем углу -->
+        <svg class="absolute top-0 left-0 w-44 h-44 sm:w-64 sm:h-64 text-gray-400/25" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0 L200 20 M0 0 L185 75 M0 0 L150 130 M0 0 L100 175 M0 0 L35 198" stroke="currentColor" stroke-width="0.9"/>
+            <path d="M35 3 Q32 22 25 32 Q15 40 6 42" stroke="currentColor" stroke-width="0.7"/>
+            <path d="M70 7 Q64 42 50 62 Q32 78 12 84" stroke="currentColor" stroke-width="0.7"/>
+            <path d="M110 11 Q100 65 78 96 Q50 120 20 130" stroke="currentColor" stroke-width="0.7"/>
+            <path d="M150 15 Q138 88 108 130 Q70 162 28 175" stroke="currentColor" stroke-width="0.6"/>
+            <path d="M188 19 Q172 110 136 162 Q88 195 34 198" stroke="currentColor" stroke-width="0.5"/>
+        </svg>
+
+        <!-- Паутина в правом верхнем углу -->
+        <svg class="absolute top-0 right-0 w-48 h-48 sm:w-72 sm:h-72 text-gray-400/20" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M200 0 L0 25 M200 0 L20 85 M200 0 L55 145 M200 0 L110 185 M200 0 L170 200" stroke="currentColor" stroke-width="0.9"/>
+            <path d="M160 5 Q165 25 174 36 Q185 45 195 48" stroke="currentColor" stroke-width="0.7"/>
+            <path d="M120 10 Q128 48 145 70 Q166 88 188 94" stroke="currentColor" stroke-width="0.7"/>
+            <path d="M75 16 Q88 72 115 106 Q146 132 180 142" stroke="currentColor" stroke-width="0.6"/>
+            <path d="M30 22 Q48 96 85 142 Q126 176 172 190" stroke="currentColor" stroke-width="0.5"/>
+        </svg>
+
+        <!-- Паутина в левом нижнем углу -->
+        <svg class="absolute bottom-0 left-0 w-40 h-40 sm:w-56 sm:h-56 text-gray-400/20" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 200 L185 175 M0 200 L160 120 M0 200 L115 65 M0 200 L55 20" stroke="currentColor" stroke-width="0.8"/>
+            <path d="M40 194 Q36 172 24 156 Q12 144 4 140" stroke="currentColor" stroke-width="0.6"/>
+            <path d="M85 188 Q76 146 54 116 Q30 94 10 86" stroke="currentColor" stroke-width="0.6"/>
+            <path d="M135 181 Q120 120 86 76 Q50 44 18 32" stroke="currentColor" stroke-width="0.5"/>
+        </svg>
+
+        <!-- Трещина на стекле экрана (Справа по центру / сверху) -->
+        <svg class="absolute top-16 right-4 sm:right-16 w-64 h-64 sm:w-96 sm:h-96 text-white/15" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Точка удара -->
+            <circle cx="195" cy="95" r="3" fill="rgba(255,255,255,0.2)"/>
+            <!-- Главные лучи трещин -->
+            <path d="M195 95 L165 65 L140 60 L110 25 L85 10" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M195 95 L225 70 L260 65 L295 40" stroke="currentColor" stroke-width="1.1"/>
+            <path d="M195 95 L215 135 L205 175 L235 225 L230 275" stroke="currentColor" stroke-width="1.3"/>
+            <path d="M195 95 L155 115 L120 110 L75 145 L30 155" stroke="currentColor" stroke-width="1"/>
+            <path d="M195 95 L180 140 L150 185 L155 230" stroke="currentColor" stroke-width="0.8"/>
+            <!-- Паутина скола вокруг центра -->
+            <path d="M178 82 L208 82 L212 110 L182 112 Z" stroke="currentColor" stroke-width="0.7"/>
+            <path d="M162 68 L222 72 L218 132 L168 125 Z" stroke="currentColor" stroke-width="0.5"/>
+        </svg>
+    </div>
+
+    <!-- ТРЕВОЖНЫЙ ВЕРХНИЙ БАННЕР ЗАКРЫТИЯ КЛАНА -->
+    <div class="relative z-40 bg-gradient-to-r from-black via-red-950/80 to-black border-b border-red-900/60 py-2 px-4 text-center">
+        <p class="font-orbitron text-[11px] sm:text-xs font-bold tracking-[0.2em] text-red-400/90 uppercase flex items-center justify-center gap-2 flicker-dead">
+            <i class="fa-solid fa-triangle-exclamation text-red-500"></i>
+            <span>ВНИМАНИЕ: КЛАН NUKESQUAD УДАЛЯЕТСЯ • СТАТУС: ПОРАЖЕНИЕ И РАСПУСК</span>
+            <i class="fa-solid fa-skull text-red-500"></i>
+        </p>
+    </div>
 
     <!-- MAIN NAVBAR -->
     <nav class="sticky top-0 z-40 backdrop-blur-md bg-nukeDark/90 border-b border-nukeBorder">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 
-                <!-- Logo -->
-                <a href="index.html" class="flex items-center space-x-3 group">
-                    <div class="relative w-11 h-11 flex items-center justify-center bg-black/60 border-2 border-nukeGreen rounded-lg shadow-neon-green group-hover:scale-105 transition-transform">
-                        <i class="fa-solid font-bold text-nukeGreen text-2xl fa-radiation animate-spin-slow"></i>
+                <!-- Logo (Потухший, с треснувшим свечением) -->
+                <a href="index.html" class="flex items-center space-x-3 group opacity-80 hover:opacity-100 transition-opacity">
+                    <div class="relative w-11 h-11 flex items-center justify-center bg-black/80 border-2 border-nukeCrimson/60 rounded-lg shadow-crimson-dead -rotate-3">
+                        <i class="fa-solid font-bold text-nukeCrimson text-2xl fa-radiation"></i>
                     </div>
                     <div>
-                        <span class="font-orbitron text-2xl font-black tracking-wider text-white group-hover:text-nukeGreen transition-colors">
+                        <span class="font-orbitron text-2xl font-black tracking-wider text-gray-400 line-through decoration-red-700/80 decoration-2">
                             NUKE<span class="text-nukeYellow">SQUAD</span>
                         </span>
-                        <span class="block text-[10px] tracking-widest text-nukeGreen uppercase font-semibold">Dungeon Rush Clan</span>
+                        <span class="block text-[10px] tracking-widest text-red-500/80 uppercase font-semibold flicker-dead">
+                            [КЛАН УДАЛЁН • OFFLINE]
+                        </span>
                     </div>
                 </a>
 
                 <!-- Desktop Nav items -->
                 <div class="hidden md:flex items-center space-x-8 font-orbitron font-semibold text-sm tracking-wider">
-                    <a href="#about" class="text-gray-300 hover:text-nukeGreen transition-colors py-2 border-b-2 border-transparent hover:border-nukeGreen">О КЛАНЕ</a>
-                    <a href="#stats" class="text-gray-300 hover:text-nukeYellow transition-colors py-2 border-b-2 border-transparent hover:border-nukeYellow">СТАТИСТИКА</a>
-                    <a href="#players" class="text-gray-300 hover:text-nukeGreen transition-colors py-2 border-b-2 border-transparent hover:border-nukeGreen">ИГРОКИ</a>
+                    <a href="#about" class="text-gray-500 hover:text-gray-300 transition-colors py-2 border-b-2 border-transparent hover:border-nukeCrimson">О КЛАНЕ</a>
+                    <a href="#stats" class="text-gray-500 hover:text-gray-300 transition-colors py-2 border-b-2 border-transparent hover:border-nukeCrimson">СТАТИСТИКА</a>
+                    <a href="#players" class="text-gray-500 hover:text-gray-300 transition-colors py-2 border-b-2 border-transparent hover:border-nukeCrimson">ИГРОКИ</a>
+                    <a href="#gallery" class="text-gray-500 hover:text-gray-300 transition-colors py-2 border-b-2 border-transparent hover:border-nukeCrimson">ГАЛЕРЕЯ</a>
                 </div>
 
                 <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center">
-                    <button id="mobileMenuBtn" class="text-nukeGreen hover:text-white focus:outline-none p-2">
+                    <button id="mobileMenuBtn" class="text-gray-400 hover:text-red-400 focus:outline-none p-2">
                         <i class="fa-solid fa-bars text-2xl"></i>
                     </button>
                 </div>
@@ -118,57 +254,78 @@
 
         <!-- Mobile Dropdown Navigation -->
         <div id="mobileMenu" class="hidden md:hidden bg-nukeDark/95 border-b border-nukeBorder px-4 pt-2 pb-6 space-y-3 font-orbitron">
-            <a href="#about" class="mobile-nav-link block text-gray-200 hover:text-nukeGreen py-2">О КЛАНЕ</a>
-            <a href="#stats" class="mobile-nav-link block text-gray-200 hover:text-nukeYellow py-2">СТАТИСТИКА</a>
-            <a href="#players" class="mobile-nav-link block text-gray-200 hover:text-nukeGreen py-2">ИГРОКИ</a>
+            <a href="#about" class="mobile-nav-link block text-gray-400 hover:text-red-400 py-2">О КЛАНЕ</a>
+            <a href="#stats" class="mobile-nav-link block text-gray-400 hover:text-red-400 py-2">СТАТИСТИКА</a>
+            <a href="#players" class="mobile-nav-link block text-gray-400 hover:text-red-400 py-2">ИГРОКИ</a>
+            <a href="#gallery" class="mobile-nav-link block text-gray-400 hover:text-red-400 py-2">ГАЛЕРЕЯ</a>
         </div>
     </nav>
 
     <!-- HERO SECTION -->
-    <header class="relative z-10 pt-12 pb-24 lg:pt-20 lg:pb-32 overflow-hidden grunge-overlay border-b border-nukeBorder">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header class="relative z-10 pt-12 pb-24 lg:pt-20 lg:pb-32 overflow-hidden grunge-overlay border-b border-nukeBorder crt-glitch">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+
+            <!-- КРУПНЫЙ ШТАМП ПОРАЖЕНИЯ / РАСПУСКА НА ФОНЕ HERO -->
+            <div class="pointer-events-none select-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 -rotate-12 opacity-85">
+                <div class="defeat-stamp px-6 py-3 sm:px-10 sm:py-5 rounded-lg bg-black/65 backdrop-blur-[1px] text-center">
+                    <span class="font-orbitron font-black text-3xl sm:text-5xl lg:text-6xl tracking-[0.25em] uppercase block">
+                        ПОРАЖЕНИЕ
+                    </span>
+                    <span class="font-orbitron font-bold text-xs sm:text-sm tracking-[0.35em] text-red-400/80 uppercase mt-1 block">
+                        КЛАН РАСПУЩЕН И УДАЛЁН
+                    </span>
+                </div>
+            </div>
+
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 
                 <!-- Hero Text Left -->
                 <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                    <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-nukeGreen/10 border border-nukeGreen/30 text-nukeGreen font-orbitron text-xs font-bold tracking-widest uppercase">
-                        <span class="w-2 h-2 rounded-full bg-nukeGreen animate-ping"></span>
-                        <span>TOP-1 SERVER • DUNGEON RUSH</span>
+                    <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-red-950/40 border border-red-800/50 text-red-400 font-orbitron text-xs font-bold tracking-widest uppercase">
+                        <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
+                        <span>OFFLINE • СИГНАЛ ПОТЕРЯН • DUNGEON RUSH</span>
                     </div>
 
-                    <h1 class="font-orbitron font-black text-4xl sm:text-6xl lg:text-7xl tracking-tight leading-none text-white uppercase">
-                        ВСТУПАЙ <br> В РЯДЫ <br>
-                        <span class="text-nukeYellow drop-shadow-[0_5px_15px_rgba(255,204,0,0.4)]">NUKESQUAD</span>
+                    <h1 class="font-orbitron font-black text-4xl sm:text-6xl lg:text-7xl tracking-tight leading-none text-gray-400 uppercase relative">
+                        <span class="line-through decoration-red-800/90 decoration-4 opacity-60">ВСТУПАЙ</span> <br>
+                        <span class="line-through decoration-red-800/90 decoration-4 opacity-60">В РЯДЫ</span> <br>
+                        <span class="text-nukeYellow opacity-75">NUKESQUAD</span>
                     </h1>
 
-                    <p class="font-orbitron font-extrabold text-xl sm:text-2xl text-nukeGreen tracking-widest uppercase">
-                        ВМЕСТЕ МЫ СИЛЬНЕЕ!
+                    <p class="font-orbitron font-extrabold text-xl sm:text-2xl text-red-500/80 tracking-widest uppercase flicker-dead">
+                        МЫ ПАЛИ. ЭТО КОНЕЦ.
                     </p>
 
-                    <p class="text-gray-300 text-base sm:text-lg max-w-2xl leading-relaxed">
-                        Клан закаленных бойцов подземелий. Мы доминируем на арене Dungeon Rush, уничтожаем боссов и оставляем за собой лишь радиоактивный пепел.
+                    <p class="text-gray-500 text-base sm:text-lg max-w-2xl leading-relaxed">
+                        Когда-то мы доминировали на арене Dungeon Rush, но теперь от величия остался лишь холодный радиоактивный пепел. Клан удаляется, бойцы разошлись, а архив навсегда закрыт.
                     </p>
 
-                    <!-- Quick Navigation -->
+                    <!-- Quick Navigation (Потухшие кнопки) -->
                     <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                        <a href="#stats" class="w-full sm:w-auto px-8 py-4 font-orbitron font-black text-lg text-black uppercase tracking-wider bg-nukeYellow hover:bg-yellow-400 rounded-lg shadow-neon-yellow hover:scale-105 transition-all text-center">
-                            <i class="fa-solid fa-chart-line mr-2"></i>Статистика Войн
+                        <a href="#stats" class="w-full sm:w-auto px-8 py-4 font-orbitron font-black text-lg text-gray-300 uppercase tracking-wider bg-red-950/60 border border-red-800/70 hover:bg-red-900/50 rounded-lg shadow-crimson-dead transition-all text-center">
+                            <i class="fa-solid fa-skull-crossbones mr-2 text-red-500"></i>Хроника Поражения
                         </a>
-                        <a href="#players" class="w-full sm:w-auto px-8 py-4 font-orbitron font-bold text-lg text-nukeGreen uppercase tracking-wider bg-nukeCard border-2 border-nukeGreen hover:bg-nukeGreen/10 rounded-lg transition-all text-center">
-                            <i class="fa-solid fa-users mr-2"></i>Состав Клана
+                        <a href="#players" class="w-full sm:w-auto px-8 py-4 font-orbitron font-bold text-lg text-gray-400 uppercase tracking-wider bg-nukeCard border border-nukeBorder hover:border-gray-600 rounded-lg transition-all text-center">
+                            <i class="fa-solid fa-ghost mr-2"></i>Бывший Состав
                         </a>
                     </div>
                 </div>
 
-                <!-- Hero Graphic Right -->
+                <!-- Hero Graphic Right (Покосившаяся, обесцвеченная и треснутая рамка) -->
                 <div class="lg:col-span-5 relative flex justify-center">
-                    <div class="relative w-full max-w-md aspect-square rounded-2xl border-2 border-nukeGreen/40 bg-nukeCard p-3 shadow-neon-green overflow-hidden group">
+                    <div class="relative w-full max-w-md aspect-square rounded-2xl border-2 border-red-950/80 bg-nukeCard p-3 shadow-crimson-dead overflow-hidden rotate-2 rust-card">
                         <img 
                             src="images/nukesquad.jpg" 
                             alt="NukeSquad Main Banner" 
-                            class="w-full h-full object-cover rounded-xl border border-nukeBorder"
+                            class="w-full h-full object-cover rounded-xl border border-nukeBorder abandoned-media"
                             onerror="this.onerror=null; this.src='images/empty.jpg'"
                         />
+                        <!-- Наклейка поверх баннера -->
+                        <div class="absolute bottom-5 left-5 right-5 bg-black/85 border border-red-900/70 px-4 py-2 rounded text-center">
+                            <span class="font-orbitron text-xs font-bold tracking-widest text-red-500 uppercase">
+                                [АРХИВНАЯ ЗАПИСЬ • УДАЛЕНИЕ]
+                            </span>
+                        </div>
                     </div>
                 </div>
 
@@ -176,90 +333,91 @@
         </div>
     </header>
 
-    <!-- SECTION 1: ABOUT CLAN (О Клане) -->
-    <section id="about" class="py-20 relative z-10 border-b border-nukeBorder bg-nukeDark/50">
+    <!-- SECTION 1: ABOUT CLAN (О Клане — Заброшенные руины) -->
+    <section id="about" class="py-20 relative z-10 border-b border-nukeBorder bg-nukeDark/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <div class="inline-flex items-center space-x-2 text-nukeGreen font-orbitron text-sm font-bold tracking-widest uppercase mb-2">
-                    <i class="fa-solid fa-shield-halved"></i>
-                    <span>О Нашем Сообществе</span>
+                <div class="inline-flex items-center space-x-2 text-gray-500 font-orbitron text-sm font-bold tracking-widest uppercase mb-2">
+                    <i class="fa-solid fa-shield-halved text-red-800"></i>
+                    <span>Заброшенный Архив</span>
                 </div>
-                <h2 class="font-orbitron font-black text-3xl sm:text-5xl text-white uppercase tracking-tight">
-                    О КЛАНЕ <span class="text-nukeYellow">NUKESQUAD</span>
+                <h2 class="font-orbitron font-black text-3xl sm:text-5xl text-gray-400 uppercase tracking-tight">
+                    О КЛАНЕ <span class="text-nukeYellow line-through decoration-red-800">NUKESQUAD</span>
                 </h2>
-                <div class="w-24 h-1 bg-nukeGreen mx-auto mt-4 rounded-full shadow-neon-green"></div>
+                <div class="w-24 h-1 bg-red-900/70 mx-auto mt-4 rounded-full"></div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-nukeCard border border-nukeBorder p-8 rounded-xl shadow-lg hover:border-nukeGreen/60 transition-all group">
-                    <div class="w-14 h-14 rounded-lg bg-nukeGreen/10 border border-nukeGreen flex items-center justify-center text-nukeGreen text-2xl mb-6 group-hover:scale-110 transition-transform">
+                <div class="bg-nukeCard rust-card border border-nukeBorder p-8 rounded-xl shadow-lg -rotate-1 opacity-85">
+                    <div class="w-14 h-14 rounded-lg bg-black/80 border border-nukeBorder flex items-center justify-center text-gray-500 text-2xl mb-6">
                         <i class="fa-solid fa-fire-flame-curved"></i>
                     </div>
-                    <h3 class="font-orbitron font-bold text-xl text-white mb-3 uppercase">Наша Легенда</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        NukeSquad родился в самых темных глубинах подземелий Dungeon Rush. Мы объединили сильнейших игроков, готовых проходить любые рейды и крушить врагов в Войнах Кланов без пощады.
+                    <h3 class="font-orbitron font-bold text-xl text-gray-300 mb-3 uppercase">Забытая Легенда</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        NukeSquad родился в темных глубинах подземелий Dungeon Rush и там же нашёл свой конец. Стены цитадели пусты, а знамёна сожжены.
                     </p>
                 </div>
 
-                <div class="bg-nukeCard border border-nukeBorder p-8 rounded-xl shadow-lg hover:border-nukeYellow/60 transition-all group">
-                    <div class="w-14 h-14 rounded-lg bg-nukeYellow/10 border border-nukeYellow flex items-center justify-center text-nukeYellow text-2xl mb-6 group-hover:scale-110 transition-transform">
+                <div class="bg-nukeCard rust-card border border-nukeBorder p-8 rounded-xl shadow-lg rotate-1 opacity-85">
+                    <div class="w-14 h-14 rounded-lg bg-black/80 border border-nukeBorder flex items-center justify-center text-nukeYellow text-2xl mb-6">
                         <i class="fa-solid fa-list-check"></i>
                     </div>
-                    <h3 class="font-orbitron font-bold text-xl text-white mb-3 uppercase">Правила Войны</h3>
-                    <ul class="text-gray-400 text-sm space-y-2">
-                        <li class="flex items-center"><i class="fa-solid fa-check text-nukeGreen mr-2 text-xs"></i> Быть Ахуенным</li>
+                    <h3 class="font-orbitron font-bold text-xl text-gray-300 mb-3 uppercase">Правила Войны</h3>
+                    <ul class="text-gray-500 text-sm space-y-2">
+                        <li class="flex items-center line-through decoration-red-800/80"><i class="fa-solid fa-xmark text-red-800 mr-2 text-xs"></i> Быть Ахуенным</li>
+                        <li class="flex items-center text-red-500/80 text-xs font-orbitron mt-2"><i class="fa-solid fa-ban mr-2"></i> Устав аннулирован</li>
                     </ul>
                 </div>
 
-                <div class="bg-nukeCard border border-nukeBorder p-8 rounded-xl shadow-lg hover:border-nukeGreen/60 transition-all group">
-                    <div class="w-14 h-14 rounded-lg bg-nukeGreen/10 border border-nukeGreen flex items-center justify-center text-nukeGreen text-2xl mb-6 group-hover:scale-110 transition-transform">
+                <div class="bg-nukeCard rust-card border border-nukeBorder p-8 rounded-xl shadow-lg -rotate-1 opacity-85">
+                    <div class="w-14 h-14 rounded-lg bg-black/80 border border-red-950 flex items-center justify-center text-red-700 text-2xl mb-6">
                         <i class="fa-solid fa-trophy"></i>
                     </div>
-                    <h3 class="font-orbitron font-bold text-xl text-white mb-3 uppercase">Цель Клана</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Удержание лидирующей позиции #1 на сервере, слаженная командная игра и абсолютное доминирование в клановой войне.
+                    <h3 class="font-orbitron font-bold text-xl text-gray-300 mb-3 uppercase">Итог Клана</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Удержание позиции #1 осталось в прошлом. Финальная битва проиграна, клан распущен и удаляется с сервера.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION 2: STATISTICS & CLAN WAR LOGS (Статистика) -->
+    <!-- SECTION 2: STATISTICS & CLAN WAR LOGS (Статистика — Хроника краха) -->
     <section id="stats" class="py-20 relative z-10 border-b border-nukeBorder">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <div class="inline-flex items-center space-x-2 text-nukeYellow font-orbitron text-sm font-bold tracking-widest uppercase mb-2">
-                    <i class="fa-solid fa-swords"></i>
-                    <span>Результаты и Боевой Журнал</span>
+                <div class="inline-flex items-center space-x-2 text-red-500/80 font-orbitron text-sm font-bold tracking-widest uppercase mb-2">
+                    <i class="fa-solid fa-skull"></i>
+                    <span>Повреждённый Боевой Журнал</span>
                 </div>
-                <h2 class="font-orbitron font-black text-3xl sm:text-5xl text-white uppercase tracking-tight">
-                    СТАТИСТИКА <span class="text-nukeGreen">КЛАНА</span>
+                <h2 class="font-orbitron font-black text-3xl sm:text-5xl text-gray-300 uppercase tracking-tight">
+                    СТАТИСТИКА <span class="text-red-700">ПОРАЖЕНИЯ</span>
                 </h2>
-                <p class="text-gray-400 mt-2 text-sm">Общие показатели за всё время и подробный отчёт клановой войны</p>
-                <div class="w-24 h-1 bg-nukeYellow mx-auto mt-4 rounded-full shadow-neon-yellow"></div>
+                <p class="text-gray-500 mt-2 text-sm">Последние данные перед удалением кланового терминала</p>
+                <div class="w-24 h-1 bg-red-900/70 mx-auto mt-4 rounded-full"></div>
             </div>
 
             <!-- BLOCK A: ALL-TIME CLAN STATS -->
             <div class="mb-16">
-                <h3 class="font-orbitron font-bold text-xl text-white uppercase mb-6 flex items-center">
-                    <i class="fa-solid fa-globe text-nukeYellow mr-3"></i> Статистика За Всё Время
+                <h3 class="font-orbitron font-bold text-xl text-gray-400 uppercase mb-6 flex items-center">
+                    <i class="fa-solid fa-globe text-gray-600 mr-3"></i> Статистика За Всё Время (Архив)
                 </h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="bg-nukeCard border border-nukeBorder p-5 rounded-xl text-center">
-                        <span class="block text-gray-400 font-orbitron text-xs uppercase">Всего Войн</span>
-                        <span class="font-orbitron font-black text-2xl sm:text-3xl text-white mt-1 block">6+1</span>
+                    <div class="bg-nukeCard rust-card border border-nukeBorder p-5 rounded-xl text-center opacity-80">
+                        <span class="block text-gray-500 font-orbitron text-xs uppercase">Всего Войн</span>
+                        <span class="font-orbitron font-black text-2xl sm:text-3xl text-gray-400 mt-1 block">6+1</span>
                     </div>
-                    <div class="bg-nukeCard border border-nukeBorder p-5 rounded-xl text-center">
-                        <span class="block text-gray-400 font-orbitron text-xs uppercase">Победы (Всё время)</span>
+                    <div class="bg-nukeCard rust-card border border-nukeBorder p-5 rounded-xl text-center opacity-80">
+                        <span class="block text-gray-500 font-orbitron text-xs uppercase">Победы (Прошлое)</span>
                         <span class="font-orbitron font-black text-2xl sm:text-3xl text-nukeGreen mt-1 block">6</span>
                     </div>
-                    <div class="bg-nukeCard border border-nukeBorder p-5 rounded-xl text-center">
-                        <span class="block text-gray-400 font-orbitron text-xs uppercase">Поражения</span>
-                        <span class="font-orbitron font-black text-2xl sm:text-3xl text-red-500 mt-1 block">0</span>
+                    <div class="bg-nukeCard rust-card border border-red-900/60 p-5 rounded-xl text-center shadow-crimson-dead">
+                        <span class="block text-red-400/80 font-orbitron text-xs uppercase">Финал Клана</span>
+                        <span class="font-orbitron font-black text-2xl sm:text-3xl text-red-600 mt-1 block flicker-dead">КРАХ</span>
                     </div>
-                    <div class="bg-nukeCard border border-nukeBorder p-5 rounded-xl text-center">
-                        <span class="block text-gray-400 font-orbitron text-xs uppercase">Винрейт (Win Rate)</span>
-                        <span class="font-orbitron font-black text-2xl sm:text-3xl text-nukeYellow mt-1 block">100%</span>
+                    <div class="bg-nukeCard rust-card border border-nukeBorder p-5 rounded-xl text-center opacity-80">
+                        <span class="block text-gray-500 font-orbitron text-xs uppercase">Статус</span>
+                        <span class="font-orbitron font-black text-xl sm:text-2xl text-red-500/80 mt-1 block">УДАЛЁН</span>
                     </div>
                 </div>
             </div>
@@ -268,19 +426,19 @@
             <div>
                 <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 pb-4 border-b border-nukeBorder">
                     <div>
-                        <h3 class="font-orbitron font-bold text-xl text-white uppercase flex items-center">
-                            <i class="fa-solid fa-calendar-days text-nukeGreen mr-3"></i> Текущая Неделя Войны (6 Дней)
+                        <h3 class="font-orbitron font-bold text-xl text-gray-300 uppercase flex items-center">
+                            <i class="fa-solid fa-calendar-xmark text-red-700 mr-3"></i> Последняя Неделя Войны (Прервано)
                         </h3>
-                        <p class="text-xl mt-1">Враг: 2SABERS</p>
+                        <p class="text-xl mt-1 text-gray-500">Враг: 2SABERS</p>
                     </div>
-                    <div class="mt-4 md:mt-0 flex items-center space-x-4 bg-nukeDark p-3 rounded-lg border border-nukeGreen/40">
+                    <div class="mt-4 md:mt-0 flex items-center space-x-4 bg-nukeDark p-3 rounded-lg border border-red-900/50">
                         <div>
-                            <span class="text-[10px] text-gray-400 font-orbitron block uppercase">Итог Недели:</span>
-                            <span class="font-orbitron font-black text-nukeGreen text-lg">3 / 6 ПОБЕД</span>
+                            <span class="text-[10px] text-gray-500 font-orbitron block uppercase">Итог Недели:</span>
+                            <span class="font-orbitron font-black text-red-500 text-lg">ПОРАЖЕНИЕ (3 / 6)</span>
                         </div>
                         <div class="h-8 w-px bg-nukeBorder"></div>
                         <div>
-                            <span class="text-[10px] text-gray-400 font-orbitron block uppercase">MVP Недели:</span>
+                            <span class="text-[10px] text-gray-500 font-orbitron block uppercase">Последний MVP:</span>
                             <span class="font-orbitron font-black text-nukeYellow text-lg">Muller: 720 763 pts</span>
                         </div>
                     </div>
@@ -289,81 +447,86 @@
                 <!-- 6 Days Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Day 1  -->
-                    <div class="bg-nukeCard border border-nukeBorder hover:border-red-500 rounded-xl p-6 relative overflow-hidden transition-all shadow-lg">
+                    <div class="bg-nukeCard rust-card border border-red-950/80 rounded-xl p-6 relative overflow-hidden transition-all shadow-lg opacity-85">
                         <div class="flex items-center justify-between border-b border-nukeBorder pb-3 mb-4">
-                            <span class="font-orbitron font-black text-nukeYellow text-lg">ДЕНЬ 1</span>
-                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-red-500/20 text-red-500 border border-red-500/40">ПОРАЖЕНИЕ</span>
+                            <span class="font-orbitron font-black text-gray-400 text-lg">ДЕНЬ 1</span>
+                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-red-950/60 text-red-500 border border-red-800/50">ПОРАЖЕНИЕ</span>
                         </div>
-                        <div class="bg-black/60 p-4 rounded-lg border border-nukeBorder flex items-center space-x-3">
-                            <img src="images/player1.jpg" alt="MVP" class="w-12 h-12 rounded-full border border-nukeYellow object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121814/FFCC00?text=MVP';">
+                        <div class="bg-black/70 p-4 rounded-lg border border-nukeBorder flex items-center space-x-3">
+                            <img src="images/player1.jpg" alt="MVP" class="w-12 h-12 rounded-full border border-gray-700 object-cover abandoned-media" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121212/666666?text=MVP';">
                             <div>
-                                <span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP 1 ДНЯ</span>
-                                <span class="font-orbitron font-bold text-white text-base">Godtech</span>
+                                <span class="text-[10px] text-gray-500 font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP 1 ДНЯ</span>
+                                <span class="font-orbitron font-bold text-gray-300 text-base">Godtech</span>
                             </div>
                         </div>
                     </div>
+
                     <!-- Day 2 -->
-                    <div class="bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl p-6 relative overflow-hidden transition-all shadow-lg">
+                    <div class="bg-nukeCard rust-card border border-nukeBorder rounded-xl p-6 relative overflow-hidden transition-all shadow-lg opacity-75">
                         <div class="flex items-center justify-between border-b border-nukeBorder pb-3 mb-4">
-                            <span class="font-orbitron font-black text-nukeYellow text-lg">ДЕНЬ 2</span>
-                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-nukeGreen/20 text-nukeGreen border border-nukeGreen/40">ПОБЕДА</span>
+                            <span class="font-orbitron font-black text-gray-400 text-lg">ДЕНЬ 2</span>
+                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-nukeGreen/20 text-gray-400 border border-nukeGreen/40">ПОБЕДА (АРХИВ)</span>
                         </div>
-                        <div class="mt-4 pt-3 border-t border-nukeBorder bg-black/60 p-3 rounded-lg flex items-center justify-between">
+                        <div class="mt-4 pt-3 border-t border-nukeBorder bg-black/70 p-3 rounded-lg flex items-center justify-between">
                             <div class="flex items-center space-x-3">
-                                <img src="images/player2.jpg" alt="MVP" class="w-10 h-10 rounded-full border border-nukeYellow object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121814/FFCC00?text=MVP';">
-                                <div><span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP ДНЯ 2</span><span class="font-orbitron font-bold text-white text-sm">VAR Callin</span></div>
+                                <img src="images/player2.jpg" alt="MVP" class="w-10 h-10 rounded-full border border-gray-700 object-cover abandoned-media" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121212/666666?text=MVP';">
+                                <div><span class="text-[10px] text-gray-500 font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP ДНЯ 2</span><span class="font-orbitron font-bold text-gray-300 text-sm">VAR Callin</span></div>
                             </div>
                         </div>
                     </div>
+
                     <!-- Day 3 -->
-                    <div class="bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl p-6 relative overflow-hidden transition-all shadow-lg">
+                    <div class="bg-nukeCard rust-card border border-nukeBorder rounded-xl p-6 relative overflow-hidden transition-all shadow-lg opacity-75">
                         <div class="flex items-center justify-between border-b border-nukeBorder pb-3 mb-4">
-                            <span class="font-orbitron font-black text-nukeYellow text-lg">ДЕНЬ 3</span>
-                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-nukeGreen/20 text-nukeGreen border border-nukeGreen/40">ПОБЕДА</span>
+                            <span class="font-orbitron font-black text-gray-400 text-lg">ДЕНЬ 3</span>
+                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-nukeGreen/20 text-gray-400 border border-nukeGreen/40">ПОБЕДА (АРХИВ)</span>
                         </div>
-                        <div class="mt-4 pt-3 border-t border-nukeBorder bg-black/60 p-3 rounded-lg flex items-center justify-between">
+                        <div class="mt-4 pt-3 border-t border-nukeBorder bg-black/70 p-3 rounded-lg flex items-center justify-between">
                             <div class="flex items-center space-x-3">
-                                <img src="images/player3.jpg" alt="MVP" class="w-10 h-10 rounded-full border border-nukeYellow object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121814/FFCC00?text=MVP';">
-                                <div><span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP ДНЯ 3</span><span class="font-orbitron font-bold text-white text-sm">Muller</span></div>
+                                <img src="images/player3.jpg" alt="MVP" class="w-10 h-10 rounded-full border border-gray-700 object-cover abandoned-media" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121212/666666?text=MVP';">
+                                <div><span class="text-[10px] text-gray-500 font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP ДНЯ 3</span><span class="font-orbitron font-bold text-gray-300 text-sm">Muller</span></div>
                             </div>
                         </div>
                     </div>
+
                     <!-- Day 4 -->
-                    <div class="bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl p-6 relative overflow-hidden transition-all shadow-lg">
+                    <div class="bg-nukeCard rust-card border border-nukeBorder rounded-xl p-6 relative overflow-hidden transition-all shadow-lg opacity-75">
                         <div class="flex items-center justify-between border-b border-nukeBorder pb-3 mb-4">
-                            <span class="font-orbitron font-black text-nukeYellow text-lg">ДЕНЬ 4</span>
-                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-nukeGreen/20 text-nukeGreen border border-nukeGreen/40">ПОБЕДА</span>
+                            <span class="font-orbitron font-black text-gray-400 text-lg">ДЕНЬ 4</span>
+                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-nukeGreen/20 text-gray-400 border border-nukeGreen/40">ПОБЕДА (АРХИВ)</span>
                         </div>
-                        <div class="mt-4 pt-3 border-t border-nukeBorder bg-black/60 p-3 rounded-lg flex items-center justify-between">
+                        <div class="mt-4 pt-3 border-t border-nukeBorder bg-black/70 p-3 rounded-lg flex items-center justify-between">
                             <div class="flex items-center space-x-3">
-                                <img src="images/player1.jpg" alt="MVP" class="w-10 h-10 rounded-full border border-nukeYellow object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121814/FFCC00?text=MVP';">
-                                <div><span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP ДНЯ 4</span><span class="font-orbitron font-bold text-white text-sm">Dikci</span></div>
+                                <img src="images/player1.jpg" alt="MVP" class="w-10 h-10 rounded-full border border-gray-700 object-cover abandoned-media" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121212/666666?text=MVP';">
+                                <div><span class="text-[10px] text-gray-500 font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP ДНЯ 4</span><span class="font-orbitron font-bold text-gray-300 text-sm">Dikci</span></div>
                             </div>
                         </div>
                     </div>
-                    <!-- Day 5 -->
-                    <div class="bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl p-6 relative overflow-hidden transition-all shadow-lg">
-                        <div class="flex items-center justify-between border-b border-nukeBorder pb-3 mb-4">
-                            <span class="font-orbitron font-black text-nukeYellow text-lg">ДЕНЬ 5</span>
-                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-nukeGreen/20 text-nukeGreen border border-nukeGreen/40">В процессе</span>
+
+                    <!-- Day 5 (Провалено) -->
+                    <div class="bg-nukeCard rust-card border border-red-900/70 rounded-xl p-6 relative overflow-hidden transition-all shadow-crimson-dead -rotate-1">
+                        <div class="flex items-center justify-between border-b border-red-950 pb-3 mb-4">
+                            <span class="font-orbitron font-black text-gray-400 text-lg">ДЕНЬ 5</span>
+                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-red-950/80 text-red-400 border border-red-700/60">ПРОВАЛЕНО</span>
                         </div>
-                        <div class="mt-4 pt-3 border-t border-nukeBorder bg-black/60 p-3 rounded-lg flex items-center justify-between">
+                        <div class="mt-4 pt-3 border-t border-nukeBorder bg-black/80 p-3 rounded-lg flex items-center justify-between">
                             <div class="flex items-center space-x-3">
-                                <img src="images/player4.jpg" alt="MVP" class="w-10 h-10 rounded-full border border-nukeYellow object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121814/FFCC00?text=MVP';">
-                                <div><span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP ДНЯ 5</span><span class="font-orbitron font-bold text-white text-sm">В процессе</span></div>
+                                <img src="images/player4.jpg" alt="MVP" class="w-10 h-10 rounded-full border border-red-900/60 object-cover abandoned-media" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121212/666666?text=DEAD';">
+                                <div><span class="text-[10px] text-red-500/80 font-orbitron font-bold uppercase block"><i class="fa-solid fa-ban mr-1"></i>СТАТУС ДНЯ 5</span><span class="font-orbitron font-bold text-red-400 text-sm">КЛАН УДАЛЁН</span></div>
                             </div>
                         </div>
                     </div>
-                    <!-- Day 6 (Final) -->
-                    <div class="bg-nukeCard border-2 border-nukeGreen rounded-xl p-6 relative overflow-hidden transition-all shadow-neon-green">
-                        <div class="flex items-center justify-between border-b border-nukeBorder pb-3 mb-4">
-                            <span class="font-orbitron font-black text-nukeYellow text-lg">ДЕНЬ 6 (ФИНАЛ)</span>
-                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-nukeGreen/20 text-nukeGreen border border-nukeGreen/40">В процессе</span>
+
+                    <!-- Day 6 (Final — Поражение / Распуск) -->
+                    <div class="bg-nukeCard rust-card border-2 border-red-900/80 rounded-xl p-6 relative overflow-hidden transition-all shadow-crimson-dead rotate-1">
+                        <div class="flex items-center justify-between border-b border-red-950 pb-3 mb-4">
+                            <span class="font-orbitron font-black text-red-400 text-lg">ДЕНЬ 6 (ФИНАЛ)</span>
+                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-red-950 text-red-400 border border-red-700 flicker-dead">ПОРАЖЕНИЕ</span>
                         </div>
-                        <div class="mt-4 pt-3 border-t border-nukeBorder bg-black/60 p-3 rounded-lg flex items-center justify-between border border-nukeYellow/30">
+                        <div class="mt-4 pt-3 border-t border-nukeBorder bg-black/80 p-3 rounded-lg flex items-center justify-between border border-red-900/40">
                             <div class="flex items-center space-x-3">
-                                <img src="images/player1.jpg" alt="MVP" class="w-10 h-10 rounded-full border-2 border-nukeYellow object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121814/FFCC00?text=MVP';">
-                                <div><span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-trophy mr-1"></i>MVP ФИНАЛА (ДЕНЬ 6)</span><span class="font-orbitron font-bold text-white text-sm">В процессе</span></div>
+                                <img src="images/player1.jpg" alt="MVP" class="w-10 h-10 rounded-full border-2 border-red-900/70 object-cover abandoned-media" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121212/666666?text=END';">
+                                <div><span class="text-[10px] text-red-500 font-orbitron font-bold uppercase block"><i class="fa-solid fa-skull mr-1"></i>ФИНАЛ КЛАНА</span><span class="font-orbitron font-bold text-red-400 text-sm">РАСПУЩЕН</span></div>
                             </div>
                         </div>
                     </div>
@@ -372,33 +535,34 @@
         </div>
     </section>
 
-    <!-- SECTION 3: PLAYERS / ROSTER -->
-    <section id="players" class="py-20 relative z-10 bg-nukeDark/60">
+    <!-- SECTION 3: PLAYERS / ROSTER (Покинувшие бойцы) -->
+    <section id="players" class="py-20 relative z-10 border-b border-nukeBorder bg-nukeDark/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <div class="text-center max-w-3xl mx-auto mb-12">
-                <div class="inline-flex items-center space-x-2 text-nukeGreen font-orbitron text-sm font-bold tracking-widest uppercase mb-2">
-                    <i class="fa-solid fa-users-rays"></i>
-                    <span>Состав Клана</span>
+                <div class="inline-flex items-center space-x-2 text-gray-500 font-orbitron text-sm font-bold tracking-widest uppercase mb-2">
+                    <i class="fa-solid fa-users-slash text-red-800"></i>
+                    <span>Расформированный Состав</span>
                 </div>
-                <h2 class="font-orbitron font-black text-3xl sm:text-5xl text-white uppercase tracking-tight">
-                    БОЙЦЫ <span class="text-nukeYellow">NUKESQUAD</span>
+                <h2 class="font-orbitron font-black text-3xl sm:text-5xl text-gray-300 uppercase tracking-tight">
+                    БОЙЦЫ <span class="text-nukeYellow opacity-75">NUKESQUAD</span>
                 </h2>
-                <div class="w-24 h-1 bg-nukeGreen mx-auto mt-4 rounded-full shadow-neon-green"></div>
+                <p class="text-xs font-orbitron text-red-500/80 uppercase tracking-widest mt-2">Все бойцы покинули клан • Соединение разорвано</p>
+                <div class="w-24 h-1 bg-red-900/70 mx-auto mt-4 rounded-full"></div>
             </div>
 
             <!-- Filter Buttons -->
             <div class="flex flex-wrap justify-center gap-3 mb-12 font-orbitron text-xs sm:text-sm font-bold">
-                <button onclick="filterPlayers('all')" id="btn-all" class="player-filter-btn px-5 py-2.5 rounded-lg bg-nukeGreen text-black shadow-neon-green transition-all">
+                <button onclick="filterPlayers('all')" id="btn-all" class="player-filter-btn px-5 py-2.5 rounded-lg bg-red-950/80 text-gray-200 border border-red-800/70 shadow-crimson-dead transition-all">
                     ВСЕ ИГРОКИ (18)
                 </button>
-                <button onclick="filterPlayers('main')" id="btn-main" class="player-filter-btn px-5 py-2.5 rounded-lg bg-nukeCard text-gray-300 border border-nukeBorder hover:border-nukeGreen transition-all">
+                <button onclick="filterPlayers('main')" id="btn-main" class="player-filter-btn px-5 py-2.5 rounded-lg bg-nukeCard text-gray-400 border border-nukeBorder hover:border-red-900 transition-all">
                     ОСНОВНОЙ СОСТАВ (13)
                 </button>
-                <button onclick="filterPlayers('leader')" id="btn-leader" class="player-filter-btn px-5 py-2.5 rounded-lg bg-nukeCard text-gray-300 border border-nukeBorder hover:border-nukeGreen transition-all">
+                <button onclick="filterPlayers('leader')" id="btn-leader" class="player-filter-btn px-5 py-2.5 rounded-lg bg-nukeCard text-gray-400 border border-nukeBorder hover:border-red-900 transition-all">
                     ЛИДЕРЫ И КАПИТАНЫ (4)
                 </button>
-                <button onclick="filterPlayers('desant')" id="btn-desant" class="player-filter-btn px-5 py-2.5 rounded-lg bg-nukeCard text-gray-300 border border-nukeBorder hover:border-nukeGreen transition-all">
+                <button onclick="filterPlayers('desant')" id="btn-desant" class="player-filter-btn px-5 py-2.5 rounded-lg bg-nukeCard text-gray-400 border border-nukeBorder hover:border-red-900 transition-all">
                     🪂 ДЕСАНТНИКИ (5)
                 </button>
             </div>
@@ -409,295 +573,295 @@
                 <!-- ==================== ОСНОВНОЙ СОСТАВ (13) ==================== -->
 
                 <!-- 1. ToxicWaste -->
-                <div class="player-card role-main role-leader is-mvp bg-nukeCard border-2 border-nukeYellow rounded-xl overflow-hidden shadow-neon-yellow transition-all hover:scale-[1.02]">
+                <div class="player-card role-main role-leader is-mvp bg-nukeCard rust-card border-2 border-nukeYellow/50 rounded-xl overflow-hidden shadow-neon-yellow transition-all opacity-85 hover:opacity-100 -rotate-1">
                     <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
-                        <img src="images/toxic.png" alt="ToxicWaste" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
-                        <span class="absolute top-3 left-3 bg-nukeYellow text-black font-orbitron font-extrabold text-[10px] px-2 py-0.5 rounded uppercase">ЛИДЕР КЛАНА</span>
-                        <span class="absolute top-3 right-3 bg-nukeGreen/20 text-nukeGreen border border-nukeGreen font-orbitron font-bold text-[10px] px-2 py-0.5 rounded">MVP 3x</span>
+                        <img src="images/toxic.png" alt="ToxicWaste" class="w-full h-full object-cover abandoned-media" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
+                        <span class="absolute top-3 left-3 bg-black/85 text-nukeYellow border border-nukeYellow/40 font-orbitron font-extrabold text-[10px] px-2 py-0.5 rounded uppercase">БЫВШИЙ ЛИДЕР</span>
+                        <span class="absolute top-3 right-3 bg-black/80 text-gray-400 border border-gray-700 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded">MVP 3x</span>
                     </div>
                     <div class="p-5">
-                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">ToxicWaste</h3>
-                        <p class="text-xs text-nukeYellow font-semibold mt-0.5">Ранг: Лидер Клана</p>
+                        <h3 class="font-orbitron font-black text-xl text-gray-300 tracking-wide">ToxicWaste</h3>
+                        <p class="text-xs text-nukeYellow font-semibold mt-0.5">Ранг: Лидер Клана (Распущен)</p>
                         <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
-                            <span class="text-gray-400">Стрик MVP:</span>
-                            <span class="font-bold text-nukeGreen"><i class="fa-solid fa-star text-nukeYellow mr-1"></i>5</span>
+                            <span class="text-gray-500">Статус:</span>
+                            <span class="font-bold text-red-500/80"><i class="fa-solid fa-power-off mr-1"></i>ОФФЛАЙН</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- 2. Caxapok -->
-                <div class="player-card role-main role-leader is-mvp bg-nukeCard border border-nukeGreen rounded-xl overflow-hidden shadow-neon-green transition-all hover:scale-[1.02]">
+                <div class="player-card role-main role-leader is-mvp bg-nukeCard rust-card border border-nukeBorder rounded-xl overflow-hidden transition-all opacity-80 hover:opacity-100">
                     <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
-                        <img src="images/caxap.jpg" alt="Caxapok" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
-                        <span class="absolute top-3 left-3 bg-nukeGreen text-black font-orbitron font-extrabold text-[10px] px-2 py-0.5 rounded uppercase">КАПИТАН</span>
-                        <span class="absolute top-3 right-3 bg-nukeGreen/20 text-nukeGreen border border-nukeGreen font-orbitron font-bold text-[10px] px-2 py-0.5 rounded">MVP 1x</span>
+                        <img src="images/caxap.jpg" alt="Caxapok" class="w-full h-full object-cover abandoned-media" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
+                        <span class="absolute top-3 left-3 bg-black/85 text-gray-400 border border-gray-700 font-orbitron font-extrabold text-[10px] px-2 py-0.5 rounded uppercase">КАПИТАН</span>
+                        <span class="absolute top-3 right-3 bg-black/80 text-gray-500 border border-gray-800 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded">MVP 1x</span>
                     </div>
                     <div class="p-5">
-                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">Caxapok</h3>
-                        <p class="text-xs text-nukeGreen font-semibold mt-0.5">Ранг: Капитан</p>
+                        <h3 class="font-orbitron font-black text-xl text-gray-300 tracking-wide">Caxapok</h3>
+                        <p class="text-xs text-gray-500 font-semibold mt-0.5">Ранг: Капитан</p>
                         <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
-                            <span class="text-gray-400">Стрик MVP:</span>
-                            <span class="font-bold text-nukeGreen"><i class="fa-solid fa-star text-nukeYellow mr-1"></i>1</span>
+                            <span class="text-gray-500">Статус:</span>
+                            <span class="font-bold text-red-500/70">ПОКИНУЛ КЛАН</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- 3. DM4XL -->
-                <div class="player-card role-main role-leader is-mvp bg-nukeCard border border-nukeGreen rounded-xl overflow-hidden shadow-neon-green transition-all hover:scale-[1.02]">
+                <div class="player-card role-main role-leader is-mvp bg-nukeCard rust-card border border-nukeBorder rounded-xl overflow-hidden transition-all opacity-80 hover:opacity-100 rotate-1">
                     <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
-                        <img src="images/dm4x.png" alt="DM4XL" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
-                        <span class="absolute top-3 left-3 bg-nukeGreen text-black font-orbitron font-extrabold text-[10px] px-2 py-0.5 rounded uppercase">КАПИТАН</span>
-                        <span class="absolute top-3 right-3 bg-nukeGreen/20 text-nukeGreen border border-nukeGreen font-orbitron font-bold text-[10px] px-2 py-0.5 rounded">MVP 1x</span>
+                        <img src="images/dm4x.png" alt="DM4XL" class="w-full h-full object-cover abandoned-media" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
+                        <span class="absolute top-3 left-3 bg-black/85 text-gray-400 border border-gray-700 font-orbitron font-extrabold text-[10px] px-2 py-0.5 rounded uppercase">КАПИТАН</span>
+                        <span class="absolute top-3 right-3 bg-black/80 text-gray-500 border border-gray-800 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded">MVP 1x</span>
                     </div>
                     <div class="p-5">
-                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">DM4XL</h3>
-                        <p class="text-xs text-nukeGreen font-semibold mt-0.5">Ранг: Капитан</p>
+                        <h3 class="font-orbitron font-black text-xl text-gray-300 tracking-wide">DM4XL</h3>
+                        <p class="text-xs text-gray-500 font-semibold mt-0.5">Ранг: Капитан</p>
                         <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
-                            <span class="text-gray-400">Стрик MVP:</span>
-                            <span class="font-bold text-nukeGreen"><i class="fa-solid fa-star text-nukeYellow mr-1"></i>0</span>
+                            <span class="text-gray-500">Статус:</span>
+                            <span class="font-bold text-red-500/70">ПОКИНУЛ КЛАН</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- 4. Muller -->
-                <div class="player-card role-main role-leader is-mvp bg-nukeCard border border-nukeGreen rounded-xl overflow-hidden shadow-neon-green transition-all hover:scale-[1.02]">
+                <div class="player-card role-main role-leader is-mvp bg-nukeCard rust-card border border-nukeBorder rounded-xl overflow-hidden transition-all opacity-80 hover:opacity-100">
                     <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
-                        <img src="images/muller.jpg" alt="Muller" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
-                        <span class="absolute top-3 left-3 bg-nukeGreen text-black font-orbitron font-extrabold text-[10px] px-2 py-0.5 rounded uppercase">КАПИТАН</span>
-                        <span class="absolute top-3 right-3 bg-nukeGreen/20 text-nukeGreen border border-nukeGreen font-orbitron font-bold text-[10px] px-2 py-0.5 rounded">MVP 1x</span>
+                        <img src="images/muller.jpg" alt="Muller" class="w-full h-full object-cover abandoned-media" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
+                        <span class="absolute top-3 left-3 bg-black/85 text-gray-400 border border-gray-700 font-orbitron font-extrabold text-[10px] px-2 py-0.5 rounded uppercase">КАПИТАН</span>
+                        <span class="absolute top-3 right-3 bg-black/80 text-gray-500 border border-gray-800 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded">MVP 1x</span>
                     </div>
                     <div class="p-5">
-                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">Muller</h3>
-                        <p class="text-xs text-nukeGreen font-semibold mt-0.5">Ранг: Капитан</p>
+                        <h3 class="font-orbitron font-black text-xl text-gray-300 tracking-wide">Muller</h3>
+                        <p class="text-xs text-gray-500 font-semibold mt-0.5">Ранг: Капитан</p>
                         <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
-                            <span class="text-gray-400">Стрик MVP:</span>
-                            <span class="font-bold text-nukeGreen"><i class="fa-solid fa-star text-nukeYellow mr-1"></i>2</span>
+                            <span class="text-gray-500">Статус:</span>
+                            <span class="font-bold text-red-500/70">ПОКИНУЛ КЛАН</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- 5. Makarowka -->
-                <div class="player-card role-main bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                <div class="player-card role-main bg-nukeCard rust-card border border-nukeBorder rounded-xl overflow-hidden transition-all opacity-75 hover:opacity-100">
                     <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
-                        <img src="images/Makarowka.png" alt="Makarowka" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
-                        <span class="absolute top-3 left-3 bg-gray-800 text-gray-200 border border-gray-600 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
+                        <img src="images/Makarowka.png" alt="Makarowka" class="w-full h-full object-cover abandoned-media" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
+                        <span class="absolute top-3 left-3 bg-black/80 text-gray-500 border border-gray-800 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
                     </div>
                     <div class="p-5">
-                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">Makarowka</h3>
-                        <p class="text-xs text-gray-400 font-semibold mt-0.5">Ранг: Игрок</p>
+                        <h3 class="font-orbitron font-black text-xl text-gray-400 tracking-wide">Makarowka</h3>
+                        <p class="text-xs text-gray-600 font-semibold mt-0.5">Ранг: Игрок</p>
                         <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
-                            <span class="text-gray-400">Статус:</span>
-                            <span class="text-gray-500">Участник боев</span>
+                            <span class="text-gray-600">Статус:</span>
+                            <span class="text-red-500/60">ОФФЛАЙН</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- 6. Lev -->
-                <div class="player-card role-main bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                <div class="player-card role-main bg-nukeCard rust-card border border-nukeBorder rounded-xl overflow-hidden transition-all opacity-75 hover:opacity-100 -rotate-1">
                     <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
-                        <img src="images/lev.png" alt="Lev" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
-                        <span class="absolute top-3 left-3 bg-gray-800 text-gray-200 border border-gray-600 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
+                        <img src="images/lev.png" alt="Lev" class="w-full h-full object-cover abandoned-media" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
+                        <span class="absolute top-3 left-3 bg-black/80 text-gray-500 border border-gray-800 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
                     </div>
                     <div class="p-5">
-                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">Lev</h3>
-                        <p class="text-xs text-gray-400 font-semibold mt-0.5">Ранг: Игрок</p>
+                        <h3 class="font-orbitron font-black text-xl text-gray-400 tracking-wide">Lev</h3>
+                        <p class="text-xs text-gray-600 font-semibold mt-0.5">Ранг: Игрок</p>
                         <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
-                            <span class="text-gray-400">Статус:</span>
-                            <span class="text-gray-500">Участник боев</span>
+                            <span class="text-gray-600">Статус:</span>
+                            <span class="text-red-500/60">ОФФЛАЙН</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- 7. zuba -->
-                <div class="player-card role-main bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                <div class="player-card role-main bg-nukeCard rust-card border border-nukeBorder rounded-xl overflow-hidden transition-all opacity-75 hover:opacity-100">
                     <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
-                        <img src="images/zuba.png" alt="zuba" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
-                        <span class="absolute top-3 left-3 bg-gray-800 text-gray-200 border border-gray-600 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
+                        <img src="images/zuba.png" alt="zuba" class="w-full h-full object-cover abandoned-media" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
+                        <span class="absolute top-3 left-3 bg-black/80 text-gray-500 border border-gray-800 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
                     </div>
                     <div class="p-5">
-                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">zuba</h3>
-                        <p class="text-xs text-gray-400 font-semibold mt-0.5">Ранг: Игрок</p>
+                        <h3 class="font-orbitron font-black text-xl text-gray-400 tracking-wide">zuba</h3>
+                        <p class="text-xs text-gray-600 font-semibold mt-0.5">Ранг: Игрок</p>
                         <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
-                            <span class="text-gray-400">Статус:</span>
-                            <span class="text-gray-500">Участник боев</span>
+                            <span class="text-gray-600">Статус:</span>
+                            <span class="text-red-500/60">ОФФЛАЙН</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- 8. Svyat -->
-                <div class="player-card role-main bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                <div class="player-card role-main bg-nukeCard rust-card border border-nukeBorder rounded-xl overflow-hidden transition-all opacity-75 hover:opacity-100">
                     <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
-                        <img src="images/empty.jpg" alt="Svyat" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
-                        <span class="absolute top-3 left-3 bg-gray-800 text-gray-200 border border-gray-600 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
+                        <img src="images/empty.jpg" alt="Svyat" class="w-full h-full object-cover abandoned-media" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
+                        <span class="absolute top-3 left-3 bg-black/80 text-gray-500 border border-gray-800 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
                     </div>
                     <div class="p-5">
-                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">Svyat</h3>
-                        <p class="text-xs text-gray-400 font-semibold mt-0.5">Ранг: Игрок</p>
+                        <h3 class="font-orbitron font-black text-xl text-gray-400 tracking-wide">Svyat</h3>
+                        <p class="text-xs text-gray-600 font-semibold mt-0.5">Ранг: Игрок</p>
                         <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
-                            <span class="text-gray-400">Статус:</span>
-                            <span class="text-gray-500">Участник боев</span>
+                            <span class="text-gray-600">Статус:</span>
+                            <span class="text-red-500/60">ОФФЛАЙН</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- 9. Mumentik -->
-                <div class="player-card role-main bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                <div class="player-card role-main bg-nukeCard rust-card border border-nukeBorder rounded-xl overflow-hidden transition-all opacity-75 hover:opacity-100 rotate-1">
                     <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
-                        <img src="images/empty.jpg" alt="Mumentik" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
-                        <span class="absolute top-3 left-3 bg-gray-800 text-gray-200 border border-gray-600 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
+                        <img src="images/empty.jpg" alt="Mumentik" class="w-full h-full object-cover abandoned-media" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
+                        <span class="absolute top-3 left-3 bg-black/80 text-gray-500 border border-gray-800 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
                     </div>
                     <div class="p-5">
-                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">Mumentik</h3>
-                        <p class="text-xs text-gray-400 font-semibold mt-0.5">Ранг: Игрок</p>
+                        <h3 class="font-orbitron font-black text-xl text-gray-400 tracking-wide">Mumentik</h3>
+                        <p class="text-xs text-gray-600 font-semibold mt-0.5">Ранг: Игрок</p>
                         <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
-                            <span class="text-gray-400">Статус:</span>
-                            <span class="text-gray-500">Участник боев</span>
+                            <span class="text-gray-600">Статус:</span>
+                            <span class="text-red-500/60">ОФФЛАЙН</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- 10. HibiwaretaK -->
-                <div class="player-card role-main bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                <div class="player-card role-main bg-nukeCard rust-card border border-nukeBorder rounded-xl overflow-hidden transition-all opacity-75 hover:opacity-100">
                     <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
-                        <img src="images/empty.jpg" alt="HibiwaretaK" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
-                        <span class="absolute top-3 left-3 bg-gray-800 text-gray-200 border border-gray-600 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
+                        <img src="images/empty.jpg" alt="HibiwaretaK" class="w-full h-full object-cover abandoned-media" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
+                        <span class="absolute top-3 left-3 bg-black/80 text-gray-500 border border-gray-800 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
                     </div>
                     <div class="p-5">
-                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">HibiwaretaK</h3>
-                        <p class="text-xs text-gray-400 font-semibold mt-0.5">Ранг: Игрок</p>
+                        <h3 class="font-orbitron font-black text-xl text-gray-400 tracking-wide">HibiwaretaK</h3>
+                        <p class="text-xs text-gray-600 font-semibold mt-0.5">Ранг: Игрок</p>
                         <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
-                            <span class="text-gray-400">Статус:</span>
-                            <span class="text-gray-500">Участник боев</span>
+                            <span class="text-gray-600">Статус:</span>
+                            <span class="text-red-500/60">ОФФЛАЙН</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- 11. Toplayyy -->
-                <div class="player-card role-main bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                <div class="player-card role-main bg-nukeCard rust-card border border-nukeBorder rounded-xl overflow-hidden transition-all opacity-75 hover:opacity-100">
                     <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
-                        <img src="images/empty.jpg" alt="Toplayyy" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
-                        <span class="absolute top-3 left-3 bg-gray-800 text-gray-200 border border-gray-600 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
+                        <img src="images/empty.jpg" alt="Toplayyy" class="w-full h-full object-cover abandoned-media" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
+                        <span class="absolute top-3 left-3 bg-black/80 text-gray-500 border border-gray-800 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
                     </div>
                     <div class="p-5">
-                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">Toplayyy</h3>
-                        <p class="text-xs text-gray-400 font-semibold mt-0.5">Ранг: Игрок</p>
+                        <h3 class="font-orbitron font-black text-xl text-gray-400 tracking-wide">Toplayyy</h3>
+                        <p class="text-xs text-gray-600 font-semibold mt-0.5">Ранг: Игрок</p>
                         <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
-                            <span class="text-gray-400">Статус:</span>
-                            <span class="text-gray-500">Участник боев</span>
+                            <span class="text-gray-600">Статус:</span>
+                            <span class="text-red-500/60">ОФФЛАЙН</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- 12. Bogatyr -->
-                <div class="player-card role-main bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                <div class="player-card role-main bg-nukeCard rust-card border border-nukeBorder rounded-xl overflow-hidden transition-all opacity-75 hover:opacity-100 -rotate-1">
                     <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
-                        <img src="images/empty.jpg" alt="Bogatyr" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
-                        <span class="absolute top-3 left-3 bg-gray-800 text-gray-200 border border-gray-600 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
+                        <img src="images/empty.jpg" alt="Bogatyr" class="w-full h-full object-cover abandoned-media" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
+                        <span class="absolute top-3 left-3 bg-black/80 text-gray-500 border border-gray-800 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
                     </div>
                     <div class="p-5">
-                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">Bogatyr</h3>
-                        <p class="text-xs text-gray-400 font-semibold mt-0.5">Ранг: Игрок</p>
+                        <h3 class="font-orbitron font-black text-xl text-gray-400 tracking-wide">Bogatyr</h3>
+                        <p class="text-xs text-gray-600 font-semibold mt-0.5">Ранг: Игрок</p>
                         <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
-                            <span class="text-gray-400">Статус:</span>
-                            <span class="text-gray-500">Участник боев</span>
+                            <span class="text-gray-600">Статус:</span>
+                            <span class="text-red-500/60">ОФФЛАЙН</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- 13. flex -->
-                <div class="player-card role-main bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                <div class="player-card role-main bg-nukeCard rust-card border border-nukeBorder rounded-xl overflow-hidden transition-all opacity-75 hover:opacity-100">
                     <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
-                        <img src="images/flex.jpg" alt="flex" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
-                        <span class="absolute top-3 left-3 bg-gray-800 text-gray-200 border border-gray-600 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
+                        <img src="images/flex.jpg" alt="flex" class="w-full h-full object-cover abandoned-media" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
+                        <span class="absolute top-3 left-3 bg-black/80 text-gray-500 border border-gray-800 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
                     </div>
                     <div class="p-5">
-                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">flex</h3>
-                        <p class="text-xs text-gray-400 font-semibold mt-0.5">Ранг: Игрок</p>
+                        <h3 class="font-orbitron font-black text-xl text-gray-400 tracking-wide">flex</h3>
+                        <p class="text-xs text-gray-600 font-semibold mt-0.5">Ранг: Игрок</p>
                         <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
-                            <span class="text-gray-400">Статус:</span>
-                            <span class="text-gray-500">Участник боев</span>
+                            <span class="text-gray-600">Статус:</span>
+                            <span class="text-red-500/60">ОФФЛАЙН</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- ==================== ДЕСАНТНИКИ (ВРЕМЕННЫЙ СОСТАВ - 4) ==================== -->
+                <!-- ==================== ДЕСАНТНИКИ (ВРЕМЕННЫЙ СОСТАВ - 5) ==================== -->
 
                 <!-- 14. VAR Callin -->
-                <div class="player-card role-desant bg-nukeCard border border-nukeYellow/50 hover:border-nukeYellow rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                <div class="player-card role-desant bg-nukeCard rust-card border border-nukeYellow/30 rounded-xl overflow-hidden transition-all opacity-75 hover:opacity-100">
                     <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
-                        <img src="images/callin.jpg" alt="VAR Callin" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
-                        <span class="absolute top-3 left-3 bg-nukeYellow/20 text-nukeYellow border border-nukeYellow/60 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase"><i class="fa-solid fa-parachute-box mr-1"></i>ДЕСАНТНИК</span>
+                        <img src="images/callin.jpg" alt="VAR Callin" class="w-full h-full object-cover abandoned-media" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
+                        <span class="absolute top-3 left-3 bg-black/80 text-nukeYellow border border-nukeYellow/40 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase"><i class="fa-solid fa-parachute-box mr-1"></i>ДЕСАНТНИК</span>
                     </div>
                     <div class="p-5">
-                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">VAR Callin</h3>
+                        <h3 class="font-orbitron font-black text-xl text-gray-300 tracking-wide">VAR Callin</h3>
                         <p class="text-xs text-nukeYellow font-semibold mt-0.5">Временный состав</p>
                         <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
-                            <span class="text-gray-400">Статус:</span>
-                            <span class="text-nukeYellow">Приходил на помощь</span>
+                            <span class="text-gray-500">Статус:</span>
+                            <span class="text-gray-500">Покинул руины</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- 15. Tcan -->
-                <div class="player-card role-desant bg-nukeCard border border-nukeYellow/50 hover:border-nukeYellow rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                <div class="player-card role-desant bg-nukeCard rust-card border border-nukeYellow/30 rounded-xl overflow-hidden transition-all opacity-75 hover:opacity-100 rotate-1">
                     <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
-                        <img src="images/Tcan.jpg" alt="Tcan" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
-                        <span class="absolute top-3 left-3 bg-nukeYellow/20 text-nukeYellow border border-nukeYellow/60 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase"><i class="fa-solid fa-parachute-box mr-1"></i>ДЕСАНТНИК</span>
+                        <img src="images/Tcan.jpg" alt="Tcan" class="w-full h-full object-cover abandoned-media" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
+                        <span class="absolute top-3 left-3 bg-black/80 text-nukeYellow border border-nukeYellow/40 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase"><i class="fa-solid fa-parachute-box mr-1"></i>ДЕСАНТНИК</span>
                     </div>
                     <div class="p-5">
-                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">Tcan</h3>
+                        <h3 class="font-orbitron font-black text-xl text-gray-300 tracking-wide">Tcan</h3>
                         <p class="text-xs text-nukeYellow font-semibold mt-0.5">Временный состав</p>
                         <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
-                            <span class="text-gray-400">Статус:</span>
-                            <span class="text-nukeYellow">Приходил на помощь</span>
+                            <span class="text-gray-500">Статус:</span>
+                            <span class="text-gray-500">Покинул руины</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- 16. Bel1 Chel -->
-                <div class="player-card role-desant bg-nukeCard border border-nukeYellow/50 hover:border-nukeYellow rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                <div class="player-card role-desant bg-nukeCard rust-card border border-nukeYellow/30 rounded-xl overflow-hidden transition-all opacity-75 hover:opacity-100">
                     <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
-                        <img src="images/Chel.jpg" alt="Bel1 Chel" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
-                        <span class="absolute top-3 left-3 bg-nukeYellow/20 text-nukeYellow border border-nukeYellow/60 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase"><i class="fa-solid fa-parachute-box mr-1"></i>ДЕСАНТНИК</span>
+                        <img src="images/Chel.jpg" alt="Bel1 Chel" class="w-full h-full object-cover abandoned-media" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
+                        <span class="absolute top-3 left-3 bg-black/80 text-nukeYellow border border-nukeYellow/40 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase"><i class="fa-solid fa-parachute-box mr-1"></i>ДЕСАНТНИК</span>
                     </div>
                     <div class="p-5">
-                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">Bel1 Chel</h3>
+                        <h3 class="font-orbitron font-black text-xl text-gray-300 tracking-wide">Bel1 Chel</h3>
                         <p class="text-xs text-nukeYellow font-semibold mt-0.5">Временный состав</p>
                         <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
-                            <span class="text-gray-400">Статус:</span>
-                            <span class="text-nukeYellow">Приходил на помощь</span>
+                            <span class="text-gray-500">Статус:</span>
+                            <span class="text-gray-500">Покинул руины</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- 17. ONX Soldout -->
-                <div class="player-card role-desant bg-nukeCard border border-nukeYellow/50 hover:border-nukeYellow rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                <div class="player-card role-desant bg-nukeCard rust-card border border-nukeYellow/30 rounded-xl overflow-hidden transition-all opacity-75 hover:opacity-100 -rotate-1">
                     <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
-                        <img src="images/soldout.jpg" alt="ONX Soldout" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
-                        <span class="absolute top-3 left-3 bg-nukeYellow/20 text-nukeYellow border border-nukeYellow/60 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase"><i class="fa-solid fa-parachute-box mr-1"></i>ДЕСАНТНИК</span>
+                        <img src="images/soldout.jpg" alt="ONX Soldout" class="w-full h-full object-cover abandoned-media" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
+                        <span class="absolute top-3 left-3 bg-black/80 text-nukeYellow border border-nukeYellow/40 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase"><i class="fa-solid fa-parachute-box mr-1"></i>ДЕСАНТНИК</span>
                     </div>
                     <div class="p-5">
-                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">ONX Soldout</h3>
+                        <h3 class="font-orbitron font-black text-xl text-gray-300 tracking-wide">ONX Soldout</h3>
                         <p class="text-xs text-nukeYellow font-semibold mt-0.5">Временный состав</p>
                         <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
-                            <span class="text-gray-400">Статус:</span>
-                            <span class="text-nukeYellow">Приходил на помощь</span>
+                            <span class="text-gray-500">Статус:</span>
+                            <span class="text-gray-500">Покинул руины</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- 18. Bel1 Dikci -->
-                <div class="player-card role-desant bg-nukeCard border border-nukeYellow/50 hover:border-nukeYellow rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
+                <div class="player-card role-desant bg-nukeCard rust-card border border-nukeYellow/30 rounded-xl overflow-hidden transition-all opacity-75 hover:opacity-100">
                     <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
-                        <img src="images/dikci.jpg" alt="Bel1 Dikci" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
-                        <span class="absolute top-3 left-3 bg-nukeYellow/20 text-nukeYellow border border-nukeYellow/60 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase"><i class="fa-solid fa-parachute-box mr-1"></i>ДЕСАНТНИК</span>
+                        <img src="images/dikci.jpg" alt="Bel1 Dikci" class="w-full h-full object-cover abandoned-media" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
+                        <span class="absolute top-3 left-3 bg-black/80 text-nukeYellow border border-nukeYellow/40 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase"><i class="fa-solid fa-parachute-box mr-1"></i>ДЕСАНТНИК</span>
                     </div>
                     <div class="p-5">
-                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">Bel1 Dikci</h3>
+                        <h3 class="font-orbitron font-black text-xl text-gray-300 tracking-wide">Bel1 Dikci</h3>
                         <p class="text-xs text-nukeYellow font-semibold mt-0.5">Временный состав</p>
                         <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
-                            <span class="text-gray-400">Статус:</span>
-                            <span class="text-nukeYellow">Приходил на помощь</span>
+                            <span class="text-gray-500">Статус:</span>
+                            <span class="text-gray-500">Покинул руины</span>
                         </div>
                     </div>
                 </div>
@@ -706,42 +870,275 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="bg-black border-t border-nukeBorder py-12 relative z-10 text-gray-400">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="flex items-center space-x-3">
-                <i class="fa-solid fa-radiation text-nukeGreen text-2xl"></i>
-                <span class="font-orbitron font-bold text-white text-lg">NUKESQUAD</span>
+    <!-- SECTION 4: GALLERY (Галерея — Пыльные фотокарточки) -->
+    <section id="gallery" class="py-20 relative z-10 border-b border-nukeBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Header -->
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <div class="inline-flex items-center space-x-2 text-gray-500 font-orbitron text-sm font-bold tracking-widest uppercase mb-2">
+                    <i class="fa-solid fa-images text-nukeYellow"></i>
+                    <span>Пыльные Воспоминания</span>
+                </div>
+                <h2 class="font-orbitron font-black text-3xl sm:text-5xl text-gray-300 uppercase tracking-tight">
+                    ГАЛЕРЕЯ <span class="text-gray-500">АРХИВА</span>
+                </h2>
+                <div class="w-24 h-1 bg-red-900/70 mx-auto mt-4 rounded-full"></div>
             </div>
-            <p class="text-xs text-center text-gray-500">
-                &copy; NukeSquad Clan. Все права заражены.
+
+            <!-- Gallery Grid -->
+            <div id="galleryGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 items-start">
+
+                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2 -rotate-1" onclick="openLightbox(this)">
+                    <img src="images/nukesquad1.jpg" alt="NukeSquad — Конец пути" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
+                    <div class="px-2 pt-2 pb-1">
+                        <span class="font-orbitron font-bold text-xs text-gray-500 truncate block text-center">NukeSquad [УДАЛЁН]</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2 rotate-1" onclick="openLightbox(this)">
+                    <img src="images/nukesquad2.jpg" alt="NukeSquad — Конец пути" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
+                    <div class="px-2 pt-2 pb-1">
+                        <span class="font-orbitron font-bold text-xs text-gray-500 truncate block text-center">NukeSquad [УДАЛЁН]</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2" onclick="openLightbox(this)">
+                    <img src="images/nukesquad3.jpg" alt="NukeSquad — Конец пути" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
+                    <div class="px-2 pt-2 pb-1">
+                        <span class="font-orbitron font-bold text-xs text-gray-500 truncate block text-center">NukeSquad [УДАЛЁН]</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2 -rotate-1" onclick="openLightbox(this)">
+                    <img src="images/nukesquad4.jpg" alt="NukeSquad — Конец пути" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
+                    <div class="px-2 pt-2 pb-1">
+                        <span class="font-orbitron font-bold text-xs text-red-500/80 truncate block text-center">NukeSquad [УДАЛЁН]</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2 -rotate-1" onclick="openLightbox(this)">
+                    <img src="images/nukesquad5.jpg" alt="NukeSquad — Конец пути" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
+                    <div class="px-2 pt-2 pb-1">
+                        <span class="font-orbitron font-bold text-xs text-red-500/80 truncate block text-center">NukeSquad [УДАЛЁН]</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2 -rotate-1" onclick="openLightbox(this)">
+                    <img src="images/nukesquad6.jpg" alt="NukeSquad — Конец пути" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
+                    <div class="px-2 pt-2 pb-1">
+                        <span class="font-orbitron font-bold text-xs text-red-500/80 truncate block text-center">NukeSquad [УДАЛЁН]</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2 -rotate-1" onclick="openLightbox(this)">
+                    <img src="images/nukesquad7.jpg" alt="NukeSquad — Конец пути" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
+                    <div class="px-2 pt-2 pb-1">
+                        <span class="font-orbitron font-bold text-xs text-red-500/80 truncate block text-center">NukeSquad [УДАЛЁН]</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2 -rotate-1" onclick="openLightbox(this)">
+                    <img src="images/nukesquad8.jpg" alt="NukeSquad — Конец пути" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
+                    <div class="px-2 pt-2 pb-1">
+                        <span class="font-orbitron font-bold text-xs text-red-500/80 truncate block text-center">NukeSquad [УДАЛЁН]</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2 -rotate-1" onclick="openLightbox(this)">
+                    <img src="images/nukesquad9.jpg" alt="NukeSquad — Конец пути" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
+                    <div class="px-2 pt-2 pb-1">
+                        <span class="font-orbitron font-bold text-xs text-red-500/80 truncate block text-center">NukeSquad [УДАЛЁН]</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2 -rotate-1" onclick="openLightbox(this)">
+                    <img src="images/nukesquad10.jpg" alt="NukeSquad — Конец пути" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
+                    <div class="px-2 pt-2 pb-1">
+                        <span class="font-orbitron font-bold text-xs text-red-500/80 truncate block text-center">NukeSquad [УДАЛЁН]</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2 -rotate-1" onclick="openLightbox(this)">
+                    <img src="images/nukesquad11.jpg" alt="NukeSquad — Конец пути" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
+                    <div class="px-2 pt-2 pb-1">
+                        <span class="font-orbitron font-bold text-xs text-red-500/80 truncate block text-center">NukeSquad [УДАЛЁН]</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2 -rotate-1" onclick="openLightbox(this)">
+                    <img src="images/nukesquad12.jpg" alt="NukeSquad — Конец пути" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
+                    <div class="px-2 pt-2 pb-1">
+                        <span class="font-orbitron font-bold text-xs text-red-500/80 truncate block text-center">NukeSquad [УДАЛЁН]</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- LIGHTBOX MODAL (С зумом и перетаскиванием картинки) -->
+    <div id="galleryModal" class="fixed inset-0 z-50 hidden bg-black/95 backdrop-blur-md flex flex-col justify-between p-3 sm:p-5 select-none">
+        
+        <!-- Top Bar -->
+        <div class="max-w-7xl w-full mx-auto flex items-center justify-between bg-nukeCard/95 border border-nukeBorder px-4 py-2.5 rounded-xl z-20">
+            <div class="flex items-center space-x-3 min-w-0">
+                <span id="modalCounter" class="font-orbitron font-bold text-xs text-red-400 bg-red-950/60 border border-red-800/50 px-2.5 py-1 rounded shrink-0">
+                    1 / 4
+                </span>
+                <h3 id="modalTitle" class="font-orbitron font-bold text-sm sm:text-base text-gray-300 truncate">
+                    Название
+                </h3>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex items-center space-x-1.5 sm:space-x-2 shrink-0 ml-2">
+                <button onclick="zoomImage(-0.3)" title="Уменьшить (-)" class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-nukeDark border border-nukeBorder hover:border-red-800 text-gray-400 hover:text-gray-200 flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-magnifying-glass-minus text-xs sm:text-sm"></i>
+                </button>
+                <span id="zoomLevelText" class="font-orbitron text-xs text-gray-500 w-11 text-center">100%</span>
+                <button onclick="zoomImage(0.3)" title="Увеличить (+)" class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-nukeDark border border-nukeBorder hover:border-red-800 text-gray-400 hover:text-gray-200 flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-magnifying-glass-plus text-xs sm:text-sm"></i>
+                </button>
+                <button onclick="resetTransform()" title="Сбросить вид" class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-nukeDark border border-nukeBorder hover:border-nukeYellow text-gray-400 hover:text-nukeYellow flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-compress text-xs sm:text-sm"></i>
+                </button>
+                <button onclick="closeLightbox()" title="Закрыть (Esc)" class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-red-950/60 border border-red-800/60 hover:bg-red-800 text-red-400 hover:text-white flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Viewport для картинки -->
+        <div id="modalViewport" class="relative flex-1 flex items-center justify-center my-2 overflow-hidden">
+            <!-- Prev -->
+            <button onclick="navigateLightbox(-1)" class="absolute left-2 sm:left-5 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-nukeCard/90 border border-nukeBorder hover:border-red-800 hover:text-red-400 text-gray-400 flex items-center justify-center transition-all">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+
+            <!-- Draggable Image -->
+            <img id="modalImage" src="" alt="" draggable="false" class="max-h-[80vh] max-w-[90vw] object-contain cursor-zoom-in select-none will-change-transform grayscale-[35%] sepia-[15%]">
+
+            <!-- Next -->
+            <button onclick="navigateLightbox(1)" class="absolute right-2 sm:right-5 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-nukeCard/90 border border-nukeBorder hover:border-red-800 hover:text-red-400 text-gray-400 flex items-center justify-center transition-all">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Hint -->
+        <div class="text-center text-[11px] text-gray-600 font-orbitron">
+            Двойной клик или колесико — зум • Зажмите и тяните при увеличении
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-black border-t border-nukeBorder py-12 relative z-10 text-gray-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-3 opacity-60">
+                <i class="fa-solid fa-radiation text-red-800 text-2xl"></i>
+                <span class="font-orbitron font-bold text-gray-400 text-lg line-through decoration-red-800">NUKESQUAD</span>
+            </div>
+            <p class="text-xs text-center text-gray-600 font-orbitron tracking-wider">
+                &copy; Архив заброшен. NukeSquad больше не существует.
             </p>
-            <div class="flex items-center space-x-4">
-                <a href="" class="w-9 h-9 rounded-full bg-nukeCard border border-nukeBorder flex items-center justify-center text-nukeGreen hover:border-nukeGreen transition-colors">
+            <div class="flex items-center space-x-4 opacity-50">
+                <a href="#" class="w-9 h-9 rounded-full bg-nukeCard border border-nukeBorder flex items-center justify-center text-gray-500 hover:text-red-500 hover:border-red-900 transition-colors" title="Канал удалён">
                     <i class="fa-brands fa-discord"></i>
                 </a>
-                <a href="" class="w-9 h-9 rounded-full bg-nukeCard border border-nukeBorder flex items-center justify-center text-nukeGreen hover:border-nukeGreen transition-colors">
+                <a href="#" class="w-9 h-9 rounded-full bg-nukeCard border border-nukeBorder flex items-center justify-center text-gray-500 hover:text-red-500 hover:border-red-900 transition-colors" title="Канал удалён">
                     <i class="fa-brands fa-telegram"></i>
                 </a>
             </div>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT FOR INTERACTIVITY -->
+    <!-- JAVASCRIPT -->
     <script>
+        // --- АНИМАЦИЯ ПАДАЮЩЕГО ПЕПЛА И ПЫЛИ (CANVAS) ---
+        (function initAshParticles() {
+            const canvas = document.getElementById('ashCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+
+            class AshParticle {
+                constructor() {
+                    this.reset(true);
+                }
+                reset(initial = false) {
+                    this.x = Math.random() * width;
+                    this.y = initial ? Math.random() * height : -10;
+                    this.size = Math.random() * 2.5 + 0.8;
+                    this.speedY = Math.random() * 0.65 + 0.2;
+                    this.speedX = (Math.random() - 0.5) * 0.5;
+                    this.opacity = Math.random() * 0.45 + 0.1;
+                    this.wobble = Math.random() * Math.PI * 2;
+                    this.wobbleSpeed = Math.random() * 0.02 + 0.005;
+                    // Редкие тлеющие угольки среди серого пепла
+                    this.isEmber = Math.random() < 0.08;
+                }
+                update() {
+                    this.wobble += this.wobbleSpeed;
+                    this.x += this.speedX + Math.sin(this.wobble) * 0.3;
+                    this.y += this.speedY;
+                    if (this.y > height + 10 || this.x < -10 || this.x > width + 10) {
+                        this.reset(false);
+                    }
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    if (this.isEmber) {
+                        ctx.fillStyle = `rgba(185, 55, 35, ${this.opacity * 0.9})`;
+                    } else {
+                        ctx.fillStyle = `rgba(160, 155, 150, ${this.opacity})`;
+                    }
+                    ctx.fill();
+                }
+            }
+
+            function init() {
+                resize();
+                const count = Math.min(90, Math.floor((width * height) / 16000));
+                particles = Array.from({ length: count }, () => new AshParticle());
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                for (let p of particles) {
+                    p.update();
+                    p.draw();
+                }
+                requestAnimationFrame(animate);
+            }
+
+            window.addEventListener('resize', resize);
+            window.addEventListener('load', () => {
+                init();
+                animate();
+            });
+        })();
+
+        // --- ФИЛЬТР ИГРОКОВ ---
         function filterPlayers(category) {
             const cards = document.querySelectorAll('.player-card');
             const buttons = document.querySelectorAll('.player-filter-btn');
 
             buttons.forEach(btn => {
-                btn.classList.remove('bg-nukeGreen', 'text-black', 'shadow-neon-green');
-                btn.classList.add('bg-nukeCard', 'text-gray-300');
+                btn.classList.remove('bg-red-950/80', 'text-gray-200', 'border-red-800/70', 'shadow-crimson-dead');
+                btn.classList.add('bg-nukeCard', 'text-gray-400', 'border-nukeBorder');
             });
 
             const activeBtn = document.getElementById(`btn-${category}`);
             if (activeBtn) {
-                activeBtn.classList.remove('bg-nukeCard', 'text-gray-300');
-                activeBtn.classList.add('bg-nukeGreen', 'text-black', 'shadow-neon-green');
+                activeBtn.classList.remove('bg-nukeCard', 'text-gray-400', 'border-nukeBorder');
+                activeBtn.classList.add('bg-red-950/80', 'text-gray-200', 'border-red-800/70', 'shadow-crimson-dead');
             }
 
             cards.forEach(card => {
@@ -757,6 +1154,7 @@
             });
         }
 
+        // --- МОБИЛЬНОЕ МЕНЮ ---
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
 
@@ -768,6 +1166,160 @@
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
             });
+        });
+
+        // --- ЛАЙТБОКС С ЗУМОМ И ПЕРЕТАСКИВАНИЕМ (DRAG / PAN) ---
+        const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+        const modal = document.getElementById('galleryModal');
+        const viewport = document.getElementById('modalViewport');
+        const modalImg = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalCounter = document.getElementById('modalCounter');
+        const zoomLevelText = document.getElementById('zoomLevelText');
+
+        let currentIndex = 0;
+        let scale = 1;
+        let translateX = 0;
+        let translateY = 0;
+        let isDragging = false;
+        let hasDragged = false;
+        let startX = 0;
+        let startY = 0;
+
+        function openLightbox(element) {
+            currentIndex = galleryItems.indexOf(element);
+            if (currentIndex === -1) currentIndex = 0;
+            updateLightboxContent();
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function updateLightboxContent() {
+            const item = galleryItems[currentIndex];
+            if (!item) return;
+
+            const img = item.querySelector('img');
+            resetTransform();
+
+            modalImg.src = img.src;
+            modalTitle.textContent = img.alt || `Архивный кадр #${currentIndex + 1}`;
+            modalCounter.textContent = `${currentIndex + 1} / ${galleryItems.length}`;
+        }
+
+        function closeLightbox() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+            resetTransform();
+        }
+
+        function navigateLightbox(direction) {
+            currentIndex = (currentIndex + direction + galleryItems.length) % galleryItems.length;
+            updateLightboxContent();
+        }
+
+        function applyTransform(smooth = false) {
+            modalImg.style.transition = smooth ? 'transform 0.2s ease-out' : 'none';
+            modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+            zoomLevelText.textContent = `${Math.round(scale * 100)}%`;
+
+            if (scale > 1) {
+                modalImg.style.cursor = isDragging ? 'grabbing' : 'grab';
+            } else {
+                modalImg.style.cursor = 'zoom-in';
+            }
+        }
+
+        function zoomImage(delta) {
+            scale = Math.min(Math.max(1, scale + delta), 4);
+            if (scale === 1) {
+                translateX = 0;
+                translateY = 0;
+            }
+            applyTransform(true);
+        }
+
+        function resetTransform() {
+            scale = 1;
+            translateX = 0;
+            translateY = 0;
+            applyTransform(true);
+        }
+
+        modalImg.addEventListener('dblclick', (e) => {
+            e.stopPropagation();
+            if (scale > 1) {
+                resetTransform();
+            } else {
+                scale = 2.2;
+                applyTransform(true);
+            }
+        });
+
+        viewport.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const delta = e.deltaY < 0 ? 0.25 : -0.25;
+            zoomImage(delta);
+        }, { passive: false });
+
+        modalImg.addEventListener('mousedown', (e) => {
+            if (scale <= 1) return;
+            e.preventDefault();
+            isDragging = true;
+            hasDragged = false;
+            startX = e.clientX - translateX;
+            startY = e.clientY - translateY;
+            applyTransform(false);
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            hasDragged = true;
+            translateX = e.clientX - startX;
+            translateY = e.clientY - startY;
+            applyTransform(false);
+        });
+
+        window.addEventListener('mouseup', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            applyTransform(false);
+        });
+
+        modalImg.addEventListener('touchstart', (e) => {
+            if (scale <= 1 || e.touches.length !== 1) return;
+            isDragging = true;
+            hasDragged = false;
+            startX = e.touches[0].clientX - translateX;
+            startY = e.touches[0].clientY - translateY;
+            applyTransform(false);
+        }, { passive: true });
+
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging || e.touches.length !== 1) return;
+            hasDragged = true;
+            translateX = e.touches[0].clientX - startX;
+            translateY = e.touches[0].clientY - startY;
+            applyTransform(false);
+        }, { passive: true });
+
+        window.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        viewport.addEventListener('click', (e) => {
+            if (e.target === viewport && !hasDragged) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (modal.classList.contains('hidden')) return;
+
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') navigateLightbox(1);
+            if (e.key === 'ArrowLeft') navigateLightbox(-1);
+            if (e.key === '+' || e.key === '=') zoomImage(0.3);
+            if (e.key === '-') zoomImage(-0.3);
         });
     </script>
 </body>
