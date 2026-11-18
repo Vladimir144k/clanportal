@@ -128,7 +128,7 @@
                     </div>
                     <div class="glass-card py-2.5 px-4 rounded-xl text-center">
                         <span class="block text-[9px] font-unbounded text-gray-400 uppercase" data-i18n="statMercs">Десантников</span>
-                        <span class="font-unbounded font-extrabold text-base text-white mt-0.5 block">2</span>
+                        <span class="font-unbounded font-extrabold text-base text-white mt-0.5 block">3</span>
                     </div>
                 </div>
 
@@ -163,7 +163,8 @@
                     <button onclick="setTagFilter('all')" id="tag-all" class="tag-btn px-3.5 py-1.5 rounded-lg bg-accentBlue text-white transition-all" data-i18n="filterAll">ВСЕ</button>
                     <button onclick="setTagFilter('top')" id="tag-top" class="tag-btn px-3.5 py-1.5 rounded-lg glass-card text-gray-300 hover:text-white transition-all" data-i18n="filterTop">ТОП СЕРВЕРА</button>
                     <button onclick="setTagFilter('recruiting')" id="tag-recruiting" class="tag-btn px-3.5 py-1.5 rounded-lg glass-card text-gray-300 hover:text-white transition-all" data-i18n="filterRecruiting">ЕСТЬ МЕСТА</button>
-                    <button onclick="setTagFilter('lang-ru')" id="tag-lang-ru" class="tag-btn px-3.5 py-1.5 rounded-lg glass-card text-gray-300 hover:text-white transition-all" data-i18n="filterLang">RU ЯЗЫК</button>
+                    <button onclick="setTagFilter('lang-ru')" id="tag-lang-ru" class="tag-btn px-3.5 py-1.5 rounded-lg glass-card text-gray-300 hover:text-white transition-all" data-i18n="filterLangRU">RU ЯЗЫК</button>
+                    <button onclick="setTagFilter('lang-en')" id="tag-lang-en" class="tag-btn px-3.5 py-1.5 rounded-lg glass-card text-gray-300 hover:text-white transition-all" data-i18n="filterLangEN">EN ЯЗЫК</button>
                 </div>
             </div>
 
@@ -203,15 +204,25 @@
                 </a>
 
                 <!-- CLAN 2: NUKESQUAD -->
-                <a href="nukesquad.html" data-name="nukesquad toxicwaste" data-tags="top recruiting lang-ru" class="clan-card group block rounded-2xl glass-card border border-hubBorder hover:border-nukeGreen/80 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-15px_rgba(0,255,102,0.2)]">
+                <!-- CLAN 2: NUKESQUAD -->
+                <a href="nukesquad.html" data-name="nukesquad toxicwaste" data-tags="recruiting need-merc lang-ru" class="clan-card group block rounded-2xl glass-card border border-hubBorder hover:border-nukeGreen/80 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-15px_rgba(0,255,102,0.2)]">
                     <div class="relative h-44 bg-black overflow-hidden border-b border-hubBorder">
-                        <img src="assets/images/nukesquad.jpg" alt="NukeSquad" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90" onerror="this.onerror=null; this.src='https://placehold.co/600x300/121814/00FF66?text=NUKESQUAD'"/>
+                        <img src="images/nukesquad17.jpg" alt="NukeSquad" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90" onerror="this.onerror=null; this.src='https://placehold.co/600x300/121814/00FF66?text=NUKESQUAD'"/>
                         <div class="absolute inset-0 bg-gradient-to-t from-hubCard via-hubCard/20 to-transparent"></div>
-                        <div class="absolute top-3 left-3 flex gap-2 items-center flex-wrap">
-                            <span class="px-2 py-0.5 rounded bg-nukeGreen text-black font-unbounded font-black text-[10px] uppercase shadow">TOP-64</span>
+                        
+                        <!-- Верхние бейджи -->
+                        <div class="absolute top-3 left-3 flex gap-1.5 items-center flex-wrap pr-12">
+                            <span class="px-2 py-0.5 rounded bg-nukeGreen text-black font-unbounded font-black text-[10px] uppercase shadow">TOP-101+</span>
                             <span class="px-2 py-0.5 rounded bg-accentPurple/80 text-white font-unbounded font-black text-[10px] uppercase shadow">Tier S</span>
-                            <span class="px-2 py-0.5 rounded bg-black/75 backdrop-blur-md text-emerald-400 border border-emerald-500/30 font-unbounded font-bold text-[10px] uppercase">18 / 50</span>
+                            <span class="px-2 py-0.5 rounded bg-black/75 backdrop-blur-md text-emerald-400 border border-emerald-500/30 font-unbounded font-bold text-[10px] uppercase">13 / 50</span>
+                            
+                            <!-- ПЛАШКА: ТРЕБУЕТСЯ ДЕСАНТ -->
+                            <span class="px-2 py-0.5 rounded bg-red-500/20 backdrop-blur-md text-red-400 border border-red-500/50 font-unbounded font-black text-[10px] uppercase shadow-[0_0_12px_rgba(245,158,11,0.4)] flex items-center gap-1 animate-pulse">
+                                <i class="fa-solid fa-parachute-box text-[9px]"></i>
+                                <span data-i18n="badgeNeedMerc">ТРЕБУЕТСЯ ДЕСАНТ</span>
+                            </span>
                         </div>
+
                         <div class="absolute top-3 right-3">
                             <span class="px-2 py-1 rounded-md bg-black/80 backdrop-blur border border-white/10 text-xs shadow">RU</span>
                         </div>
@@ -219,6 +230,7 @@
                             <i class="fa-solid fa-radiation text-nukeGreen text-base"></i>
                         </div>
                     </div>
+                    
                     <div class="p-5 pt-3">
                         <div class="flex items-center justify-between">
                             <h3 class="font-unbounded font-extrabold text-lg text-white group-hover:text-nukeGreen transition-colors">NukeSquad 👑</h3>
@@ -235,7 +247,7 @@
                 </a>
 
                 <!-- CLAN 3: BELARUS1 -->
-                <a href="belarus1.html" data-name="belarus1 gatex kzxars" data-tags="recruiting lang-ru" class="clan-card group block rounded-2xl glass-card border border-hubBorder hover:border-belarusRed/80 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-15px_rgba(210,39,48,0.3)]">
+                <a href="belarus1.html" data-name="belarus1 gatex" data-tags="recruiting lang-ru" class="clan-card group block rounded-2xl glass-card border border-hubBorder hover:border-belarusRed/80 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-15px_rgba(210,39,48,0.3)]">
                     <div class="relative h-44 bg-black overflow-hidden border-b border-hubBorder">
                         <img src="assets/images/belarus1.jpg" alt="Belarus1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90" onerror="this.onerror=null; this.src='https://placehold.co/600x300/11131A/D22730?text=BELARUS1'"/>
                         <div class="absolute inset-0 bg-gradient-to-t from-hubCard via-hubCard/20 to-transparent"></div>
@@ -267,12 +279,12 @@
                 </a>
 
                 <!-- CLAN 4: VARYAGI -->
-                <a href="varyagi.html" data-name="varyagi varyag varyagtro" data-tags="top recruiting" class="clan-card group block rounded-2xl glass-card border border-hubBorder hover:border-accentBlue/80 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-15px_rgba(59,130,246,0.3)]">
+                <a href="varyagi.html" data-name="varyagi varyag varyagtro" data-tags="top recruiting lang-ru lang-en" class="clan-card group block rounded-2xl glass-card border border-hubBorder hover:border-accentBlue/80 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-15px_rgba(59,130,246,0.3)]">
                     <div class="relative h-44 bg-black overflow-hidden border-b border-hubBorder">
                         <img src="assets/images/varyagi.jpg" alt="Varyagi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90" onerror="this.onerror=null; this.src='https://placehold.co/600x300/171A24/3B82F6?text=VARYAGI'"/>
                         <div class="absolute inset-0 bg-gradient-to-t from-hubCard via-hubCard/20 to-transparent"></div>
                         <div class="absolute top-3 left-3 flex gap-2 items-center flex-wrap">
-                            <span class="px-2 py-0.5 rounded bg-accentBlue text-white font-unbounded font-black text-[10px] uppercase shadow">TOP-13</span>
+                            <span class="px-2 py-0.5 rounded bg-accentBlue text-white font-unbounded font-black text-[10px] uppercase shadow">TOP-12</span>
                             <span class="px-2 py-0.5 rounded bg-accentPurple/80 text-white font-unbounded font-black text-[10px] uppercase shadow">Tier S</span>
                             <span class="px-2 py-0.5 rounded bg-black/75 backdrop-blur-md text-emerald-400 border border-emerald-500/30 font-unbounded font-bold text-[10px] uppercase">46 / 50</span>
                         </div>
@@ -356,7 +368,7 @@
                             <div class="w-12 h-12 rounded-xl bg-hubDark border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-unbounded font-bold text-lg">T</div>
                             <div>
                                 <h3 class="font-unbounded font-extrabold text-base text-white">Tcan</h3>
-                                <span class="text-[11px] text-emerald-400 font-semibold" data-i18n="powerLabel">Мощь: 5.01q</span>
+                                <span class="text-[11px] text-emerald-400 font-semibold" data-i18n="powerLabel">Мощь: 6.03q</span>
                             </div>
                         </div>
                         <span class="px-2.5 py-1 rounded-md bg-red-500/10 text-red-400 border border-red-500/30 font-unbounded text-[10px] font-bold" data-i18n="statusBusy">ЗАНЯТ</span>
@@ -364,17 +376,17 @@
 
                     <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
                         <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="mainClan">Основной клан</span><span class="text-white font-semibold truncate block">Varyagi</span></div>
-                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="currentClan">Сейчас в клане</span><span class="text-emerald-400 font-semibold truncate block">NukeSquad</span></div>
+                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="currentClan">Сейчас в клане</span><span class="text-emerald-400 font-semibold truncate block">Varyagi</span></div>
                     </div>
 
-                    <div class="grid grid-cols-3 gap-2.5 mt-3 text-xs font-medium">
+                    <!--<div class="grid grid-cols-3 gap-2.5 mt-3 text-xs font-medium">
                         <div class="bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="boxes">Коробки</span><span class="text-amber-400 font-bold mt-0.5 block">133К</span></div>
                         <div class="bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="bones">Кости</span><span class="text-gray-300 font-bold mt-0.5 block">104К</span></div>
                         <div class="bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="crowns">Короны</span><span class="text-yellow-400 font-bold mt-0.5 block">4</span></div>
                         <div class="bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="picks">Кирки</span><span class="text-blue-400 font-bold mt-0.5 block">628</span></div>
                         <div class="bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="goldPicks">Зол. кирки</span><span class="text-yellow-500 font-bold mt-0.5 block">61</span></div>
                         <div class="bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="drills">Буры</span><span class="text-purple-400 font-bold mt-0.5 block">56</span></div>
-                    </div>
+                    </div>-->
 
                     <div class="mt-3 bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="level">Уровень</span><span class="text-white font-bold mt-0.5 block">123</span></div>
 
@@ -393,24 +405,41 @@
                                 <span class="text-[11px] text-emerald-400 font-semibold" data-i18n="powerLabel">Мощь: 4.23q</span>
                             </div>
                         </div>
-                        <span class="px-2.5 py-1 rounded-md bg-red-500/10 text-red-400 border border-red-500/30 font-unbounded text-[10px] font-bold" data-i18n="statusBusy">ЗАНЯТ</span>
+                        <span class="px-2.5 py-1 rounded-md bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 font-unbounded text-[10px] font-bold" data-i18n="statusidk">НЕИЗВЕСТНО</span>
                     </div>
 
                     <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
                         <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="mainClan">Основной клан</span><span class="text-white font-semibold truncate block">Belarus1</span></div>
-                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="currentClan">Сейчас в клане</span><span class="text-emerald-400 font-semibold truncate block">NukeSquad</span></div>
-                    </div>
-
-                    <div class="grid grid-cols-3 gap-2.5 mt-3 text-xs font-medium">
-                        <div class="bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="boxes">Коробки</span><span class="text-amber-400 font-bold mt-0.5 block">133К</span></div>
-                        <div class="bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="bones">Кости</span><span class="text-gray-300 font-bold mt-0.5 block">145К</span></div>
-                        <div class="bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="crowns">Короны</span><span class="text-yellow-400 font-bold mt-0.5 block">4.5К</span></div>
-                        <div class="bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="picks">Кирки</span><span class="text-blue-400 font-bold mt-0.5 block">33</span></div>
-                        <div class="bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="goldPicks">Зол. кирки</span><span class="text-yellow-500 font-bold mt-0.5 block">70</span></div>
-                        <div class="bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="drills">Буры</span><span class="text-purple-400 font-bold mt-0.5 block">68</span></div>
+                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="currentClan">Сейчас в клане</span><span class="text-emerald-400 font-semibold truncate block">Belarus1</span></div>
                     </div>
 
                     <div class="mt-3 bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="level">Уровень</span><span class="text-white font-bold mt-0.5 block">117</span></div>
+
+                    <button onclick="orderMercenary('Dikci')" class="mt-4 w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-black font-unbounded font-bold text-xs uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)]" data-i18n="btnOrderMerc">
+                        Заказать десант
+                    </button>
+                </div>
+
+
+                <!-- Merc Card 3 -->
+                <div class="merc-card glass-card border border-hubBorder hover:border-emerald-500/60 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 shadow-lg" data-merc="Dikci">
+                    <div class="flex items-center justify-between pb-4 border-b border-hubBorder">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 rounded-xl bg-hubDark border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-unbounded font-bold text-lg">D</div>
+                            <div>
+                                <h3 class="font-unbounded font-extrabold text-base text-white">Dikci</h3>
+                                <span class="text-[11px] text-emerald-400 font-semibold" data-i18n="powerLabel">Мощь: 1.42q</span>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-md bg-green-500/10 text-green-400 border border-green-500/30 font-unbounded text-[10px] font-bold" data-i18n="statusFree">СВОБОДЕН</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
+                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="mainClan">Основной клан</span><span class="text-white font-semibold truncate block">Belarus1</span></div>
+                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="currentClan">Сейчас в клане</span><span class="text-emerald-400 font-semibold truncate block">В поиске...</span></div>
+                    </div>
+
+                    <div class="mt-3 bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="level">Уровень</span><span class="text-white font-bold mt-0.5 block">114</span></div>
 
                     <button onclick="orderMercenary('Dikci')" class="mt-4 w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-black font-unbounded font-bold text-xs uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)]" data-i18n="btnOrderMerc">
                         Заказать десант
@@ -509,7 +538,7 @@
                         <input type="number" id="mLevel" required class="w-full px-3 py-2 rounded-xl bg-hubDark border border-hubBorder focus:border-emerald-500 focus:outline-none text-white" placeholder="450">
                     </div>
                 </div>
-                <div class="grid grid-cols-3 gap-2">
+                <!--<div class="grid grid-cols-3 gap-2">
                     <div><label class="block text-gray-400 mb-1 text-[9px] uppercase" data-i18n="boxes">Коробки</label><input type="text" id="mBoxes" class="w-full px-2 py-1.5 rounded-lg bg-hubDark border border-hubBorder text-white text-center" placeholder="1000"></div>
                     <div><label class="block text-gray-400 mb-1 text-[9px] uppercase" data-i18n="bones">Кости</label><input type="text" id="mBones" class="w-full px-2 py-1.5 rounded-lg bg-hubDark border border-hubBorder text-white text-center" placeholder="50K"></div>
                     <div><label class="block text-gray-400 mb-1 text-[9px] uppercase" data-i18n="crowns">Короны</label><input type="text" id="mCrowns" class="w-full px-2 py-1.5 rounded-lg bg-hubDark border border-hubBorder text-white text-center" placeholder="200"></div>
@@ -518,7 +547,7 @@
                     <div><label class="block text-gray-400 mb-1 text-[9px] uppercase" data-i18n="picks">Кирки</label><input type="text" id="mPicks" class="w-full px-2 py-1.5 rounded-lg bg-hubDark border border-hubBorder text-white text-center" placeholder="3000"></div>
                     <div><label class="block text-gray-400 mb-1 text-[9px] uppercase" data-i18n="goldPicks">Зол. кирки</label><input type="text" id="mGoldPicks" class="w-full px-2 py-1.5 rounded-lg bg-hubDark border border-hubBorder text-white text-center" placeholder="100"></div>
                     <div><label class="block text-gray-400 mb-1 text-[9px] uppercase" data-i18n="drills">Буры</label><input type="text" id="mDrills" class="w-full px-2 py-1.5 rounded-lg bg-hubDark border border-hubBorder text-white text-center" placeholder="25 шт."></div>
-                </div>
+                </div>-->
                 <button type="submit" class="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-black font-unbounded font-bold uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] mt-2" data-i18n="modalBtnSubmitMerc">Отправить анкету</button>
             </form>
         </div>
@@ -543,7 +572,8 @@
             filterAll: "ВСЕ",
             filterTop: "ТОП СЕРВЕРА",
             filterRecruiting: "ЕСТЬ МЕСТА",
-            filterLang: "RU ЯЗЫК",
+            filterLangRU: "RU ЯЗЫК",
+            filterLangEN: "EN ЯЗЫК",
             descMafia: "Семья сильнейших игроков Dungeon Rush. Власть, уважение, братство и 100% винрейт.",
             descNuke: "Клан закаленных бойцов подземелий. Доминируем на арене и уничтожаем боссов.",
             descBelarus: "Made in Belarus. Дружный русскоязычный клан, совместные рейды и активное участие в жизни сервера.",
@@ -557,13 +587,14 @@
             addClanTitle: "Добавить Клан",
             addClanDesc: "Зарегистрируйте свою гильдию в общем реестре сервера.",
             noResults: "Ничего не найдено по вашему запросу",
-            badgeMerc: "Наемная помощь",
             mercsTitle1: "ДЕСАНТ НА",
             mercsTitle2: "ЗАКАЗ",
             mercsDesc: "Сильнейшие бойцы сервера для временной помощи кланам. Закажите бойца или добавьте свою анкету в список!",
             btnAddMerc: "+ Подать заявку в десант",
             searchMercPlaceholder: "Поиск бойца...",
             powerLabel: "Мощь",
+            statusidk: "НЕИЗВЕСТНО",
+            statusFree: "СВОБОДЕН",
             statusBusy: "ЗАНЯТ",
             mainClan: "Основной клан",
             currentClan: "Сейчас в клане",
@@ -590,7 +621,9 @@
             modalMercPower: "Общая мощь",
             modalMercClan: "Основной клан",
             modalMercLevel: "Уровень",
-            modalBtnSubmitMerc: "Отправить анкету"
+            modalBtnSubmitMerc: "Отправить анкету",
+            badgeNeedMerc: "ТРЕБУЕТСЯ ДЕСАНТ",
+            badgeMerc: "Наемная помощь",
         },
         en: {
             pageTitle: "Dungeon Rush | Clan Portal",
@@ -607,7 +640,8 @@
             filterAll: "ALL",
             filterTop: "TOP SERVER",
             filterRecruiting: "RECRUITING",
-            filterLang: "RU LANG",
+            filterLangRU: "RU LANG",
+            filterLangEN: "EN LANG",
             descMafia: "Family of the strongest Dungeon Rush players. Power, respect, brotherhood and 100% winrate.",
             descNuke: "Clan of seasoned dungeon fighters. Dominating the arena and destroying bosses.",
             descBelarus: "Made in Belarus. Friendly Russian-speaking clan, joint raids and active server participation.",
@@ -621,13 +655,14 @@
             addClanTitle: "Add Clan",
             addClanDesc: "Register your guild in the general server registry.",
             noResults: "Nothing found for your request",
-            badgeMerc: "Mercenary Support",
             mercsTitle1: "ON-DEMAND",
             mercsTitle2: "MERCENARIES",
             mercsDesc: "Strongest server fighters for temporary clan assistance. Order a fighter or add your application!",
             btnAddMerc: "+ Apply as Mercenary",
             searchMercPlaceholder: "Search fighter...",
             powerLabel: "Power",
+            statusidk: "UNKNOWN",
+            statusFree: "FREE",
             statusBusy: "BUSY",
             mainClan: "Main Clan",
             currentClan: "Current Clan",
@@ -654,7 +689,9 @@
             modalMercPower: "Total Power",
             modalMercClan: "Main Clan",
             modalMercLevel: "Level",
-            modalBtnSubmitMerc: "Submit Application"
+            modalBtnSubmitMerc: "Submit Application",
+            badgeNeedMerc: "MERCENARIES NEEDED",
+            badgeMerc: "Mercenary Support",
         }
     };
 
