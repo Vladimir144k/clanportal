@@ -368,15 +368,23 @@
                             <div class="w-12 h-12 rounded-xl bg-hubDark border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-unbounded font-bold text-lg">T</div>
                             <div>
                                 <h3 class="font-unbounded font-extrabold text-base text-white">Tcan</h3>
-                                <span class="text-[11px] text-emerald-400 font-semibold"><span data-i18n="powerLabel">Мощь:</span> 6.03q</span>
+                                <span class="text-[11px] text-emerald-400 font-semibold">
+                                    <span data-i18n="powerLabel">Мощь:</span> <span data-merc-power>6.03q</span>
+                                </span>
                             </div>
                         </div>
-                        <span class="px-2.5 py-1 rounded-md bg-red-500/10 text-red-400 border border-red-500/30 font-unbounded text-[10px] font-bold" data-i18n="statusBusy">ЗАНЯТ</span>
+                        <span class="px-2.5 py-1 rounded-md bg-red-500/10 text-red-400 border border-red-500/30 font-unbounded text-[10px] font-bold" data-merc-status>ЗАНЯТ</span>
                     </div>
 
                     <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
-                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="mainClan">Основной клан</span><span class="text-white font-semibold truncate block">Varyagi</span></div>
-                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="currentClan">Сейчас в клане</span><span class="text-emerald-400 font-semibold truncate block">Varyagi</span></div>
+                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder">
+                            <span class="block text-[9px] text-gray-500 uppercase" data-i18n="mainClan">Основной клан</span>
+                            <span class="text-white font-semibold truncate block">Varyagi</span>
+                        </div>
+                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder">
+                            <span class="block text-[9px] text-gray-500 uppercase" data-i18n="currentClan">Сейчас в клане</span>
+                            <span class="text-emerald-400 font-semibold truncate block" data-merc-clan>Varyagi</span>
+                        </div>
                     </div>
 
                     <!--<div class="grid grid-cols-3 gap-2.5 mt-3 text-xs font-medium">
@@ -388,7 +396,10 @@
                         <div class="bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="drills">Буры</span><span class="text-purple-400 font-bold mt-0.5 block">56</span></div>
                     </div>-->
 
-                    <div class="mt-3 bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="level">Уровень</span><span class="text-white font-bold mt-0.5 block">123</span></div>
+                    <div class="mt-3 bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center">
+                        <span class="block text-[9px] text-gray-500 uppercase" data-i18n="level">Уровень</span>
+                        <span class="text-white font-bold mt-0.5 block" data-merc-level>123</span>
+                    </div>
 
                     <button onclick="orderMercenary('Tcan')" class="mt-4 w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-black font-unbounded font-bold text-xs uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)]" data-i18n="btnOrderMerc">
                         Заказать десант
@@ -407,7 +418,6 @@
                                 </span>
                             </div>
                         </div>
-                        <!-- Статус -->
                         <span class="px-2.5 py-1 rounded-md bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 font-unbounded text-[10px] font-bold" data-merc-status>НЕИЗВЕСТНО</span>
                     </div>
 
@@ -432,7 +442,6 @@
                     </button>
                 </div>
 
-
                 <!-- Merc Card 3 -->
                 <div class="merc-card glass-card border border-hubBorder hover:border-emerald-500/60 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 shadow-lg" data-merc="Chel">
                     <div class="flex items-center justify-between pb-4 border-b border-hubBorder">
@@ -440,44 +449,65 @@
                             <div class="w-12 h-12 rounded-xl bg-hubDark border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-unbounded font-bold text-lg">C</div>
                             <div>
                                 <h3 class="font-unbounded font-extrabold text-base text-white">Chel</h3>
-                                <span class="text-[11px] text-emerald-400 font-semibold"><span data-i18n="powerLabel">Мощь:</span> 1.42q</span>
+                                <span class="text-[11px] text-emerald-400 font-semibold">
+                                    <span data-i18n="powerLabel">Мощь:</span> <span data-merc-power>1.42q</span>
+                                </span>
                             </div>
                         </div>
-                        <span class="px-2.5 py-1 rounded-md bg-green-500/10 text-green-400 border border-green-500/30 font-unbounded text-[10px] font-bold" data-i18n="statusFree">СВОБОДЕН</span>
+                        <span class="px-2.5 py-1 rounded-md bg-green-500/10 text-green-400 border border-green-500/30 font-unbounded text-[10px] font-bold" data-merc-status>СВОБОДЕН</span>
                     </div>
 
                     <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
-                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="mainClan">Основной клан</span><span class="text-white font-semibold truncate block">Belarus1</span></div>
-                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="currentClan">Сейчас в клане</span><span class="text-emerald-400 font-semibold truncate block">В поиске...</span></div>
+                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder">
+                            <span class="block text-[9px] text-gray-500 uppercase" data-i18n="mainClan">Основной клан</span>
+                            <span class="text-white font-semibold truncate block">Belarus1</span>
+                        </div>
+                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder">
+                            <span class="block text-[9px] text-gray-500 uppercase" data-i18n="currentClan">Сейчас в клане</span>
+                            <span class="text-emerald-400 font-semibold truncate block" data-merc-clan>В поиске...</span>
+                        </div>
                     </div>
 
-                    <div class="mt-3 bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="level">Уровень</span><span class="text-white font-bold mt-0.5 block">114</span></div>
+                    <div class="mt-3 bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center">
+                        <span class="block text-[9px] text-gray-500 uppercase" data-i18n="level">Уровень</span>
+                        <span class="text-white font-bold mt-0.5 block" data-merc-level>114</span>
+                    </div>
 
                     <button onclick="orderMercenary('Chel')" class="mt-4 w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-black font-unbounded font-bold text-xs uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)]" data-i18n="btnOrderMerc">
                         Заказать десант
                     </button>
                 </div>
 
-
-                <!-- Merc Card 3 -->
+                <!-- Merc Card 4 -->
                 <div class="merc-card glass-card border border-hubBorder hover:border-emerald-500/60 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 shadow-lg" data-merc="Lev">
                     <div class="flex items-center justify-between pb-4 border-b border-hubBorder">
                         <div class="flex items-center space-x-3">
                             <div class="w-12 h-12 rounded-xl bg-hubDark border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-unbounded font-bold text-lg">L</div>
                             <div>
                                 <h3 class="font-unbounded font-extrabold text-base text-white">Lev</h3>
-                                <span class="text-[11px] text-emerald-400 font-semibold"><span data-i18n="powerLabel">Мощь:</span> 6.74q</span>
+                                <span class="text-[11px] text-emerald-400 font-semibold">
+                                    <span data-i18n="powerLabel">Мощь:</span> <span data-merc-power>6.74q</span>
+                                </span>
                             </div>
                         </div>
-                        <span class="px-2.5 py-1 rounded-md bg-red-500/10 text-red-400 border border-red-500/30 font-unbounded text-[10px] font-bold" data-i18n="statusBusy">ЗАНЯТ</span>
+                        <span class="px-2.5 py-1 rounded-md bg-red-500/10 text-red-400 border border-red-500/30 font-unbounded text-[10px] font-bold" data-merc-status>ЗАНЯТ</span>
                     </div>
 
                     <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
-                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="mainClan">Основной клан</span><span class="text-white font-semibold truncate block">Varyagi</span></div>
-                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="currentClan">Сейчас в клане</span><span class="text-emerald-400 font-semibold truncate block">Varyagi</span></div>
+                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder">
+                            <span class="block text-[9px] text-gray-500 uppercase" data-i18n="mainClan">Основной клан</span>
+                            <span class="text-white font-semibold truncate block">Varyagi</span>
+                        </div>
+                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder">
+                            <span class="block text-[9px] text-gray-500 uppercase" data-i18n="currentClan">Сейчас в клане</span>
+                            <span class="text-emerald-400 font-semibold truncate block" data-merc-clan>Varyagi</span>
+                        </div>
                     </div>
 
-                    <div class="mt-3 bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="level">Уровень</span><span class="text-white font-bold mt-0.5 block">120</span></div>
+                    <div class="mt-3 bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center">
+                        <span class="block text-[9px] text-gray-500 uppercase" data-i18n="level">Уровень</span>
+                        <span class="text-white font-bold mt-0.5 block" data-merc-level>120</span>
+                    </div>
 
                     <button onclick="orderMercenary('Lev')" class="mt-4 w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-black font-unbounded font-bold text-xs uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)]" data-i18n="btnOrderMerc">
                         Заказать десант
