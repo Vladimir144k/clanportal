@@ -226,7 +226,7 @@
         </div>
     </section>
 
-    <!-- SECTION 2: STATISTICS & CLAN WAR LOGS (Статистика) -->
+<!-- SECTION 2: STATISTICS & CLAN WAR LOGS (Статистика) -->
     <section id="stats" class="py-20 relative z-10 border-b border-nukeBorder">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
@@ -249,19 +249,19 @@
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div class="bg-nukeCard border border-nukeBorder p-5 rounded-xl text-center">
                         <span class="block text-gray-400 font-orbitron text-xs uppercase">Всего Войн</span>
-                        <span class="font-orbitron font-black text-2xl sm:text-3xl text-white mt-1 block">8</span>
+                        <span data-stat="total_wars" class="font-orbitron font-black text-2xl sm:text-3xl text-white mt-1 block">8</span>
                     </div>
                     <div class="bg-nukeCard border border-nukeBorder p-5 rounded-xl text-center">
                         <span class="block text-gray-400 font-orbitron text-xs uppercase">Победы (Всё время)</span>
-                        <span class="font-orbitron font-black text-2xl sm:text-3xl text-nukeGreen mt-1 block">7</span>
+                        <span data-stat="wins_all_time" class="font-orbitron font-black text-2xl sm:text-3xl text-nukeGreen mt-1 block">7</span>
                     </div>
                     <div class="bg-nukeCard border border-nukeBorder p-5 rounded-xl text-center">
                         <span class="block text-gray-400 font-orbitron text-xs uppercase">Поражения</span>
-                        <span class="font-orbitron font-black text-2xl sm:text-3xl text-red-500 mt-1 block">1</span>
+                        <span data-stat="losses_all_time" class="font-orbitron font-black text-2xl sm:text-3xl text-red-500 mt-1 block">1</span>
                     </div>
                     <div class="bg-nukeCard border border-nukeBorder p-5 rounded-xl text-center">
                         <span class="block text-gray-400 font-orbitron text-xs uppercase">Винрейт (Win Rate)</span>
-                        <span class="font-orbitron font-black text-2xl sm:text-3xl text-nukeYellow mt-1 block">80%</span>
+                        <span data-stat="winrate" class="font-orbitron font-black text-2xl sm:text-3xl text-nukeYellow mt-1 block">80%</span>
                     </div>
                 </div>
             </div>
@@ -273,100 +273,119 @@
                         <h3 class="font-orbitron font-bold text-xl text-white uppercase flex items-center">
                             <i class="fa-solid fa-calendar-days text-nukeGreen mr-3"></i> Текущая Неделя Войны (6 Дней)
                         </h3>
-                        <p class="text-xl mt-1">Враг: TBA</p>
+                        <p class="text-xl mt-1">Враг: <span data-stat="week_enemy" class="font-orbitron font-bold text-nukeYellow">В Ожидании</span></p>
                     </div>
                     <div class="mt-4 md:mt-0 flex items-center space-x-4 bg-nukeDark p-3 rounded-lg border border-nukeGreen/40">
                         <div>
                             <span class="text-[10px] text-gray-400 font-orbitron block uppercase">Итог Недели:</span>
-                            <span class="font-orbitron font-black text-nukeGreen text-lg">0 / 6 ПОБЕД (0:0)</span>
+                            <span data-stat="week_summary" class="font-orbitron font-black text-nukeGreen text-lg">0 / 6 ПОБЕД (0:0)</span>
                         </div>
                         <div class="h-8 w-px bg-nukeBorder"></div>
                         <div>
                             <span class="text-[10px] text-gray-400 font-orbitron block uppercase">MVP Недели:</span>
-                            <span class="font-orbitron font-black text-nukeYellow text-lg">В Процессе</span>
+                            <span data-stat="week_mvp" class="font-orbitron font-black text-nukeYellow text-lg">В Процессе</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- 6 Days Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Day 1  -->
-                    <div class="bg-nukeCard border border-nukeBorder hover:border-red-500 rounded-xl p-6 relative overflow-hidden transition-all shadow-lg">
+                    <!-- Day 1 -->
+                    <div data-war-day="1" class="bg-nukeCard border border-nukeBorder rounded-xl p-6 relative overflow-hidden transition-all shadow-lg">
                         <div class="flex items-center justify-between border-b border-nukeBorder pb-3 mb-4">
                             <span class="font-orbitron font-black text-nukeYellow text-lg">ДЕНЬ 1</span>
-                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-red-950/80 text-red-400 border border-red-700/60">Поражение</span>
+                            <span data-day-status class="px-2.5 py-1 rounded text-xs font-bold bg-red-950/80 text-red-400 border border-red-700/60">Поражение</span>
                         </div>
                         <div class="bg-black/60 p-4 rounded-lg border border-nukeBorder flex items-center space-x-3">
                             <img src="images/player1.jpg" alt="MVP" class="w-12 h-12 rounded-full border border-nukeYellow object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121814/FFCC00?text=MVP';">
                             <div>
                                 <span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP 1 ДНЯ</span>
-                                <span class="font-orbitron font-bold text-white text-base">В Процессе</span>
+                                <span data-day-mvp class="font-orbitron font-bold text-white text-base">В Процессе</span>
                             </div>
                         </div>
                     </div>
+
                     <!-- Day 2 -->
-                    <div class="bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl p-6 relative overflow-hidden transition-all shadow-lg">
+                    <div data-war-day="2" class="bg-nukeCard border border-nukeBorder rounded-xl p-6 relative overflow-hidden transition-all shadow-lg">
                         <div class="flex items-center justify-between border-b border-nukeBorder pb-3 mb-4">
                             <span class="font-orbitron font-black text-nukeYellow text-lg">ДЕНЬ 2</span>
-                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-yellow-400 text-black border border-yellow-400">В Процессе</span>
+                            <span data-day-status class="px-2.5 py-1 rounded text-xs font-bold bg-yellow-400 text-black border border-yellow-400">В Процессе</span>
                         </div>
                         <div class="mt-4 pt-3 border-t border-nukeBorder bg-black/60 p-3 rounded-lg flex items-center justify-between">
                             <div class="flex items-center space-x-3">
                                 <img src="images/player2.jpg" alt="MVP" class="w-10 h-10 rounded-full border border-nukeYellow object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121814/FFCC00?text=MVP';">
-                                <div><span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP ДНЯ 2</span>
-                                    <span class="font-orbitron font-bold text-white text-sm">В Процессе</span></div>
+                                <div>
+                                    <span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP ДНЯ 2</span>
+                                    <span data-day-mvp class="font-orbitron font-bold text-white text-sm">В Процессе</span>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                     <!-- Day 3 -->
-                    <div class="bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl p-6 relative overflow-hidden transition-all shadow-lg">
+                    <div data-war-day="3" class="bg-nukeCard border border-nukeBorder rounded-xl p-6 relative overflow-hidden transition-all shadow-lg">
                         <div class="flex items-center justify-between border-b border-nukeBorder pb-3 mb-4">
                             <span class="font-orbitron font-black text-nukeYellow text-lg">ДЕНЬ 3</span>
-                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-yellow-400 text-black border border-yellow-400">В Процессе</span>
+                            <span data-day-status class="px-2.5 py-1 rounded text-xs font-bold bg-yellow-400 text-black border border-yellow-400">В Процессе</span>
                         </div>
                         <div class="mt-4 pt-3 border-t border-nukeBorder bg-black/60 p-3 rounded-lg flex items-center justify-between">
                             <div class="flex items-center space-x-3">
                                 <img src="images/player3.jpg" alt="MVP" class="w-10 h-10 rounded-full border border-nukeYellow object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121814/FFCC00?text=MVP';">
-                                <div><span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP ДНЯ 3</span><span class="font-orbitron font-bold text-white text-sm">В Процессе</span></div>
+                                <div>
+                                    <span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP ДНЯ 3</span>
+                                    <span data-day-mvp class="font-orbitron font-bold text-white text-sm">В Процессе</span>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                     <!-- Day 4 -->
-                    <div class="bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl p-6 relative overflow-hidden transition-all shadow-lg">
+                    <div data-war-day="4" class="bg-nukeCard border border-nukeBorder rounded-xl p-6 relative overflow-hidden transition-all shadow-lg">
                         <div class="flex items-center justify-between border-b border-nukeBorder pb-3 mb-4">
                             <span class="font-orbitron font-black text-nukeYellow text-lg">ДЕНЬ 4</span>
-                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-yellow-400 text-black border border-yellow-400">В Процессе</span>
+                            <span data-day-status class="px-2.5 py-1 rounded text-xs font-bold bg-yellow-400 text-black border border-yellow-400">В Процессе</span>
                         </div>
                         <div class="mt-4 pt-3 border-t border-nukeBorder bg-black/60 p-3 rounded-lg flex items-center justify-between">
                             <div class="flex items-center space-x-3">
                                 <img src="images/player1.jpg" alt="MVP" class="w-10 h-10 rounded-full border border-nukeYellow object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121814/FFCC00?text=MVP';">
-                                <div><span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP ДНЯ 4</span><span class="font-orbitron font-bold text-white text-sm">В Процессе</span></div>
+                                <div>
+                                    <span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP ДНЯ 4</span>
+                                    <span data-day-mvp class="font-orbitron font-bold text-white text-sm">В Процессе</span>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                     <!-- Day 5 -->
-                    <div class="bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl p-6 relative overflow-hidden transition-all shadow-lg">
+                    <div data-war-day="5" class="bg-nukeCard border border-nukeBorder rounded-xl p-6 relative overflow-hidden transition-all shadow-lg">
                         <div class="flex items-center justify-between border-b border-nukeBorder pb-3 mb-4">
                             <span class="font-orbitron font-black text-nukeYellow text-lg">ДЕНЬ 5</span>
-                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-yellow-400 text-black border border-yellow-400">В Процессе</span>
+                            <span data-day-status class="px-2.5 py-1 rounded text-xs font-bold bg-yellow-400 text-black border border-yellow-400">В Процессе</span>
                         </div>
                         <div class="mt-4 pt-3 border-t border-nukeBorder bg-black/60 p-3 rounded-lg flex items-center justify-between">
                             <div class="flex items-center space-x-3">
                                 <img src="images/player4.jpg" alt="MVP" class="w-10 h-10 rounded-full border border-nukeYellow object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121814/FFCC00?text=MVP';">
-                                <div><span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP ДНЯ 5</span><span class="font-orbitron font-bold text-white text-sm">В Процессе</span></div>
+                                <div>
+                                    <span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-crown mr-1"></i>MVP ДНЯ 5</span>
+                                    <span data-day-mvp class="font-orbitron font-bold text-white text-sm">В Процессе</span>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                     <!-- Day 6 (Final) -->
-                    <div class="bg-nukeCard border-2 border-nukeGreen rounded-xl p-6 relative overflow-hidden transition-all shadow-neon-green">
+                    <div data-war-day="6" class="bg-nukeCard border-2 border-nukeGreen rounded-xl p-6 relative overflow-hidden transition-all shadow-neon-green">
                         <div class="flex items-center justify-between border-b border-nukeBorder pb-3 mb-4">
                             <span class="font-orbitron font-black text-nukeYellow text-lg">ДЕНЬ 6 (ФИНАЛ)</span>
-                            <span class="px-2.5 py-1 rounded text-xs font-bold bg-yellow-400 text-black border border-yellow-400">В Процессе</span>
+                            <span data-day-status class="px-2.5 py-1 rounded text-xs font-bold bg-yellow-400 text-black border border-yellow-400">В Процессе</span>
                         </div>
                         <div class="mt-4 pt-3 border-t border-nukeBorder bg-black/60 p-3 rounded-lg flex items-center justify-between border border-nukeYellow/30">
                             <div class="flex items-center space-x-3">
                                 <img src="images/player1.jpg" alt="MVP" class="w-10 h-10 rounded-full border-2 border-nukeYellow object-cover" onerror="this.onerror=null; this.src='https://placehold.co/100x100/121814/FFCC00?text=MVP';">
-                                <div><span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-trophy mr-1"></i>MVP ФИНАЛА (ДЕНЬ 6)</span><span class="font-orbitron font-bold text-white text-sm">В Процессе</span></div>
+                                <div>
+                                    <span class="text-[10px] text-nukeYellow font-orbitron font-bold uppercase block"><i class="fa-solid fa-trophy mr-1"></i>MVP ФИНАЛА (ДЕНЬ 6)</span>
+                                    <span data-day-mvp class="font-orbitron font-bold text-white text-sm">В Процессе</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -562,7 +581,7 @@
                 <!-- 10. HibiwaretaK -->
                 <div class="player-card role-main bg-nukeCard border border-nukeBorder hover:border-nukeGreen rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
                     <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
-                        <img src="images/HibiwaretaK.jpg" alt="HibiwaretaK" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
+                        <img src="images/empty.jpg" alt="HibiwaretaK" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
                         <span class="absolute top-3 left-3 bg-gray-800 text-gray-200 border border-gray-600 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase">ИГРОК</span>
                     </div>
                     <div class="p-5">
@@ -628,11 +647,11 @@
                 <!-- 19. VAR Varyag -->
                 <div class="player-card role-desant bg-nukeCard border border-nukeYellow/50 hover:border-nukeYellow rounded-xl overflow-hidden transition-all hover:scale-[1.02]">
                     <div class="relative h-70 bg-black overflow-hidden border-b border-nukeBorder">
-                        <img src="images/BabyVaryag.jpg" alt="Baby Varyag" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
+                        <img src="images/varyag.jpg" alt="CookieSlaughter" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/empty.jpg'"/>
                         <span class="absolute top-3 left-3 bg-nukeYellow/20 text-nukeYellow border border-nukeYellow/60 font-orbitron font-bold text-[10px] px-2 py-0.5 rounded uppercase"><i class="fa-solid fa-parachute-box mr-1"></i>ДЕСАНТНИК</span>
                     </div>
                     <div class="p-5">
-                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">Varyag</h3>
+                        <h3 class="font-orbitron font-black text-xl text-white tracking-wide">CookieSlaughter</h3>
                         <p class="text-xs text-nukeYellow font-semibold mt-0.5">Временный состав</p>
                         <div class="mt-4 pt-3 border-t border-nukeBorder flex justify-between items-center text-xs">
                             <span class="text-gray-400">Статус:</span>
@@ -900,90 +919,6 @@
 
                 <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2" onclick="openLightbox(this)">
                     <img src="images/nukesquad23.jpg" alt="NukeSquad" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
-                    <div class="px-2 pt-2 pb-1">
-                        <span class="font-orbitron font-bold text-xs text-gray-500 truncate block text-center">NukeSquad </span>
-                    </div>
-                </div>
-
-                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2" onclick="openLightbox(this)">
-                    <img src="images/nukesquad24.jpg" alt="NukeSquad" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
-                    <div class="px-2 pt-2 pb-1">
-                        <span class="font-orbitron font-bold text-xs text-gray-500 truncate block text-center">NukeSquad </span>
-                    </div>
-                </div>
-
-                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2" onclick="openLightbox(this)">
-                    <img src="images/nukesquad25.jpg" alt="NukeSquad" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
-                    <div class="px-2 pt-2 pb-1">
-                        <span class="font-orbitron font-bold text-xs text-gray-500 truncate block text-center">NukeSquad </span>
-                    </div>
-                </div>
-
-                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2" onclick="openLightbox(this)">
-                    <img src="images/nukesquad26.jpg" alt="NukeSquad" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
-                    <div class="px-2 pt-2 pb-1">
-                        <span class="font-orbitron font-bold text-xs text-gray-500 truncate block text-center">NukeSquad </span>
-                    </div>
-                </div>
-
-                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2" onclick="openLightbox(this)">
-                    <img src="images/nukesquad27.jpg" alt="NukeSquad" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
-                    <div class="px-2 pt-2 pb-1">
-                        <span class="font-orbitron font-bold text-xs text-gray-500 truncate block text-center">NukeSquad </span>
-                    </div>
-                </div>
-
-                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2" onclick="openLightbox(this)">
-                    <img src="images/nukesquad28.jpg" alt="NukeSquad" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
-                    <div class="px-2 pt-2 pb-1">
-                        <span class="font-orbitron font-bold text-xs text-gray-500 truncate block text-center">NukeSquad </span>
-                    </div>
-                </div>
-
-                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2" onclick="openLightbox(this)">
-                    <img src="images/nukesquad29.jpg" alt="NukeSquad" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
-                    <div class="px-2 pt-2 pb-1">
-                        <span class="font-orbitron font-bold text-xs text-gray-500 truncate block text-center">NukeSquad </span>
-                    </div>
-                </div>
-
-                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2" onclick="openLightbox(this)">
-                    <img src="images/nukesquad30.jpg" alt="NukeSquad" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
-                    <div class="px-2 pt-2 pb-1">
-                        <span class="font-orbitron font-bold text-xs text-gray-500 truncate block text-center">NukeSquad </span>
-                    </div>
-                </div>
-
-                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2" onclick="openLightbox(this)">
-                    <img src="images/nukesquad31.jpg" alt="NukeSquad" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
-                    <div class="px-2 pt-2 pb-1">
-                        <span class="font-orbitron font-bold text-xs text-gray-500 truncate block text-center">NukeSquad </span>
-                    </div>
-                </div>
-
-                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2" onclick="openLightbox(this)">
-                    <img src="images/nukesquad32.jpg" alt="NukeSquad" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
-                    <div class="px-2 pt-2 pb-1">
-                        <span class="font-orbitron font-bold text-xs text-gray-500 truncate block text-center">NukeSquad </span>
-                    </div>
-                </div>
-
-                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2" onclick="openLightbox(this)">
-                    <img src="images/nukesquad33.jpg" alt="NukeSquad" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
-                    <div class="px-2 pt-2 pb-1">
-                        <span class="font-orbitron font-bold text-xs text-gray-500 truncate block text-center">NukeSquad </span>
-                    </div>
-                </div>
-
-                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2" onclick="openLightbox(this)">
-                    <img src="images/nukesquad34.jpg" alt="NukeSquad" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
-                    <div class="px-2 pt-2 pb-1">
-                        <span class="font-orbitron font-bold text-xs text-gray-500 truncate block text-center">NukeSquad </span>
-                    </div>
-                </div>
-
-                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2" onclick="openLightbox(this)">
-                    <img src="images/nukesquad35.jpg" alt="NukeSquad" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/empty.jpg'">
                     <div class="px-2 pt-2 pb-1">
                         <span class="font-orbitron font-bold text-xs text-gray-500 truncate block text-center">NukeSquad </span>
                     </div>
@@ -1273,5 +1208,100 @@
             if (e.key === '-') zoomImage(-0.3);
         });
     </script>
+    <script>
+  const CLAN_SHEET_ID = '1OnIZmjJ3p8T_I3JbzFyREWXITkHDpRHPx1z6av8kUUE';
+  const STATS_SHEET_NAME = 'NukeSquad_Stats';
+  const DAYS_SHEET_NAME = 'NukeSquad_Days';
+
+  const DAY_STATUS_CONFIG = {
+    'ПОБЕДА': {
+      label: 'Победа',
+      badgeClasses: ['bg-emerald-950/80', 'text-emerald-400', 'border-emerald-600/60'],
+      cardBorder: 'hover:border-emerald-500'
+    },
+    'ПОРАЖЕНИЕ': {
+      label: 'Поражение',
+      badgeClasses: ['bg-red-950/80', 'text-red-400', 'border-red-700/60'],
+      cardBorder: 'hover:border-red-500'
+    },
+    'В ПРОЦЕССЕ': {
+      label: 'В Процессе',
+      badgeClasses: ['bg-yellow-400', 'text-black', 'border-yellow-400'],
+      cardBorder: 'hover:border-nukeGreen'
+    }
+  };
+
+  const ALL_BADGE_CLASSES = [
+    'bg-emerald-950/80', 'text-emerald-400', 'border-emerald-600/60',
+    'bg-red-950/80', 'text-red-400', 'border-red-700/60',
+    'bg-yellow-400', 'text-black', 'border-yellow-400'
+  ];
+
+  const ALL_CARD_BORDERS = ['hover:border-emerald-500', 'hover:border-red-500', 'hover:border-nukeGreen'];
+
+  async function fetchSheetRows(sheetName) {
+    const url = `https://docs.google.com/spreadsheets/d/${CLAN_SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
+    const response = await fetch(url, { cache: 'no-store' });
+    const rawText = await response.text();
+    const jsonText = rawText.substring(rawText.indexOf('{'), rawText.lastIndexOf('}') + 1);
+    const parsed = JSON.parse(jsonText);
+    return parsed.table?.rows || [];
+  }
+
+  function applyDayStatus(card, rawStatus) {
+    const badge = card.querySelector('[data-day-status]');
+    if (!badge || !rawStatus) return;
+
+    const normalized = rawStatus.toString().trim().toUpperCase();
+    const cfg = DAY_STATUS_CONFIG[normalized] || DAY_STATUS_CONFIG['В ПРОЦЕССЕ'];
+
+    badge.textContent = cfg.label;
+    badge.classList.remove(...ALL_BADGE_CLASSES);
+    badge.classList.add(...cfg.badgeClasses);
+
+    card.classList.remove(...ALL_CARD_BORDERS);
+    card.classList.add(cfg.cardBorder);
+  }
+
+  async function syncNukeSquadFromSheet() {
+    try {
+      const [statsRows, daysRows] = await Promise.all([
+        fetchSheetRows(STATS_SHEET_NAME),
+        fetchSheetRows(DAYS_SHEET_NAME)
+      ]);
+
+      // 1. Общая статистика, итог недели и MVP недели
+    statsRows.forEach(row => {
+    const key = row.c[0]?.v?.toString().trim();
+    const rawVal = row.c[1]?.f ?? row.c[1]?.v;
+    const val = rawVal !== undefined && rawVal !== null ? rawVal.toString().trim() : '';
+    if (!key || !val) return;
+
+    const target = document.querySelector(`[data-stat="${key}"]`);
+    if (target) target.textContent = val;
+    });
+
+      // 2. Статус дней и MVP дня
+      daysRows.forEach(row => {
+        const dayNum = row.c[0]?.v?.toString().trim();
+        const status = row.c[1]?.v?.toString().trim();
+        const mvp = row.c[2]?.v?.toString().trim();
+        if (!dayNum) return;
+
+        const card = document.querySelector(`[data-war-day="${dayNum}"]`);
+        if (!card) return;
+
+        if (status) applyDayStatus(card, status);
+
+        const mvpEl = card.querySelector('[data-day-mvp]');
+        if (mvpEl && mvp) mvpEl.textContent = mvp;
+      });
+    } catch (err) {
+      console.error('Ошибка обновления статистики NukeSquad из Google Таблицы:', err);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', syncNukeSquadFromSheet);
+</script>
 </body>
 </html>
