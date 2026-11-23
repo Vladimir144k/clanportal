@@ -402,18 +402,30 @@
                             <div class="w-12 h-12 rounded-xl bg-hubDark border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-unbounded font-bold text-lg">D</div>
                             <div>
                                 <h3 class="font-unbounded font-extrabold text-base text-white">Dikci</h3>
-                                <span class="text-[11px] text-emerald-400 font-semibold"><span data-i18n="powerLabel">Мощь:</span> 4.23q</span>
+                                <span class="text-[11px] text-emerald-400 font-semibold">
+                                    <span data-i18n="powerLabel">Мощь:</span> <span data-merc-power>4.23q</span>
+                                </span>
                             </div>
                         </div>
-                        <span class="px-2.5 py-1 rounded-md bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 font-unbounded text-[10px] font-bold" data-i18n="statusidk">НЕИЗВЕСТНО</span>
+                        <!-- Статус -->
+                        <span class="px-2.5 py-1 rounded-md bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 font-unbounded text-[10px] font-bold" data-merc-status>НЕИЗВЕСТНО</span>
                     </div>
 
                     <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
-                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="mainClan">Основной клан</span><span class="text-white font-semibold truncate block">Belarus1</span></div>
-                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="currentClan">Сейчас в клане</span><span class="text-emerald-400 font-semibold truncate block">Belarus1</span></div>
+                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder">
+                            <span class="block text-[9px] text-gray-500 uppercase" data-i18n="mainClan">Основной клан</span>
+                            <span class="text-white font-semibold truncate block">Belarus1</span>
+                        </div>
+                        <div class="bg-hubDark/50 px-3 py-2 rounded-xl border border-hubBorder">
+                            <span class="block text-[9px] text-gray-500 uppercase" data-i18n="currentClan">Сейчас в клане</span>
+                            <span class="text-emerald-400 font-semibold truncate block" data-merc-clan>Belarus1</span>
+                        </div>
                     </div>
 
-                    <div class="mt-3 bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center"><span class="block text-[9px] text-gray-500 uppercase" data-i18n="level">Уровень</span><span class="text-white font-bold mt-0.5 block">117</span></div>
+                    <div class="mt-3 bg-hubDark/70 p-2 rounded-xl border border-hubBorder text-center">
+                        <span class="block text-[9px] text-gray-500 uppercase" data-i18n="level">Уровень</span>
+                        <span class="text-white font-bold mt-0.5 block" data-merc-level>117</span>
+                    </div>
 
                     <button onclick="orderMercenary('Dikci')" class="mt-4 w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-black font-unbounded font-bold text-xs uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)]" data-i18n="btnOrderMerc">
                         Заказать десант
@@ -885,6 +897,70 @@
         });
         document.getElementById('noMercResults').classList.toggle('hidden', visibleCount > 0);
     }
+</script>
+
+<script>
+  const SHEET_ID = '1OnIZmjJ3p8T_I3JbzFyREWXITkHDpRHPx1z6av8kUUE';
+  const SHEET_NAME = 'Mercenaries';
+  const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
+
+const STATUS_STYLE_GROUPS = {
+    'СВОБОДЕН': ['bg-emerald-500/10', 'text-emerald-400', 'border-emerald-500/30'],
+    'ЗАНЯТ': ['bg-red-500/10', 'text-red-400', 'border-red-500/30'],
+    'НЕИЗВЕСТНО': ['bg-yellow-500/10', 'text-yellow-400', 'border-yellow-500/30']
+  };
+
+  const ALL_STATUS_CLASSES = Object.values(STATUS_STYLE_GROUPS).flat();
+
+  function applyStatusBadge(el, rawStatus) {
+    if (!el || !rawStatus) return;
+    const status = rawStatus.trim().toUpperCase();
+
+    el.removeAttribute('data-i18n');
+    el.textContent = status;
+
+    el.classList.remove(...ALL_STATUS_CLASSES);
+    const styles = STATUS_STYLE_GROUPS[status] || STATUS_STYLE_GROUPS['НЕИЗВЕСТНО'];
+    el.classList.add(...styles);
+  }
+
+  async function syncMercenariesFromSheet() {
+    try {
+      const response = await fetch(SHEET_URL, { cache: 'no-store' });
+      const rawText = await response.text();
+      const jsonText = rawText.substring(rawText.indexOf('{'), rawText.lastIndexOf('}') + 1);
+      const data = JSON.parse(jsonText);
+      const rows = data.table.rows || [];
+
+      rows.forEach(row => {
+        const nick = row.c[0]?.v?.toString().trim();
+        const status = row.c[1]?.v?.toString().trim();
+        const currentClan = row.c[2]?.v?.toString().trim();
+        const power = row.c[3]?.v?.toString().trim();
+        const level = row.c[4]?.v?.toString().trim();
+
+        if (!nick) return;
+
+        const card = document.querySelector(`.merc-card[data-merc="${nick}"]`);
+        if (!card) return;
+
+        applyStatusBadge(card.querySelector('[data-merc-status]'), status);
+
+        const clanEl = card.querySelector('[data-merc-clan]');
+        if (clanEl && currentClan) clanEl.textContent = currentClan;
+
+        const powerEl = card.querySelector('[data-merc-power]');
+        if (powerEl && power) powerEl.textContent = power;
+
+        const levelEl = card.querySelector('[data-merc-level]');
+        if (levelEl && level) levelEl.textContent = level;
+      });
+    } catch (error) {
+      console.error('Ошибка синхронизации с Google Таблицей:', error);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', syncMercenariesFromSheet);
 </script>
 </body>
 </html>
