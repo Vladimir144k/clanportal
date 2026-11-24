@@ -91,7 +91,7 @@
     <div class="fixed inset-0 pointer-events-none z-0 grid-bg opacity-60"></div>
 
     <!-- NAVBAR -->
-    <nav class="sticky top-0 z-50 backdrop-blur-xl bg-hubDark/85 border-b border-hubBorder">
+    <nav class="sticky top-0 z-40 backdrop-blur-xl bg-hubDark/85 border-b border-hubBorder">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
 
@@ -455,7 +455,7 @@
             <div class="text-center max-w-3xl mx-auto mb-10">
                 <span class="text-emerald-400 font-unbounded text-xs font-bold tracking-widest uppercase block mb-2">Участники Клана</span>
                 <h2 class="font-unbounded font-extrabold text-3xl sm:text-4xl text-white uppercase tracking-tight">
-                    СОСТАВ <span class="text-belarusGold">BELARUS1</span> (6 / 50)
+                    СОСТАВ <span class="text-belarusGold">BELARUS1</span> (9 / 50)
                 </h2>
                 <p class="text-gray-400 text-xs sm:text-sm mt-2">Ключевые бойцы клана и открытые места для новых участников</p>
                 <div class="w-24 h-1 bg-gradient-to-r from-belarusRed via-belarusGold to-belarusGreen mx-auto mt-4 rounded-full"></div>
@@ -682,8 +682,7 @@
                     </div>
                 </div>
 
-
-                <!-- 8. qcold (Боец) -->
+                <!-- 9. qcold (Боец) -->
                 <div class="player-card role-player glass-card border border-hubBorder hover:border-belarusRed rounded-2xl overflow-hidden transition-all hover:-translate-y-1 group" data-nick="qcold">
                     <div class="relative h-72 bg-black overflow-hidden border-b border-hubBorder">
                         <img
@@ -727,6 +726,60 @@
 
         </div>
     </section>
+
+    <!-- LIGHTBOX MODAL (В стиле NukeSquad с зумом и перетаскиванием) -->
+    <div id="galleryModal" class="fixed inset-0 z-50 hidden bg-black/95 backdrop-blur-md flex flex-col justify-between p-3 sm:p-5 select-none">
+
+        <!-- Top Bar -->
+        <div class="max-w-7xl w-full mx-auto flex items-center justify-between bg-hubCard/90 border border-hubBorder px-4 py-2.5 rounded-xl z-20">
+            <div class="flex items-center space-x-3 min-w-0">
+                <span id="modalCounter" class="font-unbounded font-bold text-xs text-belarusGold bg-belarusGold/10 border border-belarusGold/40 px-2.5 py-1 rounded shrink-0">
+                    1 / 9
+                </span>
+                <h3 id="modalTitle" class="font-unbounded font-bold text-sm sm:text-base text-white truncate">
+                    Название
+                </h3>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex items-center space-x-1.5 sm:space-x-2 shrink-0 ml-2">
+                <button onclick="zoomImage(-0.3)" title="Уменьшить (-)" class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-hubDark border border-hubBorder hover:border-emerald-400 text-gray-300 hover:text-emerald-400 flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-magnifying-glass-minus text-xs sm:text-sm"></i>
+                </button>
+                <span id="zoomLevelText" class="font-unbounded text-xs text-gray-400 w-11 text-center">100%</span>
+                <button onclick="zoomImage(0.3)" title="Увеличить (+)" class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-hubDark border border-hubBorder hover:border-emerald-400 text-gray-300 hover:text-emerald-400 flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-magnifying-glass-plus text-xs sm:text-sm"></i>
+                </button>
+                <button onclick="resetTransform()" title="Сбросить вид" class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-hubDark border border-hubBorder hover:border-belarusGold text-gray-300 hover:text-belarusGold flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-compress text-xs sm:text-sm"></i>
+                </button>
+                <button onclick="closeLightbox()" title="Закрыть (Esc)" class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-belarusRed/20 border border-belarusRed/50 hover:bg-belarusRed text-belarusRed hover:text-white flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Viewport для картинки (поддерживает перетаскивание и колесико мыши) -->
+        <div id="modalViewport" class="relative flex-1 flex items-center justify-center my-2 overflow-hidden">
+            <!-- Prev -->
+            <button id="modalPrevBtn" onclick="navigateLightbox(-1)" class="absolute left-2 sm:left-5 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-hubCard/90 border border-belarusGold/50 hover:bg-belarusGold hover:text-black text-belarusGold flex items-center justify-center transition-all">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+
+            <!-- Draggable Image -->
+            <img id="modalImage" src="" alt="" draggable="false" class="max-h-[80vh] max-w-[90vw] object-contain cursor-zoom-in select-none will-change-transform rounded-lg">
+
+            <!-- Next -->
+            <button id="modalNextBtn" onclick="navigateLightbox(1)" class="absolute right-2 sm:right-5 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-hubCard/90 border border-belarusGold/50 hover:bg-belarusGold hover:text-black text-belarusGold flex items-center justify-center transition-all">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Hint -->
+        <div class="text-center text-[11px] text-gray-500 font-unbounded">
+            Двойной клик или колесико — зум • Зажмите и тяните при увеличении
+        </div>
+    </div>
 
     <!-- FOOTER -->
     <footer class="bg-hubDark border-t border-hubBorder py-10 relative z-10 text-gray-400">
@@ -801,6 +854,208 @@
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
             });
+        });
+
+        // --- ЛАЙТБОКС С ЗУМОМ И ПЕРЕТАСКИВАНИЕМ (DRAG / PAN) ---
+        const modal = document.getElementById('galleryModal');
+        const viewport = document.getElementById('modalViewport');
+        const modalImg = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalCounter = document.getElementById('modalCounter');
+        const zoomLevelText = document.getElementById('zoomLevelText');
+        const modalPrevBtn = document.getElementById('modalPrevBtn');
+        const modalNextBtn = document.getElementById('modalNextBtn');
+
+        let activeItems = [];
+        let currentIndex = 0;
+        let scale = 1;
+        let translateX = 0;
+        let translateY = 0;
+        let isDragging = false;
+        let hasDragged = false;
+        let startX = 0;
+        let startY = 0;
+
+        function openLightboxWithItems(items, startIndex = 0) {
+            activeItems = items;
+            currentIndex = Math.max(0, Math.min(startIndex, items.length - 1));
+            updateLightboxContent();
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function updateLightboxContent() {
+            const current = activeItems[currentIndex];
+            if (!current) return;
+
+            resetTransform();
+            modalImg.src = current.src;
+            modalImg.alt = current.title;
+            modalTitle.textContent = current.title;
+            modalCounter.textContent = `${currentIndex + 1} / ${activeItems.length}`;
+
+            const showArrows = activeItems.length > 1;
+            modalPrevBtn.style.display = showArrows ? 'flex' : 'none';
+            modalNextBtn.style.display = showArrows ? 'flex' : 'none';
+        }
+
+        function closeLightbox() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+            resetTransform();
+        }
+
+        function navigateLightbox(direction) {
+            if (activeItems.length <= 1) return;
+            currentIndex = (currentIndex + direction + activeItems.length) % activeItems.length;
+            updateLightboxContent();
+        }
+
+        function applyTransform(smooth = false) {
+            modalImg.style.transition = smooth ? 'transform 0.2s ease-out' : 'none';
+            modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+            zoomLevelText.textContent = `${Math.round(scale * 100)}%`;
+
+            if (scale > 1) {
+                modalImg.style.cursor = isDragging ? 'grabbing' : 'grab';
+            } else {
+                modalImg.style.cursor = 'zoom-in';
+            }
+        }
+
+        function zoomImage(delta) {
+            scale = Math.min(Math.max(1, scale + delta), 4);
+            if (scale === 1) {
+                translateX = 0;
+                translateY = 0;
+            }
+            applyTransform(true);
+        }
+
+        function resetTransform() {
+            scale = 1;
+            translateX = 0;
+            translateY = 0;
+            applyTransform(true);
+        }
+
+        // Клик по карточкам игроков (учитывает текущий фильтр и поиск)
+        document.querySelectorAll('.player-card').forEach(card => {
+            const imgBox = card.querySelector('div:first-child');
+            imgBox.classList.add('cursor-pointer');
+
+            imgBox.addEventListener('click', () => {
+                const visibleCards = Array.from(document.querySelectorAll('.player-card'))
+                    .filter(c => c.style.display !== 'none');
+
+                const items = visibleCards.map(c => {
+                    const img = c.querySelector('img');
+                    const name = c.querySelector('h3')?.textContent.trim() || 'Боец';
+                    const power = c.querySelector('p')?.textContent.trim() || '';
+                    return {
+                        src: img.currentSrc || img.src,
+                        title: power ? `${name} • ${power}` : name
+                    };
+                });
+
+                const idx = visibleCards.indexOf(card);
+                openLightboxWithItems(items, idx >= 0 ? idx : 0);
+            });
+        });
+
+        // Клик по баннеру в шапке
+        const heroImg = document.querySelector('header img');
+        if (heroImg && heroImg.parentElement) {
+            heroImg.parentElement.classList.add('cursor-pointer');
+            heroImg.parentElement.addEventListener('click', () => {
+                openLightboxWithItems([{
+                    src: heroImg.currentSrc || heroImg.src,
+                    title: 'BELARUS1 — Баннер клана'
+                }], 0);
+            });
+        }
+
+        // Двойной клик по картинке — переключение 100% <-> 220%
+        modalImg.addEventListener('dblclick', (e) => {
+            e.stopPropagation();
+            if (scale > 1) {
+                resetTransform();
+            } else {
+                scale = 2.2;
+                applyTransform(true);
+            }
+        });
+
+        // Зум колесиком мыши
+        viewport.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const delta = e.deltaY < 0 ? 0.25 : -0.25;
+            zoomImage(delta);
+        }, { passive: false });
+
+        // Перетаскивание мышкой (Mouse Drag)
+        modalImg.addEventListener('mousedown', (e) => {
+            if (scale <= 1) return;
+            e.preventDefault();
+            isDragging = true;
+            hasDragged = false;
+            startX = e.clientX - translateX;
+            startY = e.clientY - translateY;
+            applyTransform(false);
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            hasDragged = true;
+            translateX = e.clientX - startX;
+            translateY = e.clientY - startY;
+            applyTransform(false);
+        });
+
+        window.addEventListener('mouseup', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            applyTransform(false);
+        });
+
+        // Перетаскивание пальцем на мобильных (Touch Drag)
+        modalImg.addEventListener('touchstart', (e) => {
+            if (scale <= 1 || e.touches.length !== 1) return;
+            isDragging = true;
+            hasDragged = false;
+            startX = e.touches[0].clientX - translateX;
+            startY = e.touches[0].clientY - translateY;
+            applyTransform(false);
+        }, { passive: true });
+
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging || e.touches.length !== 1) return;
+            hasDragged = true;
+            translateX = e.touches[0].clientX - startX;
+            translateY = e.touches[0].clientY - startY;
+            applyTransform(false);
+        }, { passive: true });
+
+        window.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        // Закрытие при клике на пустой темный фон
+        viewport.addEventListener('click', (e) => {
+            if (e.target === viewport && !hasDragged) {
+                closeLightbox();
+            }
+        });
+
+        // Клавиатура (Esc, Стрелки, +/-)
+        document.addEventListener('keydown', (e) => {
+            if (modal.classList.contains('hidden')) return;
+
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') navigateLightbox(1);
+            if (e.key === 'ArrowLeft') navigateLightbox(-1);
+            if (e.key === '+' || e.key === '=') zoomImage(0.3);
+            if (e.key === '-') zoomImage(-0.3);
         });
     </script>
 </body>
