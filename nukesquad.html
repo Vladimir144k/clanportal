@@ -1075,13 +1075,6 @@
                     </div>
                 </div>
 
-                <div class="gallery-item group relative bg-nukeCard rust-card border border-nukeBorder hover:border-red-900 rounded-xl overflow-hidden cursor-pointer transition-all p-2" onclick="openLightbox(this)">
-                    <img src="images/nukesquad/nukesquad42.jpg" alt="NukeSquad" class="w-full h-auto object-contain rounded-lg abandoned-media group-hover:scale-[1.02] transition-transform duration-300" onerror="this.onerror=null; this.src='images/nukesquad/empty.jpg'">
-                    <div class="px-2 pt-2 pb-1">
-                        <span class="font-orbitron font-bold text-xs text-gray-500 truncate block text-center">NukeSquad </span>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
@@ -1398,12 +1391,23 @@
   const ALL_CARD_BORDERS = ['hover:border-emerald-500', 'hover:border-red-500', 'hover:border-nukeGreen'];
 
   async function fetchSheetRows(sheetName) {
-    const url = `https://docs.google.com/spreadsheets/d/${CLAN_SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
+    const url = `https://docs.google.com/spreadsheets/d/${CLAN_SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}&headers=1`;
     const response = await fetch(url, { cache: 'no-store' });
     const rawText = await response.text();
     const jsonText = rawText.substring(rawText.indexOf('{'), rawText.lastIndexOf('}') + 1);
     const parsed = JSON.parse(jsonText);
     return parsed.table?.rows || [];
+  }
+
+  function extractCellText(cell) {
+    if (!cell) return '';
+    if (cell.f !== undefined && cell.f !== null && String(cell.f).trim() !== '') {
+      return String(cell.f).trim();
+    }
+    if (cell.v !== undefined && cell.v !== null) {
+      return String(cell.v).trim();
+    }
+    return '';
   }
 
   function applyDayStatus(card, rawStatus) {
@@ -1428,25 +1432,40 @@
         fetchSheetRows(DAYS_SHEET_NAME)
       ]);
 
-      // 1. Общая статистика, итог недели и MVP недели
-    statsRows.forEach(row => {
-    const key = row.c[0]?.v?.toString().trim();
-    const rawVal = row.c[1]?.f ?? row.c[1]?.v;
-    const val = rawVal !== undefined && rawVal !== null ? rawVal.toString().trim() : '';
-    if (!key || !val) return;
+      const statElements = {};
+      document.querySelectorAll('[data-stat]').forEach(el => {
+        const attrKey = el.getAttribute('data-stat')?.trim().toLowerCase();
+        if (attrKey) statElements[attrKey] = el;
+      });
 
-    const target = document.querySelector(`[data-stat="${key}"]`);
-    if (target) target.textContent = val;
-    });
+      // 1. Общая статистика, итог недели, MVP недели и враг недели
+      statsRows.forEach((row, idx) => {
+        const cells = row.c || [];
+        const rawKey = extractCellText(cells[0]);
+        if (!rawKey || (idx === 0 && rawKey.toLowerCase() === 'key')) return;
+
+        const key = rawKey.toLowerCase();
+        const val = extractCellText(cells[1]);
+        if (!val) return;
+
+        const target = statElements[key];
+        if (target) {
+          target.textContent = val;
+        } else {
+          console.warn('Ключ из таблицы не найден в DOM [data-stat]:', rawKey);
+        }
+      });
 
       // 2. Статус дней и MVP дня
-      daysRows.forEach(row => {
-        const dayNum = row.c[0]?.v?.toString().trim();
-        const status = row.c[1]?.v?.toString().trim();
-        const mvp = row.c[2]?.v?.toString().trim();
-        if (!dayNum) return;
+      daysRows.forEach((row, idx) => {
+        const cells = row.c || [];
+        const dayNum = extractCellText(cells[0]);
+        if (!dayNum || (idx === 0 && dayNum.toLowerCase() === 'day')) return;
 
-        const card = document.querySelector(`[data-war-day="${dayNum}"]`);
+        const status = extractCellText(cells[1]);
+        const mvp = extractCellText(cells[2]);
+
+        const card = document.querySelector(`[data-war-day="${CSS.escape(dayNum)}"]`);
         if (!card) return;
 
         if (status) applyDayStatus(card, status);
